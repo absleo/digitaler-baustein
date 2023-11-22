@@ -44,7 +44,6 @@ function shuffleArray(array) {
 		}
 
 		equal = arraysAreEqualOrFirstIsEqual(oldArray, diamondMembers)
-		console.log(equal);
 	}
 
 }
