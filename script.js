@@ -27,6 +27,11 @@ const diamondMembers = [
 		img: 'diamond_sparkasse-ooe.svg'
 	}
 ]
+
+
+/*******************
+* HELPER FUNCTIONS
+********************/
 function shuffleArray(array) {
 
 	let  oldArray = [...diamondMembers];
@@ -43,7 +48,6 @@ function shuffleArray(array) {
 	}
 
 }
-
 function arraysAreEqualOrFirstIsEqual(arr1, arr2) {
     if(arr1[0] === arr2[0]){
 		return true;
@@ -58,6 +62,72 @@ function arraysAreEqualOrFirstIsEqual(arr1, arr2) {
     }
     return true;
 }
+
+
+
+
+/*******************
+* BAR TEXT ANIMATION
+********************/
+function textAnimateBar(htmlBox, img) {
+    document.querySelector(`${htmlBox} .txt2`).innerHTML = `<img src="./images/${img}" alt="">`;
+
+	setTimeout( ()=>{
+		let boxWidth = document.querySelector(`${htmlBox} .txt`).clientWidth;
+		let boxWidth2 = document.querySelector(`${htmlBox} .txt2`).clientWidth;
+		if(boxWidth2 > boxWidth) {
+			boxWidth = boxWidth2;
+		}
+
+		let color1 = '#000';
+		let color2 = '#fff';
+
+		gsap.timeline({ delay: 0, repeat: 0, ease: Power1.easeInOut })
+			.set(`${htmlBox} .txt`, { opacity: 1, x: 0, immediateRender: true })
+			.set(`${htmlBox} .barFader`, { left: 0, x: 0, backgroundColor: color1, immediateRender: true })
+
+			.to(`${htmlBox} .barFader`, { duration: 0.01, backgroundColor: color2 })
+			.to(`${htmlBox} .barFader`, { duration: 1.0, width: boxWidth + 5, ease: Power4.easeInOut })
+
+			.set(`${htmlBox} .txt`, { innerHTML: `<img src="./images/${img}" alt="">` })
+			
+			.to(`${htmlBox} .txt`, { duration: 0.01, opacity: 1 })
+			.to(`${htmlBox} .barFader`, { duration: 0.68, x: boxWidth + 5, width: 0, ease: Power4.easeInOut })
+		
+	}, 1)
+    
+}
+
+
+
+
+/*******************
+* 3D TEXT ANIMATION
+********************/
+let diamond_member1_img1 = document.querySelector(`#diamond-member-1_img1`);
+let diamond_member1_img2 = document.querySelector(`#diamond-member-1_img2`);
+function imageAnimate(src) {
+	diamond_member1_img2.src = `./images/${src}`;
+    
+
+    gsap.timeline({ delay: 0, repeat: 0, ease: Power1.easeInOut })
+        .set(`#diamond-member-1_img1`, { opacity: 1, immediateRender: true })
+
+        .to(`#diamond-member-1_img1`, { duration: 3, opacity: 0, ease: Power4.easeInOut })
+
+	gsap.timeline({ delay: 0, repeat: 0, ease: Power1.easeInOut })
+        .set(`#diamond-member-1_img2`, { opacity: 0, immediateRender: true })
+        .to(`#diamond-member-1_img2`, { duration: 3, opacity: 1, ease: Power4.easeInOut })
+
+	setTimeout( ()=> {
+		diamond_member1_img1.src = `./images/${src}`;
+		diamond_member1_img1.style.opacity = 1;
+		diamond_member1_img2.style.opacity = 0;
+	},3500)
+	
+        
+}
+
 
 
 
@@ -81,68 +151,4 @@ function newMembers(){
 		textAnimateBar('#diamond-member-6', diamondMembers[5].img);
 	}, 1000)
 	
-}
-
-
-
-
-
-/*******************
-* BAR TEXT ANIMATION
-********************/
-function textAnimateBar(htmlBox, img) {
-    document.querySelector(`${htmlBox} .txt2`).innerHTML = `<img src="${img}" alt="">`;
-
-	setTimeout( ()=>{
-		let boxWidth = document.querySelector(`${htmlBox} .txt`).clientWidth;
-		let boxWidth2 = document.querySelector(`${htmlBox} .txt2`).clientWidth;
-		if(boxWidth2 > boxWidth) {
-			boxWidth = boxWidth2;
-		}
-
-		let color1 = '#000';
-		let color2 = '#fff';
-
-		gsap.timeline({ delay: 0, repeat: 0, ease: Power1.easeInOut })
-			.set(`${htmlBox} .txt`, { opacity: 1, x: 0, immediateRender: true })
-			.set(`${htmlBox} .barFader`, { left: 0, x: 0, backgroundColor: color1, immediateRender: true })
-
-			.to(`${htmlBox} .barFader`, { duration: 0.01, backgroundColor: color2 })
-			.to(`${htmlBox} .barFader`, { duration: 1.0, width: boxWidth + 5, ease: Power4.easeInOut })
-
-			.set(`${htmlBox} .txt`, { innerHTML: `<img src="${img}" alt="">` })
-			
-			.to(`${htmlBox} .txt`, { duration: 0.01, opacity: 1 })
-			.to(`${htmlBox} .barFader`, { duration: 0.68, x: boxWidth + 5, width: 0, ease: Power4.easeInOut })
-		
-	}, 1)
-    
-}
-
-
-
-
-/*******************
-* 3D TEXT ANIMATION
-********************/
-function imageAnimate(src) {
-	document.querySelector(`#diamond-member-1_img2`).src = src;
-    
-
-    gsap.timeline({ delay: 0, repeat: 0, ease: Power1.easeInOut })
-        .set(`#diamond-member-1_img1`, { opacity: 1, immediateRender: true })
-
-        .to(`#diamond-member-1_img1`, { duration: 3, opacity: 0, ease: Power4.easeInOut })
-
-	gsap.timeline({ delay: 0, repeat: 0, ease: Power1.easeInOut })
-        .set(`#diamond-member-1_img2`, { opacity: 0, immediateRender: true })
-        .to(`#diamond-member-1_img2`, { duration: 3, opacity: 1, ease: Power4.easeInOut })
-
-	setTimeout( ()=> {
-		document.querySelector(`#diamond-member-1_img1`).src = src;
-		document.querySelector(`#diamond-member-1_img1`).style.opacity = 1;
-		document.querySelector(`#diamond-member-1_img2`).style.opacity = 0;
-	},3500)
-	
-        
 }
