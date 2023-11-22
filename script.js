@@ -148,7 +148,7 @@ function newMembers(){
 		textAnimateBar('#diamond-member-3', diamondMembers[2].img);
 		textAnimateBar('#diamond-member-4', diamondMembers[3].img);
 		textAnimateBar('#diamond-member-5', diamondMembers[4].img);
-		textAnimateBar('#diamond-member-6', diamondMembers[5].img);
+		//textAnimateBar('#diamond-member-6', diamondMembers[5].img);
 	}, 1000)
 	
 }
