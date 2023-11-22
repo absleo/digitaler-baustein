@@ -5,11 +5,13 @@ html,
 body {
 	width: 100%;
 	height: 100%;
+	margin: 0;
+	padding: 0;
 	overflow: hidden;
 	background: #000;
 	font-family: 'Manrope-Light', serif;
 	position: relative;
-	background-image: url("./stars.jpg");
+	background-image: url("./images/stars.jpg");
 	background-size: cover;
 }
 @font-face {
@@ -51,20 +53,22 @@ body {
 #diamond-member-1 {
 	position: absolute;
 	z-index: 10;
-	top: 50%;
-	left: 50%;
-	width: 50%;
-	height: 50%;
-	transform: translate(-50%, -50%);
-	display: grid;
-	justify-content: center;
-	align-items: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
 #diamond-member-1 img {
 	display: block;
-	width: 100%;
+	height: 20vh;
+	width: auto;
 	position: absolute;
 	z-index: 10;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
 }
 #diamond-member-1_img1 {
 	opacity: 1;
@@ -83,15 +87,15 @@ body {
 .diamond-member {
 	position: relative;
 	z-index: 10;
-	display: grid;
-	justify-content: center;
 }
 .diamond-member .txt,
 .diamond-member .txt2 {
 	display: inline-block;
 	position: absolute;
 	top: 0;
-	left: 5px;
+	left: 0;
+	width: 100%;
+	text-align: center;
 }
 .diamond-member .txt2 {
 	position: absolute;
@@ -117,15 +121,15 @@ body {
 	display: grid;
 	grid-template-columns: 30% 30%;
 	justify-content: space-evenly;
-	position: relative;
+	position: absolute;
 	top: 10vh;
 	width: 100%;
 }
 .diamond-row2 {
 	display: grid;
-	grid-template-columns: 30% 30%;
+	grid-template-columns: 30% 30% 30%;
 	justify-content: space-evenly;
-	position: relative;
+	position: absolute;
 	top: 80vh;
 	width: 100%;
 }

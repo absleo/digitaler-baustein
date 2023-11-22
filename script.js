@@ -87,12 +87,12 @@ function textAnimateBar(htmlBox, img) {
 			.set(`${htmlBox} .barFader`, { left: 0, x: 0, backgroundColor: color1, immediateRender: true })
 
 			.to(`${htmlBox} .barFader`, { duration: 0.01, backgroundColor: color2 })
-			.to(`${htmlBox} .barFader`, { duration: 1.0, width: boxWidth + 5, ease: Power4.easeInOut })
+			.to(`${htmlBox} .barFader`, { duration: 0.8, width: boxWidth, ease: Power4.easeInOut })
 
 			.set(`${htmlBox} .txt`, { innerHTML: `<img src="./images/${img}" alt="">` })
 			
 			.to(`${htmlBox} .txt`, { duration: 0.01, opacity: 1 })
-			.to(`${htmlBox} .barFader`, { duration: 0.68, x: boxWidth + 5, width: 0, ease: Power4.easeInOut })
+			.to(`${htmlBox} .barFader`, { duration: 0.48, x: boxWidth, width: 0, ease: Power4.easeInOut })
 		
 	}, 1)
     
@@ -148,7 +148,7 @@ function newMembers(){
 		textAnimateBar('#diamond-member-3', diamondMembers[2].img);
 		textAnimateBar('#diamond-member-4', diamondMembers[3].img);
 		textAnimateBar('#diamond-member-5', diamondMembers[4].img);
-		//textAnimateBar('#diamond-member-6', diamondMembers[5].img);
+		textAnimateBar('#diamond-member-6', diamondMembers[5].img);
 	}, 1000)
 	
 }
