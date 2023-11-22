@@ -1,0 +1,131 @@
+/************************
+* GENERAL
+************************/
+html,
+body {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background: #000;
+	font-family: 'Manrope-Light', serif;
+	position: relative;
+	background-image: url("./stars.jpg");
+	background-size: cover;
+}
+@font-face {
+	font-family: 'Manrope-Light';
+	src: url('font/Manrope-Light.ttf');
+	font-display: fallback;
+}
+@font-face {
+	font-family: 'Manrope-Regular';
+	src: url('font/Manrope-Regular.ttf');
+	font-display: fallback;
+}
+@font-face {
+	font-family: 'Manrope-Bold';
+	src: url('font/Manrope-Bold.ttf');
+	font-display: fallback;
+}
+
+
+
+/************************
+* TEXT: Particles System
+************************/
+#gold-members {
+	position: absolute;
+	top: 3vh;
+	left: 4vw;
+	width: 90vw;
+	height: 90vh;
+	z-index: 1;
+}
+
+
+
+
+/************************
+* TEXT: FADER
+************************/
+#diamond-member-1 {
+	position: absolute;
+	z-index: 10;
+	top: 50%;
+	left: 50%;
+	width: 50%;
+	height: 50%;
+	transform: translate(-50%, -50%);
+	display: grid;
+	justify-content: center;
+	align-items: center;
+}
+#diamond-member-1 img {
+	display: block;
+	width: 100%;
+	position: absolute;
+	z-index: 10;
+}
+#diamond-member-1_img1 {
+	opacity: 1;
+}
+#diamond-member-1_img2 {
+	opacity: 0;
+}
+
+
+
+
+
+/************************
+* TEXT: BAR FADE IN
+************************/
+.diamond-member {
+	position: relative;
+	z-index: 10;
+	display: grid;
+	justify-content: center;
+}
+.diamond-member .txt,
+.diamond-member .txt2 {
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	left: 5px;
+}
+.diamond-member .txt2 {
+	position: absolute;
+	opacity: 0;
+}
+.diamond-member img {
+	display: inline-block;
+	height: 7vh;
+	padding: 1vh;
+}
+.diamond-member .barFader {
+	display: inline-block;
+	width: 3px;
+	height: 9vh;
+	position: absolute;
+	top: -1px;
+	left: 0;
+	overflow: hidden;
+}
+
+
+.diamond-row1 {
+	display: grid;
+	grid-template-columns: 30% 30%;
+	justify-content: space-evenly;
+	position: relative;
+	top: 10vh;
+	width: 100%;
+}
+.diamond-row2 {
+	display: grid;
+	grid-template-columns: 25% 25% 25%;
+	justify-content: space-evenly;
+	position: relative;
+	top: 80vh;
+	width: 100%;
+}
