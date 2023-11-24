@@ -41,7 +41,7 @@ body {
 	left: 4vw;
 	width: 90vw;
 	height: 90vh;
-	z-index: 1;
+	z-index: 10;
 }
 
 
@@ -52,7 +52,7 @@ body {
 ************************/
 #diamond-member-1 {
 	position: absolute;
-	z-index: 10;
+	z-index: 100;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -63,17 +63,17 @@ body {
 	height: 17vh;
 	width: auto;
 	position: absolute;
-	z-index: 10;
+	z-index: 100;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
 	margin: auto;
 }
-#diamond-member-1_img1 {
+#diamond-member-1 #diamond-member-1_img1 {
 	opacity: 1;
 }
-#diamond-member-1_img2 {
+#diamond-member-1 #diamond-member-1_img2 {
 	opacity: 0;
 }
 
@@ -86,7 +86,7 @@ body {
 ************************/
 .diamond-member {
 	position: relative;
-	z-index: 10;
+	z-index: 100;
 }
 .diamond-member .txt,
 .diamond-member .txt2 {
@@ -109,11 +109,15 @@ body {
 .diamond-member .barFader {
 	display: inline-block;
 	width: 3px;
-	height: 9vh;
+	height: 9.5vh;
 	position: absolute;
-	top: -1px;
+	top: 0;
 	left: 0;
+	right: 0;
+	margin: 0 auto;
 	overflow: hidden;
+	background-color: #fff;
+	background: radial-gradient(circle, rgba(170,170,170,1) 0%, rgba(255,255,255,1) 100%);
 }
 
 
@@ -132,4 +136,33 @@ body {
 	position: absolute;
 	top: 80vh;
 	width: 100%;
+}
+
+
+
+/************************
+* MEMBER OVERLAY
+************************/
+#member-overlay{
+	width: 0%;
+	height: 0%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index: -1000;
+	display: grid;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+
+	opacity: 0;
+	transition: 0.3s opacity, 0.5s width, 0.5s height;
+	
+	background: rgba(0,0,0,0.85);
+	color: #fff;
+	
+}
+#member-overlay #member-ad {
+	width: 70%;
+	height: 70%;
 }

@@ -3,7 +3,6 @@
  * (c) 2019-present Alden Zamora (https://github.com/ajzamora)
  * Released under MIT license[http://opensource.org/licenses/MIT]
  * =============================================== */
-
 const canvas = document.getElementById("gold-members");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
@@ -59,7 +58,7 @@ function accelerate(opt) {
     options.textList = (opt.textList || "Warty Warthog, Hoary Hedgehog, Breezy Badger").split(', '); // string: list of strings separated with a comma and a space
     options.textSize = opt.textSize || 24; // number: positive
     reset(options);
-    window.requestAnimationFrame(animateFrameLoop);
+    animateFrameLoop();
 }
 
 function reset(opt) {
@@ -119,7 +118,7 @@ window.addEventListener('resize',
 
 
 accelerate({
-    textSize: 12,
+    textSize: 14,
     particleSize: 2,
     particleColor: '#333',
     textColor: '#888',

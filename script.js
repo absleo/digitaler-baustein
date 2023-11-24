@@ -72,28 +72,32 @@ function textAnimateBar(htmlBox, img) {
     document.querySelector(`${htmlBox} .txt2`).innerHTML = `<img src="./images/${img}" alt="">`;
 
 	setTimeout( ()=>{
-		let boxWidth = document.querySelector(`${htmlBox} .txt`).clientWidth;
-		let boxWidth2 = document.querySelector(`${htmlBox} .txt2`).clientWidth;
+		let boxWidth = 0;
+		if(document.querySelector(`${htmlBox} .txt img`)){
+			boxWidth = document.querySelector(`${htmlBox} .txt img`).clientWidth;
+		}
+		let boxWidth2 = 0;
+		if(document.querySelector(`${htmlBox} .txt2 img`)){
+			boxWidth2 = document.querySelector(`${htmlBox} .txt2 img`).clientWidth;
+		}
+		console.log(boxWidth, boxWidth2)
 		if(boxWidth2 > boxWidth) {
 			boxWidth = boxWidth2;
 		}
 
-		let color1 = '#000';
-		let color2 = '#fff';
-
 		gsap.timeline({ delay: 0, repeat: 0, ease: Power1.easeInOut })
 			.set(`${htmlBox} .txt`, { opacity: 1, x: 0, immediateRender: true })
-			.set(`${htmlBox} .barFader`, { left: 0, x: 0, backgroundColor: color1, immediateRender: true })
+			.set(`${htmlBox} .barFader`, { x: 0, width: 0, immediateRender: true })
 
-			.to(`${htmlBox} .barFader`, { duration: 0.01, backgroundColor: color2 })
+			.to(`${htmlBox} .barFader`, { duration: 0.01 })
 			.to(`${htmlBox} .barFader`, { duration: 0.8, width: boxWidth, ease: Power4.easeInOut })
 
 			.set(`${htmlBox} .txt`, { innerHTML: `<img src="./images/${img}" alt="">` })
 			
 			.to(`${htmlBox} .txt`, { duration: 0.01, opacity: 1 })
-			.to(`${htmlBox} .barFader`, { duration: 0.48, x: boxWidth, width: 0, ease: Power4.easeInOut })
+			.to(`${htmlBox} .barFader`, { duration: 0.48, x: boxWidth/2, width: 0, ease: Power4.easeInOut })
 		
-	}, 1)
+	}, 100)
     
 }
 
@@ -130,13 +134,11 @@ function imageAnimate(src) {
 
 
 
-
 /*******************
 * INIT
 ********************/
 newMembers();
-setInterval(newMembers, 12000);
-
+let memberInterval = setInterval(newMembers, 12000);
 function newMembers(){
 	shuffleArray(diamondMembers);
 
@@ -150,4 +152,44 @@ function newMembers(){
 		textAnimateBar('#diamond-member-6', diamondMembers[5].img);
 	}, 1000)
 	
+}
+
+
+
+
+/*******************
+* OVERLAY
+********************/
+let overlay = document.querySelector('#member-overlay');
+let timeout;
+function showOverlay(){
+
+	clearTimeout(timeout);
+
+	overlay.style.zIndex = 1000;
+	overlay.style.opacity = 1;
+	overlay.style.width = '100%';
+	overlay.style.height = '100%';
+	overlay.innerHTML =
+		`<h2>WE ARE HIRING!</h2>
+		<div id="close-icon" onclick="hideOverlay()">close</div>`
+
+	clearInterval(memberInterval);
+
+}
+function hideOverlay(){
+	overlay.style.width = '0%';
+	overlay.style.height = '0%';
+
+	setTimeout(()=>{
+		overlay.innerHTML = '';
+		overlay.style.zIndex = -1000;
+		overlay.style.opacity = 0;
+	}, 700);
+
+	timeout = setTimeout( ()=> {
+		newMembers();
+		memberInterval = setInterval(newMembers, 12000);
+	}, 3000)
+
 }
