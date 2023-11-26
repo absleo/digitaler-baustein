@@ -192,7 +192,7 @@ function showOverlay(box, topOffset, leftOffset, bottomOffset, rightOffset){
 			overlayImage.src = box.src;
 		}
 
-		overlayAd.src = `./images/diamond-ad.png`;
+		overlayAd.src = `./images/diamond-ad.jpg`;
 
 		setTimeout(()=>{
 			overlayReadyToClose = true;
