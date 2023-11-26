@@ -97,7 +97,7 @@ function textAnimateBar(htmlBox, img) {
 			.to(`${htmlBox} .txt`, { duration: 0.01, opacity: 1 })
 			.to(`${htmlBox} .barFader`, { duration: 0.48, x: boxWidth/2, width: 0, ease: Power4.easeInOut })
 		
-	}, 100)
+	}, 1)
     
 }
 
@@ -137,14 +137,16 @@ function imageAnimate(src) {
 /*******************
 * INIT
 ********************/
+let memberTimeout;
 newMembers();
 let memberInterval = setInterval(newMembers, 12000);
+
 function newMembers(){
 	shuffleArray(diamondMembers);
 
 	imageAnimate(diamondMembers[0].img);
 	
-	setTimeout( ()=>{
+	memberTimeout = setTimeout( ()=>{
 		textAnimateBar('#diamond-member-2', diamondMembers[1].img);
 		textAnimateBar('#diamond-member-3', diamondMembers[2].img);
 		textAnimateBar('#diamond-member-4', diamondMembers[3].img);
@@ -161,35 +163,78 @@ function newMembers(){
 * OVERLAY
 ********************/
 let overlay = document.querySelector('#member-overlay');
-let timeout;
-function showOverlay(){
+let overlayImage = document.querySelector('#member-overlay #member-img-wrap img');
+let overlayAd = document.querySelector('#member-overlay #member-ad-wrap img');
+let timeoutContinue;
+let overlayReadyToOpen = true;
+function showOverlay(box, topOffset, leftOffset, bottomOffset, rightOffset){
 
-	clearTimeout(timeout);
+	if(overlayReadyToOpen) {
+		clearInterval(memberTimeout);
 
-	overlay.style.zIndex = 1000;
-	overlay.style.opacity = 1;
-	overlay.style.width = '100%';
-	overlay.style.height = '100%';
-	overlay.innerHTML =
-		`<h2>WE ARE HIRING!</h2>
-		<div id="close-icon" onclick="hideOverlay()">close</div>`
+		clearTimeout(timeoutContinue);
+		clearInterval(memberInterval);
 
-	clearInterval(memberInterval);
+		overlayReadyToOpen = false;
+
+		overlay.style.zIndex = 1000;
+		overlay.style.opacity = 1;
+		overlay.style.width = '100%';
+		overlay.style.height = '100%';
+		overlay.style.top = topOffset;
+		overlay.style.left = leftOffset;
+		overlay.style.bottom = bottomOffset;
+		overlay.style.right = rightOffset;
+
+		if(box.classList[0] == "txt2") {
+			overlayImage.src = box.children[0].src;
+		} else {
+			overlayImage.src = box.src;
+		}
+
+		overlayAd.src = `./images/diamond-ad.png`;
+
+		setTimeout(()=>{
+			overlayReadyToClose = true;
+		}, 500);
+		
+	}
+	
 
 }
-function hideOverlay(){
-	overlay.style.width = '0%';
-	overlay.style.height = '0%';
+let overlayReadyToClose = true;
+function hideOverlay(box){
 
-	setTimeout(()=>{
-		overlay.innerHTML = '';
-		overlay.style.zIndex = -1000;
-		overlay.style.opacity = 0;
-	}, 700);
 
-	timeout = setTimeout( ()=> {
-		newMembers();
-		memberInterval = setInterval(newMembers, 12000);
-	}, 3000)
 
+	if(overlayReadyToClose) {
+		console.log(box.id);
+
+		overlayReadyToClose = false;
+
+		overlay.style.width = '0%';
+		overlay.style.height = '0%';
+
+		setTimeout(()=>{
+			overlayImage.src = '';
+			overlayAd.innerHTML = '';
+
+			overlay.style.zIndex = -1000;
+			overlay.style.opacity = 0;
+
+			overlayReadyToOpen = true;
+			
+		}, 500);
+
+		timeoutContinue = setTimeout( ()=> {
+			newMembers();
+			memberInterval = setInterval(newMembers, 12000);
+		}, 5000)
+		
+	}
+
+}
+function hideOverlayPrevent(event){
+	event.stopPropagation();
+	console.log("prevented")
 }

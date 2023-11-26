@@ -11,6 +11,15 @@ canvas.height = window.innerHeight;
 let particlesArray;
 let options = {};
 
+let framerate = 0;
+let frame = document.getElementById('frame');
+/*
+setInterval( ()=>{
+    frame.innerHTML = framerate;
+    framerate = 0;
+}, 1000)
+*/
+
 class Particle {
     constructor(x, y, moveX, moveY, name, pColor, pSize, tColor, tSize) {
         this.pointX = x;
@@ -82,6 +91,7 @@ function animateFrameLoop() {
         particlesArray[i].update();
     }
     connect();
+    //framerate++;
     window.requestAnimationFrame(animateFrameLoop);
 }
 
