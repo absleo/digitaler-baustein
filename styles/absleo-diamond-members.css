@@ -9,25 +9,12 @@ body {
 	padding: 0;
 	overflow: hidden;
 	background: #000;
-	font-family: 'Manrope-Light', serif;
+	font-family: 'Manrope', serif;
 	position: relative;
-	/*background-image: url("./images/stars.jpg");*/
-	background-size: cover;
-	background-repeat: no-repeat;
 }
 @font-face {
-	font-family: 'Manrope-Light';
-	src: url('font/Manrope-Light.ttf');
-	font-display: fallback;
-}
-@font-face {
-	font-family: 'Manrope-Regular';
-	src: url('font/Manrope-Regular.ttf');
-	font-display: fallback;
-}
-@font-face {
-	font-family: 'Manrope-Bold';
-	src: url('font/Manrope-Bold.ttf');
+	font-family: 'Manrope';
+	src: url('../font/Manrope-Light.ttf');
 	font-display: fallback;
 }
 
