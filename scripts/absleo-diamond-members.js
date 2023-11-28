@@ -165,6 +165,7 @@ let overlay = document.querySelector('#member-overlay');
 let overlayImage = document.querySelector('#member-overlay #member-img-wrap img');
 let overlayAd = document.querySelector('#member-overlay #member-ad-wrap img');
 let timeoutContinue;
+let timeoutCloseOverlay;
 let overlayReadyToOpen = true;
 function showOverlay(box, topOffset, leftOffset, bottomOffset, rightOffset){
 
@@ -172,6 +173,7 @@ function showOverlay(box, topOffset, leftOffset, bottomOffset, rightOffset){
 		clearInterval(memberTimeout);
 
 		clearTimeout(timeoutContinue);
+		clearTimeout(timeoutCloseOverlay);
 		clearInterval(memberInterval);
 
 		overlayReadyToOpen = false;
@@ -196,17 +198,21 @@ function showOverlay(box, topOffset, leftOffset, bottomOffset, rightOffset){
 		setTimeout(()=>{
 			overlayReadyToClose = true;
 		}, 500);
+
+		timeoutCloseOverlay = setTimeout(()=>{
+			hideOverlay();
+		}, 10000);
 		
 	}
 	
 
 }
 let overlayReadyToClose = true;
-function hideOverlay(box){
-
-
+function hideOverlay(){
 
 	if(overlayReadyToClose) {
+
+		clearTimeout(timeoutCloseOverlay);
 
 		overlayReadyToClose = false;
 
