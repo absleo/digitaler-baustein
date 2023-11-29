@@ -288,7 +288,7 @@ class Particle {
             ctx.fillStyle = this.particleColor;
             ctx.fill();
         }
-        ctx.font = `${this.textSize}vh sans-serif`;
+        ctx.font = `${this.textSize}px sans-serif`;
         ctx.fillStyle = this.textColor;
         this.halfTextWidth = ctx.measureText(this.name).width / 2;
         ctx.fillText(this.name, this.pointX, this.pointY);
@@ -375,7 +375,7 @@ window.addEventListener('resize',
 
 
 accelerate({
-    textSize: 2,
+    textSize: 14,
     particleSize: 2,
     particleColor: '#333',
     textColor: '#888',
