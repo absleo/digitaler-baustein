@@ -288,7 +288,7 @@ class Particle {
             ctx.fillStyle = this.particleColor;
             ctx.fill();
         }
-        ctx.font = `${this.textSize}px sans-serif`;
+        ctx.font = `${this.textSize}vh sans-serif`;
         ctx.fillStyle = this.textColor;
         this.halfTextWidth = ctx.measureText(this.name).width / 2;
         ctx.fillText(this.name, this.pointX, this.pointY);
@@ -344,9 +344,9 @@ function animateFrameLoop() {
 
 function connect() {
     let opacity;
-    let rgb = 50;
+    let rgb = 100;
     let startOpacity = 1;
-    let distanceOpacity = 10;
+    let distanceOpacity = 20;
     let area = canvas.width * canvas.height;
     for (let a = 0; a < particlesArray.length; a++) {
         for (let b = a; b < particlesArray.length; b++) {
@@ -375,7 +375,7 @@ window.addEventListener('resize',
 
 
 accelerate({
-    textSize: 14,
+    textSize: 2,
     particleSize: 2,
     particleColor: '#333',
     textColor: '#888',
