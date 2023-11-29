@@ -201,7 +201,7 @@ function showOverlay(box, topOffset, leftOffset, bottomOffset, rightOffset){
 
 		timeoutCloseOverlay = setTimeout(()=>{
 			hideOverlay();
-		}, 10000);
+		}, 15000);
 		
 	}
 	

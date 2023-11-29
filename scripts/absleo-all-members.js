@@ -170,6 +170,8 @@ requestAnimationFrame( ()=>{
 ********************/
 let lastActivityTime = Date.now();
 document.addEventListener('mousemove', updateLastActivityTime);
+document.addEventListener('touchmove', updateLastActivityTime);
+document.addEventListener('click', updateLastActivityTime);
 function updateLastActivityTime() {
 	lastActivityTime = Date.now();
 }

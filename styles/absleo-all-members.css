@@ -74,7 +74,7 @@ body {
 
 /* width */
 ::-webkit-scrollbar {
-	width: 1.5vh;
+	width: 0.5vh;
 }
 
 /* Track */
