@@ -256,7 +256,12 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let particlesArray;
+let particlesHuesArray;
+let particlesFontsizeArray;
+let particlesStepsArray;
 let options = {};
+
+let startColor = 102;
 
 let framerate = 0;
 let frame = document.getElementById('frame');
@@ -285,11 +290,11 @@ class Particle {
         ctx.beginPath();
         if (this.particleSize > 0) {
             ctx.arc(this.pointX, this.pointY, this.particleSize, 0, Math.PI * 2);
-            ctx.fillStyle = this.particleColor;
+            ctx.fillStyle = `rgb(${this.particleColor},${this.particleColor},${this.particleColor})`;
             ctx.fill();
         }
         ctx.font = `${this.textSize}px sans-serif`;
-        ctx.fillStyle = this.textColor;
+        ctx.fillStyle = `rgb(${this.textColor},${this.textColor},${this.textColor})`;
         this.halfTextWidth = ctx.measureText(this.name).width / 2;
         ctx.fillText(this.name, this.pointX, this.pointY);
 
@@ -308,9 +313,9 @@ function accelerate(opt) {
     options = opt;
     options.maxSpeed = opt.speed || 2; // number: positive speed
     options.minSpeed = -opt.speed || -2; // number: negative speed
-    options.particleColor = opt.particleColor || "#fff"; //string
+    options.particleColor = opt.particleColor || 136; //number
     options.particleSize = opt.particleSize || 0, // number: particle size, default=0 (not shown)
-    options.textColor = opt.textColor || "#dddddd"; // string
+    options.textColor = opt.textColor || 136; // number
     options.textList = (opt.textList || "Hello, World").split(', '); // string: list of strings separated with a comma and a space
     options.textSize = opt.textSize || 24; // number: positive
     reset(options);
@@ -319,6 +324,9 @@ function accelerate(opt) {
 
 function reset(opt) {
     particlesArray = [];
+	particlesHuesArray = [];
+	particlesFontsizeArray = [];
+	particlesStepsArray = [];
     ctx.textAlign = "center";
     let numberOfParticles = opt.textList.length;
     let innerMargin = 100;
@@ -328,13 +336,50 @@ function reset(opt) {
         let moveX = Math.random() * (opt.maxSpeed - opt.minSpeed) + opt.minSpeed;
         let moveY = Math.random() * (opt.maxSpeed - opt.minSpeed) + opt.minSpeed;
         particlesArray.push(new Particle(x, y, moveX, moveY, opt.textList[i], opt.particleColor, opt.particleSize, opt.textColor, opt.textSize));
-    }
+		particlesHuesArray.push(opt.textColor);
+		particlesFontsizeArray.push(opt.textSize);
+		particlesStepsArray.push(0);
+	}
 }
 
 function animateFrameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     let len = particlesArray.length;
     for (let i = 0; i < len; i++) {
+
+		let rand = Math.floor(Math.random()*250);
+		if(rand == 50 && particlesStepsArray[i] == 0) {
+			particlesStepsArray[i] = 1;
+		}
+
+		let step = particlesStepsArray[i];
+		// DO NOTHING
+		if (step == 0) { }
+		// INCREASE
+		else if( step < 70 ) {
+			particlesHuesArray[i]+=1;
+			particlesFontsizeArray[i]+=.005;
+			particlesStepsArray[i]+=1;
+
+			particlesArray[i].textColor = particlesHuesArray[i];
+			particlesArray[i].textSize = particlesFontsizeArray[i];
+		}
+		// DECREASE
+		else if( step < 140) {
+			particlesHuesArray[i]-=1;
+			particlesFontsizeArray[i]-=.005;
+			particlesStepsArray[i]+=1;
+
+			particlesArray[i].textColor = particlesHuesArray[i];
+			particlesArray[i].textSize = particlesFontsizeArray[i];
+		}
+		// FINISHED
+		else {
+			particlesStepsArray[i] = 0;
+			particlesHuesArray[i] = startColor;
+			particlesFontsizeArray[i] = 14;
+		}
+
         particlesArray[i].update();
     }
     connect();
@@ -344,7 +389,7 @@ function animateFrameLoop() {
 
 function connect() {
     let opacity;
-    let rgb = 100;
+    let rgb = 68;
     let startOpacity = 1;
     let distanceOpacity = 20;
     let area = canvas.width * canvas.height;
@@ -377,8 +422,8 @@ window.addEventListener('resize',
 accelerate({
     textSize: 14,
     particleSize: 2,
-    particleColor: '#333',
-    textColor: '#888',
+    particleColor: 51,
+    textColor: startColor,
     speed: 0.3,
 	textList: "3 Banken IT GmbH, AGILOX Services GmbH, Alpine Metal Tech GmbH, Avocodo GmbH, Barmherzige Brüder Krankenhaus Linz, BMD Systemhaus, CBCX Technologies GmbH, CGM Clinical Österreich GmbH, clickandlearn GmbH, Cloudflight Austria GmbH, coilDNA, COUNT IT GmbH, EBM GmbH, Ebner Media & Management GmbH, EFINIO GmbH, Eisenbeiss GmbH, ELO Digital Office AT GmbH, ENGEL AUSTRIA GmbH, epunkt GmbH, Fabasoft International Services GmbH, FAW Solutions GmbH, FERCHAU Austria GmbH, FH OÖ IT GmbH, FH OÖ Hagenberg Hardware-Software-Design, Herbsthofer GmbH, HÖDLMAYR INTERNATIONAL AG, IBM ix Austria GmbH, IGS Systemmanagement GmbH & CO KG, ITPRO Consulting & Software GmbH, KE KELIT GmbH, KEBA Group AG, KREISEL Electric GmbH, Latschbacher GmbH - WinforstPro, Linz AG, Miba AG, MIC Datenverarbeitung GmbH, mobile agreements GmbH, Netural GmbH, Nimbuscloud Gmbh, NTS Retail KG, ÖGK IKT OÖ, Primetals Technologies Austria GmbH, PROGRAMMIERFABRIK GmbH, Raiffeisen Software GmbH, Raiffeisenlandesbank Oberösterreich Aktiengesellschaft, RAITEC GmbH, SecureGUARD GmbH, SKE Engineering Gmbh, Softpoint IT-Solutions GmbH & Co KG, solvistas GmbH, Sprecher Automation GmbH, STIWA Holding GmbH, TeamViewer Austria GmbH, TGW Logistics Group, TRAUNER Verlag + Buchservice GmbH, TRUMPF Maschinen Austria GmbH + Co. KG, umdasch Store Makers Management GmbH, Uni Software Plus GmbH, VSTech Service & Engineering GmbH, Wacker Neuson Linz GmbH, Wirtschaftskammer Oberösterreich"
 });
