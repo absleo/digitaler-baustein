@@ -308,10 +308,10 @@ function accelerate(opt) {
     options = opt;
     options.maxSpeed = opt.speed || 2; // number: positive speed
     options.minSpeed = -opt.speed || -2; // number: negative speed
-    options.particleColor = opt.particleColor || "orange"; //string
+    options.particleColor = opt.particleColor || "#fff"; //string
     options.particleSize = opt.particleSize || 0, // number: particle size, default=0 (not shown)
     options.textColor = opt.textColor || "#dddddd"; // string
-    options.textList = (opt.textList || "Warty Warthog, Hoary Hedgehog, Breezy Badger").split(', '); // string: list of strings separated with a comma and a space
+    options.textList = (opt.textList || "Hello, World").split(', '); // string: list of strings separated with a comma and a space
     options.textSize = opt.textSize || 24; // number: positive
     reset(options);
     animateFrameLoop();
@@ -380,5 +380,5 @@ accelerate({
     particleColor: '#333',
     textColor: '#888',
     speed: 0.3,
-    textList: "3 Banken IT GmbH, AGILOX Services GmbH, Alpine Metal Tech GmbH, Avocodo GmbH, Barmherzige Brüder Krankenhaus Linz, BMD Systemhaus, Brain Force GmbH, CBCX Technologies GmbH, CGM Clinical Österreich GmbH, clickandlearn GmbH, Cloudflight Austria GmbH, coilDNA, COUNT IT GmbH, EBM GmbH, Ebner Media & Management GmbH, EFINIO GmbH, Eisenbeiss GmbH, ELO Digital Office AT GmbH, ENGEL AUSTRIA GmbH, epunkt GmbH, FAW Solutions GmbH, FERCHAU Austria GmbH, FH OÖ IT GmbH, FH Hagenberg, Herbsthofer GmbH, HÖDLMAYR INTERNATIONAL AG, IBM ix Austria GmbH, IGS Systemmanagement GmbH & CO KG, inline-service IT-solution GmbH, KE KELIT GmbH, KEBA Group AG, KREISEL Electric GmbH, Latschbacher GmbH - WinforstPro, Miba AG, MIC Datenverarbeitung GmbH, mobile agreements GmbH, Netural GmbH, NTS Retail KG, ÖGK IKT OÖ, PROGRAMMIERFABRIK GmbH, Raiffeisen Software GmbH, Raiffeisenlandesbank OÖ Aktiengesellschaft, RAITEC GmbH, RZL Software GmbH, SecureGUARD GmbH, SKE Engineering Gmbh, Softpoint IT-Solutions GmbH & Co KG, solvistas GmbH, Sprecher Automation GmbH, STIWA Holding GmbH, TeamViewer Austria GmbH, TGW Logistics Group, TRAUNER Verlag + Buchservice GmbH, TRUMPF Maschinen Austria GmbH + Co. KG, umdasch Store Makers Management GmbH, Uni Software Plus GmbH, VSTech Service & Engineering GmbH, Wacker Neuson Linz GmbH, Wirtschaftskammer Oberösterreich"
+	textList: "3 Banken IT GmbH, AGILOX Services GmbH, Alpine Metal Tech GmbH, Avocodo GmbH, Barmherzige Brüder Krankenhaus Linz, BMD Systemhaus, CBCX Technologies GmbH, CGM Clinical Österreich GmbH, clickandlearn GmbH, Cloudflight Austria GmbH, coilDNA, COUNT IT GmbH, EBM GmbH, Ebner Media & Management GmbH, EFINIO GmbH, Eisenbeiss GmbH, ELO Digital Office AT GmbH, ENGEL AUSTRIA GmbH, epunkt GmbH, Fabasoft International Services GmbH, FAW Solutions GmbH, FERCHAU Austria GmbH, FH OÖ IT GmbH, FH OÖ Hagenberg Hardware-Software-Design, Herbsthofer GmbH, HÖDLMAYR INTERNATIONAL AG, IBM ix Austria GmbH, IGS Systemmanagement GmbH & CO KG, ITPRO Consulting & Software GmbH, KE KELIT GmbH, KEBA Group AG, KREISEL Electric GmbH, Latschbacher GmbH - WinforstPro, Linz AG, Miba AG, MIC Datenverarbeitung GmbH, mobile agreements GmbH, Netural GmbH, Nimbuscloud Gmbh, NTS Retail KG, ÖGK IKT OÖ, Primetals Technologies Austria GmbH, PROGRAMMIERFABRIK GmbH, Raiffeisen Software GmbH, Raiffeisenlandesbank Oberösterreich Aktiengesellschaft, RAITEC GmbH, SecureGUARD GmbH, SKE Engineering Gmbh, Softpoint IT-Solutions GmbH & Co KG, solvistas GmbH, Sprecher Automation GmbH, STIWA Holding GmbH, TeamViewer Austria GmbH, TGW Logistics Group, TRAUNER Verlag + Buchservice GmbH, TRUMPF Maschinen Austria GmbH + Co. KG, umdasch Store Makers Management GmbH, Uni Software Plus GmbH, VSTech Service & Engineering GmbH, Wacker Neuson Linz GmbH, Wirtschaftskammer Oberösterreich"
 });
