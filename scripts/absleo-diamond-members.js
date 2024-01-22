@@ -193,7 +193,7 @@ function showOverlay(box, topOffset, leftOffset, bottomOffset, rightOffset){
 			overlayImage.src = box.src;
 		}
 
-		overlayAd.src = `./images/diamond-ad.jpg`;
+		overlayAd.src = `./images/ad-diamond_16-9.jpg`;
 
 		setTimeout(()=>{
 			overlayReadyToClose = true;
@@ -201,7 +201,7 @@ function showOverlay(box, topOffset, leftOffset, bottomOffset, rightOffset){
 
 		timeoutCloseOverlay = setTimeout(()=>{
 			hideOverlay();
-		}, 15000);
+		}, 20000);
 		
 	}
 	
@@ -227,7 +227,6 @@ function hideOverlay(){
 			overlay.style.opacity = 0;
 
 			overlayReadyToOpen = true;
-			
 		}, 500);
 
 		timeoutContinue = setTimeout( ()=> {
