@@ -1,0 +1,1 @@
+"C:\Program Files\Mozilla Firefox\firefox.exe" -kiosk -private-window E:/CodingZone/videoscreens/absleo-diamond-members.html
