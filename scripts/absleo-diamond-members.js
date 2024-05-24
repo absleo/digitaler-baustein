@@ -1,66 +1,84 @@
 /*******************
+ * REFERENCES
+ */
+let diamond_member1_img1 = document.querySelector(`#diamond-member-1_img1`);
+let diamond_member1_img2 = document.querySelector(`#diamond-member-1_img2`);
+
+
+
+/*******************
 * DATA
 ********************/
 const diamondMembers = [
 	{
 		name: 'Fabasoft',
-		img: 'diamond_fabasoft.svg'
+		img: 'diamond_fabasoft.svg',
+		poster: ''
 	},
 	{
 		name: 'ITPRO',
-		img: 'diamond_it-pro.svg'
+		img: 'diamond_it-pro.svg',
+		poster: ''
 	},
 	{
 		name: 'Linz AG',
-		img: 'diamond_linz-ag.svg'
+		img: 'diamond_linz-ag.svg',
+		poster: ''
 	},
 	{
 		name: 'Nimbuscloud',
-		img: 'diamond_nimbuscloud.svg'
+		img: 'diamond_nimbuscloud.svg',
+		poster: ''
 	},
     {
 		name: 'Primetals',
-		img: 'diamond_primetals.svg'
+		img: 'diamond_primetals.svg',
+		poster: 'primetals.jpg'
 	},
 	{
 		name: 'Sparkasse OÖ',
-		img: 'diamond_sparkasse-ooe.svg'
+		img: 'diamond_sparkasse-ooe.svg',
+		poster: ''
 	}
 ]
 
 
 /*******************
-* HELPER FUNCTIONS
+* PRELOAD
 ********************/
-function shuffleArray(array) {
-
-	let  oldArray = [...diamondMembers];
-
-	let equal = true;
-	while(equal){
-		for (let i = array.length - 1; i > 0; i--) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[array[i], array[j]] = [array[j], array[i]];
-		}
-
-		equal = arraysAreEqualOrFirstIsEqual(oldArray, diamondMembers)
+let preload = `<link rel="preload" as="image" href="./images/diamond-ads/diamond-ad_16-9.jpg"></link>`;
+for (let i = 0; i < diamondMembers.length; i++) {
+	preload += `<link rel="preload" as="image" href="./images/diamond-logos/${diamondMembers[i].img}"></link>`;
+	if(diamondMembers[i].poster != '') {
+		preload += `<link rel="preload" as="image" href="./images/diamond-ads/${diamondMembers[i].poster}"></link>`;
 	}
+}
+document.querySelector('head').innerHTML += preload;
 
+
+/*******************
+* INIT
+********************/
+let memberTimeout;
+newMembers();
+let memberInterval = setInterval(newMembers, 12000);
+
+function newMembers(){
+	shuffleArray(diamondMembers);
+
+	imageAnimate(diamondMembers[0]);
+	
+	memberTimeout = setTimeout( ()=>{
+		textAnimateBar('#diamond-member-2', diamondMembers[1]);
+		textAnimateBar('#diamond-member-3', diamondMembers[2]);
+		textAnimateBar('#diamond-member-4', diamondMembers[3]);
+		textAnimateBar('#diamond-member-5', diamondMembers[4]);
+		textAnimateBar('#diamond-member-6', diamondMembers[5]);
+	}, 1000)
+	
 }
-function arraysAreEqualOrFirstIsEqual(arr1, arr2) {
-    if(arr1[0] === arr2[0]){
-		return true;
-	}
-	if (arr1.length !== arr2.length) {
-        return false;
-    }
-    for (let i = 0; i < arr1.length; i++) {
-        if (arr1[i] !== arr2[i]) {
-            return false;
-        }
-    }
-    return true;
-}
+
+
 
 
 
@@ -68,8 +86,8 @@ function arraysAreEqualOrFirstIsEqual(arr1, arr2) {
 /*******************
 * BAR TEXT ANIMATION
 ********************/
-function textAnimateBar(htmlBox, img) {
-    document.querySelector(`${htmlBox} .txt2`).innerHTML = `<img src="./images/${img}" alt="">`;
+function textAnimateBar(htmlBox, diamondMember) {
+    document.querySelector(`${htmlBox} .txt2`).innerHTML = `<img src="./images/diamond-logos/${diamondMember.img}" data-poster="${diamondMember.poster}" alt="">`;
 
 	setTimeout( ()=>{
 		let boxWidth = 0;
@@ -91,7 +109,7 @@ function textAnimateBar(htmlBox, img) {
 			.to(`${htmlBox} .barFader`, { duration: 0.01 })
 			.to(`${htmlBox} .barFader`, { duration: 0.8, width: boxWidth, ease: Power4.easeInOut })
 
-			.set(`${htmlBox} .txt`, { innerHTML: `<img src="./images/${img}" alt="">` })
+			.set(`${htmlBox} .txt`, { innerHTML: `<img src="./images/diamond-logos/${diamondMember.img}" data-poster="${diamondMember.poster}" alt="">` })
 			
 			.to(`${htmlBox} .txt`, { duration: 0.01, opacity: 1 })
 			.to(`${htmlBox} .barFader`, { duration: 0.48, x: boxWidth/2, width: 0, ease: Power4.easeInOut })
@@ -104,12 +122,11 @@ function textAnimateBar(htmlBox, img) {
 
 
 /*******************
-* 3D TEXT ANIMATION
+* FADE TEXT ANIMATION
 ********************/
-let diamond_member1_img1 = document.querySelector(`#diamond-member-1_img1`);
-let diamond_member1_img2 = document.querySelector(`#diamond-member-1_img2`);
-function imageAnimate(src) {
-	diamond_member1_img2.src = `./images/${src}`;
+function imageAnimate(diamondMember) {
+	diamond_member1_img2.src = `./images/diamond-logos/${diamondMember.img}`;
+	diamond_member1_img2.dataset.poster = `${diamondMember.poster}`;
     
 
     gsap.timeline({ delay: 0, repeat: 0, ease: Power1.easeInOut })
@@ -122,7 +139,8 @@ function imageAnimate(src) {
         .to(`#diamond-member-1_img2`, { duration: 3, opacity: 1, ease: Power4.easeInOut })
 
 	setTimeout( ()=> {
-		diamond_member1_img1.src = `./images/${src}`;
+		diamond_member1_img1.src = `./images/diamond-logos/${diamondMember.img}`;
+		diamond_member1_img1.dataset.poster = `${diamondMember.poster}`;
 		diamond_member1_img1.style.opacity = 1;
 		diamond_member1_img2.style.opacity = 0;
 	},3500)
@@ -130,30 +148,6 @@ function imageAnimate(src) {
         
 }
 
-
-
-
-/*******************
-* INIT
-********************/
-let memberTimeout;
-newMembers();
-let memberInterval = setInterval(newMembers, 12000);
-
-function newMembers(){
-	shuffleArray(diamondMembers);
-
-	imageAnimate(diamondMembers[0].img);
-	
-	memberTimeout = setTimeout( ()=>{
-		textAnimateBar('#diamond-member-2', diamondMembers[1].img);
-		textAnimateBar('#diamond-member-3', diamondMembers[2].img);
-		textAnimateBar('#diamond-member-4', diamondMembers[3].img);
-		textAnimateBar('#diamond-member-5', diamondMembers[4].img);
-		textAnimateBar('#diamond-member-6', diamondMembers[5].img);
-	}, 1000)
-	
-}
 
 
 
@@ -177,23 +171,24 @@ function showOverlay(box, topOffset, leftOffset, bottomOffset, rightOffset){
 		clearInterval(memberInterval);
 
 		overlayReadyToOpen = false;
+		canvasPlay = false;
+
+		let box_active = box;
+		if(box.classList[0] == "txt2") {
+			box_active = box.children[0];
+		}
+
+		overlayImage.src = box_active.src;
+
+		if(box_active.dataset.poster == '' || box_active.dataset.poster == null || box_active.dataset.poster == undefined ) {
+			overlayAd.src = `./images/diamond-ads/diamond-ad_16-9.jpg`;
+		} else {
+			overlayAd.src = `./images/diamond-ads/${box_active.dataset.poster}`;
+		}
 
 		overlay.style.zIndex = 1000;
 		overlay.style.opacity = 1;
-		overlay.style.width = '100%';
-		overlay.style.height = '100%';
-		overlay.style.top = topOffset;
-		overlay.style.left = leftOffset;
-		overlay.style.bottom = bottomOffset;
-		overlay.style.right = rightOffset;
-
-		if(box.classList[0] == "txt2") {
-			overlayImage.src = box.children[0].src;
-		} else {
-			overlayImage.src = box.src;
-		}
-
-		overlayAd.src = `./images/ad-diamond_16-9.jpg`;
+		
 
 		setTimeout(()=>{
 			overlayReadyToClose = true;
@@ -215,16 +210,20 @@ function hideOverlay(){
 		clearTimeout(timeoutCloseOverlay);
 
 		overlayReadyToClose = false;
-
-		overlay.style.width = '0%';
-		overlay.style.height = '0%';
+		overlay.style.opacity = 0;
+		
+		// Continue with the canvas animation
+		setTimeout(()=>{
+			canvasPlay = true;
+			window.requestAnimationFrame(animateFrameLoop);
+		}, 250);
 
 		setTimeout(()=>{
 			overlayImage.src = '';
 			overlayAd.innerHTML = '';
 
 			overlay.style.zIndex = -1000;
-			overlay.style.opacity = 0;
+			
 
 			overlayReadyToOpen = true;
 		}, 500);
@@ -262,14 +261,7 @@ let options = {};
 
 let startColor = 102;
 
-let framerate = 0;
-let frame = document.getElementById('frame');
-/*
-setInterval( ()=>{
-    frame.innerHTML = framerate;
-    framerate = 0;
-}, 1000)
-*/
+let canvasPlay = true;
 
 class Particle {
     constructor(x, y, moveX, moveY, name, pColor, pSize, tColor, tSize) {
@@ -382,8 +374,11 @@ function animateFrameLoop() {
         particlesArray[i].update();
     }
     connect();
-    //framerate++;
-    window.requestAnimationFrame(animateFrameLoop);
+	// only execute if overlay is not open
+	if(canvasPlay) {
+		window.requestAnimationFrame(animateFrameLoop);
+	}
+    
 }
 
 function connect() {
@@ -426,3 +421,47 @@ accelerate({
     speed: 0.3,
 	textList: "3 Banken IT GmbH, AGILOX Services GmbH, Alpine Metal Tech GmbH, Avocodo GmbH, Barmherzige Brüder Krankenhaus Linz, BMD Systemhaus, CBCX Technologies GmbH, CGM Clinical Österreich GmbH, clickandlearn GmbH, Cloudflight Austria GmbH, coilDNA, COUNT IT GmbH, EBM GmbH, Ebner Media & Management GmbH, EFINIO GmbH, Eisenbeiss GmbH, ELO Digital Office AT GmbH, ENGEL AUSTRIA GmbH, epunkt GmbH, Fabasoft International Services GmbH, FAW Solutions GmbH, FERCHAU Austria GmbH, FH OÖ IT GmbH, FH OÖ Hagenberg Hardware-Software-Design, Herbsthofer GmbH, HÖDLMAYR INTERNATIONAL AG, IBM ix Austria GmbH, IGS Systemmanagement GmbH & CO KG, ITPRO Consulting & Software GmbH, KE KELIT GmbH, KEBA Group AG, KREISEL Electric GmbH, Latschbacher GmbH - WinforstPro, Linz AG, Miba AG, MIC Datenverarbeitung GmbH, mobile agreements GmbH, Netural GmbH, Nimbuscloud Gmbh, NTS Retail KG, ÖGK IKT OÖ, Primetals Technologies Austria GmbH, PROGRAMMIERFABRIK GmbH, Raiffeisen Software GmbH, Raiffeisenlandesbank Oberösterreich Aktiengesellschaft, RAITEC GmbH, SecureGUARD GmbH, SKE Engineering Gmbh, Softpoint IT-Solutions GmbH & Co KG, solvistas GmbH, Sprecher Automation GmbH, STIWA Holding GmbH, TeamViewer Austria GmbH, TGW Logistics Group, TRAUNER Verlag + Buchservice GmbH, TRUMPF Maschinen Austria GmbH + Co. KG, umdasch Store Makers Management GmbH, Uni Software Plus GmbH, VSTech Service & Engineering GmbH, Wacker Neuson Linz GmbH, Wirtschaftskammer Oberösterreich"
 });
+
+
+
+
+
+
+
+
+
+
+
+/*******************
+* HELPER FUNCTIONS
+********************/
+function shuffleArray(array) {
+
+	let  oldArray = [...diamondMembers];
+
+	let equal = true;
+	while(equal){
+		for (let i = array.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[array[i], array[j]] = [array[j], array[i]];
+		}
+
+		equal = arraysAreEqualOrFirstIsEqual(oldArray, diamondMembers)
+	}
+
+}
+function arraysAreEqualOrFirstIsEqual(arr1, arr2) {
+    if(arr1[0] === arr2[0]){
+		return true;
+	}
+	if (arr1.length !== arr2.length) {
+        return false;
+    }
+    for (let i = 0; i < arr1.length; i++) {
+        if (arr1[i] !== arr2[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+

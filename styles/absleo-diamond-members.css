@@ -58,6 +58,7 @@ body {
 	right: 0;
 	bottom: 0;
 	margin: auto;
+	cursor: pointer;
 }
 #diamond-member-1 #diamond-member-1_img1 {
 	opacity: 1;
@@ -94,6 +95,7 @@ body {
 	display: inline-block;
 	height: 7vh;
 	padding: 1vh;
+	cursor: pointer;
 }
 .diamond-member .barFader {
 	display: inline-block;
@@ -133,8 +135,8 @@ body {
 * MEMBER OVERLAY
 ************************/
 #member-overlay{
-	width: 0%;
-	height: 0%;
+	width: 100%;
+	height: 100%;
 	position: absolute;
 	bottom: 0;
 	left: 0;
@@ -183,13 +185,17 @@ body {
 }
 #member-overlay #member-close {
 	display: inline-block;
-	font-size: 5vh;
+	font-size: 3vh;
+	line-height: 3vh;
 	text-align: center;
 	position: absolute;
-	top: 0vh;
+	bottom: 2vh;
 	right: 3vh;
+	cursor: pointer;
 }
-#member-overlay #member-close:after{
-	display: inline-block;
-	content: "\00d7"; /* This will render the 'X' */
+#member-overlay #member-close span {
+	padding-right: 1vh;
+	font-size: 1.8vh;
+	position: relative;
+	top: -0.2vh;
 }
