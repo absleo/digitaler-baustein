@@ -161,7 +161,7 @@ let overlayAd = document.querySelector('#member-overlay #member-ad-wrap img');
 let timeoutContinue;
 let timeoutCloseOverlay;
 let overlayReadyToOpen = true;
-function showOverlay(box, topOffset, leftOffset, bottomOffset, rightOffset){
+function showOverlay(box){
 
 	if(overlayReadyToOpen) {
 		clearInterval(memberTimeout);
@@ -368,7 +368,7 @@ function animateFrameLoop() {
 		else {
 			particlesStepsArray[i] = 0;
 			particlesHuesArray[i] = startColor;
-			particlesFontsizeArray[i] = 14;
+			particlesFontsizeArray[i] = 12;
 		}
 
         particlesArray[i].update();
@@ -414,7 +414,7 @@ window.addEventListener('resize',
 
 
 accelerate({
-    textSize: 14,
+    textSize: 12,
     particleSize: 2,
     particleColor: 51,
     textColor: startColor,

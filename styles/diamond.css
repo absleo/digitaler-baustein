@@ -9,6 +9,7 @@ body {
 	padding: 0;
 	overflow: hidden;
 	background: #000;
+	color: #fff;
 	font-family: 'Manrope', serif;
 	position: relative;
 }
@@ -184,18 +185,74 @@ body {
 	margin: 0 auto;
 }
 #member-overlay #member-close {
-	display: inline-block;
-	font-size: 3vh;
-	line-height: 3vh;
-	text-align: center;
+	display: flex;
+	align-items: center;
 	position: absolute;
 	bottom: 2vh;
 	right: 3vh;
 	cursor: pointer;
 }
-#member-overlay #member-close span {
+#member-overlay #member-close span:nth-child(1) {
 	padding-right: 1vh;
 	font-size: 1.8vh;
-	position: relative;
-	top: -0.2vh;
+	letter-spacing: 0.2vh;
 }
+#member-overlay #member-close span:nth-child(2) {
+	font-size: 2.2vh;
+}
+
+
+
+/************************
+* MEMBER OVERLAY
+************************/
+#touchicon {
+	position: absolute;
+	bottom: 1.5vh;
+	left: 1.5vh;
+	z-index: 100;
+	display: flex;
+	align-items: center;
+	opacity: 0.5;
+	transform: scale(1);
+	animation: heartbeat 8s ease-in-out 0s infinite;
+}
+#touchicon img {
+	width: 2.6vw;
+	height: 2.6vw;
+	display: inline-block;
+}
+#touchicon span {
+	padding-left: 0.5vh;
+	font-size: 1.6vh;
+	letter-spacing: 0.2vh;
+}
+@keyframes heartbeat {
+	from {
+		opacity: 0.5;
+		transform: scale(1);
+		transform-origin: center center;
+		animation-timing-function: ease-out;
+	}
+	3% {
+		transform: scale(1.1);
+		opacity: 0.9;
+		animation-timing-function: ease-in;
+	}
+	6% {
+		opacity: 1;
+		transform: scale(1.02);
+		animation-timing-function: ease-out;
+	}
+	9% {
+		opacity: 0.9;
+		transform: scale(1.12);
+		animation-timing-function: ease-in;
+	}
+	12% {
+		opacity: 0.5;
+		transform: scale(1);
+		animation-timing-function: ease-out;
+	}
+}
+
