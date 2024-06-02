@@ -1,142 +1,66 @@
 /*******************
-* DATA
-********************/
-const members = [
-	{
-		name: 'Fabasoft',
-		img: 'diamond_fabasoft.svg'},
-	{
-		name: 'ITPRO',
-		img: 'diamond_it-pro.svg'
-	},
-	{
-		name: 'Linz AG',
-		img: 'diamond_linz-ag.svg'
-	},
-	{
-		name: 'Nimbuscloud',
-		img: 'diamond_nimbuscloud.svg'
-	},
-	{
-		name: 'Primetals',
-		img: 'diamond_primetals.svg'
-	},
-	{
-		name: 'Sparkasse OÖ',
-		img: 'diamond_sparkasse-ooe.svg'
-	},
-	{ name: '3 Banken IT GmbH', img: '' },
-	{ name: 'AGILOX Services GmbH', img: '' },
-	{ name: 'Alpine Metal Tech GmbH', img: '' },
-	{ name: 'Avocodo GmbH', img: '' },
-	{ name: 'Barmherzige Brüder Krankenhaus Linz', img: '' },
-	{ name: 'BMD Systemhaus', img: '' },
-	{ name: 'CBCX Technologies GmbH', img: '' },
-	{ name: 'CGM Clinical Österreich GmbH', img: '' },
-	{ name: 'clickandlearn GmbH', img: '' },
-	{ name: 'Cloudflight Austria GmbH', img: '' },
-	{ name: 'coilDNA', img: '' },
-	{ name: 'COUNT IT GmbH', img: '' },
-	{ name: 'EBM GmbH', img: '' },
-	{ name: 'Ebner Media & Management GmbH', img: '' },
-	{ name: 'EFINIO GmbH', img: '' },
-	{ name: 'Eisenbeiss GmbH', img: '' },
-	{ name: 'ELO Digital Office AT GmbH', img: '' },
-	{ name: 'ENGEL AUSTRIA GmbH', img: '' },
-	{ name: 'epunkt GmbH', img: '' },
-	{ name: 'Fabasoft International Services GmbH', img: '' },
-	{ name: 'FAW Solutions GmbH', img: '' },
-	{ name: 'FERCHAU Austria GmbH', img: '' },
-	{ name: 'FH OÖ IT GmbH', img: '' },
-	{ name: 'FH OÖ Hagenberg Hardware-Software-Design', img: '' },
-	{ name: 'Herbsthofer GmbH', img: '' },
-	{ name: 'HÖDLMAYR INTERNATIONAL AG', img: '' },
-	{ name: 'IBM ix Austria GmbH', img: '' },
-	{ name: 'IGS Systemmanagement GmbH & CO KG', img: '' },
-	{ name: 'ITPRO Consulting & Software GmbH', img: '' },
-	{ name: 'KE KELIT GmbH', img: '' },
-	{ name: 'KEBA Group AG', img: '' },
-	{ name: 'KREISEL Electric GmbH', img: '' },
-	{ name: 'Latschbacher GmbH - WinforstPro', img: '' },
-	{ name: 'Linz AG', img: '' },
-	{ name: 'Miba AG', img: '' },
-	{ name: 'MIC Datenverarbeitung GmbH', img: '' },
-	{ name: 'mobile agreements GmbH', img: '' },
-	{ name: 'Netural GmbH', img: '' },
-	{ name: 'Nimbuscloud Gmbh', img: '' },
-	{ name: 'NTS Retail KG', img: '' },
-	{ name: 'ÖGK IKT OÖ', img: '' },
-	{ name: 'Primetals Technologies Austria GmbH', img: '' },
-	{ name: 'PROGRAMMIERFABRIK GmbH', img: '' },
-	{ name: 'Raiffeisen Software GmbH', img: '' },
-	{ name: 'Raiffeisenlandesbank Oberösterreich Aktiengesellschaft', img: '' },
-	{ name: 'RAITEC GmbH', img: '' },
-	{ name: 'SecureGUARD GmbH', img: '' },
-	{ name: 'SKE Engineering Gmbh', img: '' },
-	{ name: 'Softpoint IT-Solutions GmbH & Co KG', img: '' },
-	{ name: 'solvistas GmbH', img: '' },
-	{ name: 'Sprecher Automation GmbH', img: '' },
-	{ name: 'STIWA Holding GmbH', img: '' },
-	{ name: 'TeamViewer Austria GmbH', img: '' },
-	{ name: 'TGW Logistics Group', img: '' },
-	{ name: 'TRAUNER Verlag + Buchservice GmbH', img: '' },
-	{ name: 'TRUMPF Maschinen Austria GmbH + Co. KG', img: '' },
-	{ name: 'umdasch Store Makers Management GmbH', img: '' },
-	{ name: 'Uni Software Plus GmbH', img: '' },
-	{ name: 'VSTech Service & Engineering GmbH', img: '' },
-	{ name: 'Wacker Neuson Linz GmbH', img: '' },
-	{ name: 'Wirtschaftskammer Oberösterreich', img: '' }
-	
-]
+ * DIAMOND MEMBERS
+ *******************/
+/// <reference path="diamondMembers.js" />
+
+
+/*******************
+ * GOLD MEMBERS
+ ******************/
+/// <reference path="goldMembers.js" />
+
   
+
+/*******************
+ * REFERENCES
+ ******************/
+let columnMembers = document.getElementById('column-members');
+let columnDetails = document.getElementById('column-details');
+let detailsHeader = document.getElementById('details-header');
+let diamondMembersBoxes;
+let goldMembersBoxes;
 
 
 
 /*******************
 * MEMBERS COLUMN
 ********************/
-let columnMembers = document.getElementById('column-members');
-let diamondMembers;
-let goldMembers;
 generateMembers();
 function generateMembers() {
 	let html = "";
-	for (let i = 0; i < members.length; i++) {
-		if(members[i].img != ''){
-			html += `<div onclick="showDetails(this, ${i})" class="diamond-member"><img src="./images/${members[i].img}"></div>`
-		} else {
-			html += `<div onclick="showDetails(this, ${i})" class="gold-member"><h2>${members[i].name}</h2></div>`
-		}
+	
+	// generate diamond members
+	for (let i = 0; i < diamondMembers.length; i++) {
+		html += `<div onclick="showDetails(this, 'diamond', ${i})" class="diamond-member"><img src="./images/diamond-logos/${diamondMembers[i].img}"></div>`
 	}
+
+	// generate gold members
+	for (let i = 0; i < goldMembers.length; i++) {
+		html += `<div onclick="showDetails(this, 'gold', ${i})" class="gold-member"><h2>${goldMembers[i].name}</h2></div>`
+	}
+
 	columnMembers.innerHTML = html
 }
 
 
 
 
+
+
 /*******************
-* DETAILS
+* DIAMOND MEMBER FOCUS
 ********************/
-let columnDetails = document.getElementById('column-details');
-let detailsHeader = document.getElementById('details-header');
-let lastMember = undefined;
-function showDetails(element, i) {
 
-	gsap.timeline({ delay: 0, repeat: 0, ease: Power1.easeInOut })
-		.set(columnDetails, { opacity: 1, immediateRender: true })
-		.to(columnDetails, { opacity: 0, duration: 0.3 })
-		.set(columnDetails, { innerHTML: `<img src="./images/diamond-ad2.jpg" alt="">` })
-		.to(columnDetails, { duration: 0.3, delay: 0.3, opacity: 1 })
+// INIT
+requestAnimationFrame( ()=>{
+	diamondMembersBoxes = document.getElementsByClassName('diamond-member');
+	goldMembersBoxes = document.getElementsByClassName('gold-member');
 
-	gsap.timeline({ delay: 0, repeat: 0, ease: Power1.easeInOut })
-		.to(element, { backgroundColor: '#333', immediateRender: true })
+	lastMember = diamondMembers[0];
+	newDiamondMember();
+})
 
-	gsap.timeline({ delay: 0, repeat: 0, ease: Power1.easeInOut })
-		.to(lastMember, { backgroundColor: '#000', immediateRender: true })
-	
-	lastMember = element;
-}
-
+// NEW DIAMOND MEMBER
 function newDiamondMember(){
 	let index;
 	do {
@@ -151,26 +75,7 @@ function newDiamondMember(){
 	
 }
 
-
-
-
-/*******************
-* INIT
-********************/
-requestAnimationFrame( ()=>{
-	diamondMembers = document.getElementsByClassName('diamond-member');
-	goldMembers = document.getElementsByClassName('gold-member');
-
-	lastMember = diamondMembers[0];
-	newDiamondMember();
-})
-
-
-
-
-/*******************
-* DIAMOND MEMBER FOCUS
-********************/
+// INACTIVE TIME CHECK
 let lastActivityTime = Date.now();
 document.addEventListener('mousemove', updateLastActivityTime);
 document.addEventListener('touchmove', updateLastActivityTime);
@@ -191,3 +96,53 @@ function checkInactiveTime() {
 }
 
 let checkInactiveTimeInterval = setInterval(checkInactiveTime, 1000);
+
+
+
+
+
+/*******************
+* DETAILS
+********************/
+let lastMember = undefined;
+function showDetails(element, member, i) {
+
+	if(member == 'diamond' && diamondMembers[i].poster != ''){
+		gsap.timeline({ delay: 0, repeat: 0, ease: Power1.easeInOut })
+		.set(columnDetails, { opacity: 1, immediateRender: true })
+		.to(columnDetails, { opacity: 0, duration: 0.3 })
+		.set(columnDetails, { innerHTML: `<img src="./images/diamond-ads/${diamondMembers[i].poster}" alt="">`, delay: 0.3 })
+		.to(columnDetails, { duration: 0.3, delay: 0.3, opacity: 1 })
+
+		gsap.timeline({ delay: 0, repeat: 0, ease: Power1.easeInOut })
+			.to(element, { backgroundColor: '#333', immediateRender: true })
+
+		gsap.timeline({ delay: 0, repeat: 0, ease: Power1.easeInOut })
+			.to(lastMember, { backgroundColor: '#000', immediateRender: true })
+	}
+
+	else if(member == 'gold'){
+		// TBA
+	}
+	
+	else {
+		gsap.timeline({ delay: 0, repeat: 0, ease: Power1.easeInOut })
+		.set(columnDetails, { opacity: 1, immediateRender: true })
+		.to(columnDetails, { opacity: 0, duration: 0.3 })
+		.set(columnDetails, { innerHTML: `<img src="./images/diamond-ads/diamond-ad_16-9.jpg" alt="">`, delay: 0.3 })
+		.to(columnDetails, { duration: 0.3, delay: 0.3, opacity: 1 })
+
+		gsap.timeline({ delay: 0, repeat: 0, ease: Power1.easeInOut })
+			.to(element, { backgroundColor: '#333', immediateRender: true })
+
+		gsap.timeline({ delay: 0, repeat: 0, ease: Power1.easeInOut })
+			.to(lastMember, { backgroundColor: '#000', immediateRender: true })
+	}
+	
+	lastMember = element;
+}
+
+
+
+
+

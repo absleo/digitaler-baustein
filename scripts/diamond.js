@@ -1,46 +1,16 @@
 /*******************
- * REFERENCES
- */
-let diamond_member1_img1 = document.querySelector(`#diamond-member-1_img1`);
-let diamond_member1_img2 = document.querySelector(`#diamond-member-1_img2`);
+ * DIAMOND MEMBERS
+ ******************/
+/// <reference path="diamondMembers.js" />
 
 
 
 /*******************
-* DATA
-********************/
-const diamondMembers = [
-	{
-		name: 'Fabasoft',
-		img: 'diamond_fabasoft.svg',
-		poster: ''
-	},
-	{
-		name: 'ITPRO',
-		img: 'diamond_it-pro.svg',
-		poster: ''
-	},
-	{
-		name: 'Linz AG',
-		img: 'diamond_linz-ag.svg',
-		poster: ''
-	},
-	{
-		name: 'Nimbuscloud',
-		img: 'diamond_nimbuscloud.svg',
-		poster: ''
-	},
-    {
-		name: 'Primetals',
-		img: 'diamond_primetals.svg',
-		poster: 'primetals.jpg'
-	},
-	{
-		name: 'Sparkasse OÖ',
-		img: 'diamond_sparkasse-ooe.svg',
-		poster: ''
-	}
-]
+ * REFERENCES
+ ******************/
+let diamond_member1_img1 = document.querySelector(`#diamond-member-1_img1`);
+let diamond_member1_img2 = document.querySelector(`#diamond-member-1_img2`);
+
 
 
 /*******************
