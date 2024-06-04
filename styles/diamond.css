@@ -18,6 +18,9 @@ body {
 	src: url('../font/Manrope-Light.ttf');
 	font-display: fallback;
 }
+* {
+	user-select: none;
+}
 
 
 
