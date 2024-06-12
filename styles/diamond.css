@@ -167,7 +167,7 @@ body {
 }
 #member-overlay #member-img-wrap {
 	width: 100%;
-	padding: 1vh 0 1vh 0;
+	padding: 1vh 0 1.4vh 0;
 	box-sizing: border-box;
 }
 #member-overlay #member-img-wrap img {
@@ -191,7 +191,7 @@ body {
 	display: flex;
 	align-items: center;
 	position: absolute;
-	bottom: 2vh;
+	bottom: 2.2vh;
 	right: 3vh;
 	cursor: pointer;
 }

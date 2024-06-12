@@ -4,10 +4,12 @@
 /// <reference path="diamondMembers.js" />
 
 
+
 /*******************
  * GOLD MEMBERS
  ******************/
 /// <reference path="goldMembers.js" />
+
 
   
 
@@ -19,6 +21,7 @@ let columnDetails = document.getElementById('column-details');
 let detailsHeader = document.getElementById('details-header');
 let diamondMembersBoxes;
 let goldMembersBoxes;
+
 
 
 
@@ -105,41 +108,40 @@ let checkInactiveTimeInterval = setInterval(checkInactiveTime, 1000);
 * DETAILS
 ********************/
 let lastMember = undefined;
-function showDetails(element, member, i) {
+function showDetails(element, memberstatus, i) {
 
-	if(member == 'diamond' && diamondMembers[i].poster != ''){
+	if(lastMember != element) {
+
+		let posterpath = `./images/diamond-ads/diamond-ad_16-9.jpg`;
+
+		
+		// DIAMOND
+		if(memberstatus == 'diamond' && diamondMembers[i].poster && diamondMembers[i].poster != ''){
+			posterpath = `./images/diamond-ads/${diamondMembers[i].poster}`;
+		}
+
+		// GOLD
+		else if(memberstatus == 'gold' && goldMembers[i].poster && goldMembers[i].poster != ''){
+			// TBA
+		}
+		
 		gsap.timeline({ delay: 0, repeat: 0, ease: Power1.easeInOut })
-		.set(columnDetails, { opacity: 1, immediateRender: true })
-		.to(columnDetails, { opacity: 0, duration: 0.3 })
-		.set(columnDetails, { innerHTML: `<img src="./images/diamond-ads/${diamondMembers[i].poster}" alt="">`, delay: 0.3 })
-		.to(columnDetails, { duration: 0.3, delay: 0.3, opacity: 1 })
+			.set(columnDetails, { opacity: 1, immediateRender: true })
+			.to(columnDetails, { opacity: 0, duration: 0.3 })
+
+			.set(columnDetails, { innerHTML: `<img src="${posterpath}" alt="">` })
+			
+			.to(columnDetails, { duration: 0.3, opacity: 1 })
 
 		gsap.timeline({ delay: 0, repeat: 0, ease: Power1.easeInOut })
-			.to(element, { backgroundColor: '#333', immediateRender: true })
+			.to(element, { background: '#222', immediateRender: true })
 
 		gsap.timeline({ delay: 0, repeat: 0, ease: Power1.easeInOut })
-			.to(lastMember, { backgroundColor: '#000', immediateRender: true })
-	}
-
-	else if(member == 'gold'){
-		// TBA
+			.to(lastMember, { background: '#111', immediateRender: true })
+		
+		lastMember = element;
 	}
 	
-	else {
-		gsap.timeline({ delay: 0, repeat: 0, ease: Power1.easeInOut })
-		.set(columnDetails, { opacity: 1, immediateRender: true })
-		.to(columnDetails, { opacity: 0, duration: 0.3 })
-		.set(columnDetails, { innerHTML: `<img src="./images/diamond-ads/diamond-ad_16-9.jpg" alt="">`, delay: 0.3 })
-		.to(columnDetails, { duration: 0.3, delay: 0.3, opacity: 1 })
-
-		gsap.timeline({ delay: 0, repeat: 0, ease: Power1.easeInOut })
-			.to(element, { backgroundColor: '#333', immediateRender: true })
-
-		gsap.timeline({ delay: 0, repeat: 0, ease: Power1.easeInOut })
-			.to(lastMember, { backgroundColor: '#000', immediateRender: true })
-	}
-	
-	lastMember = element;
 }
 
 

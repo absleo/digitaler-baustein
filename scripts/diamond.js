@@ -19,9 +19,10 @@ let diamond_member1_img2 = document.querySelector(`#diamond-member-1_img2`);
 let preload = `<link rel="preload" as="image" href="./images/diamond-ads/diamond-ad_16-9.jpg"></link>`;
 for (let i = 0; i < diamondMembers.length; i++) {
 	preload += `<link rel="preload" as="image" href="./images/diamond-logos/${diamondMembers[i].img}"></link>`;
-	if(diamondMembers[i].poster != '') {
-		preload += `<link rel="preload" as="image" href="./images/diamond-ads/${diamondMembers[i].poster}"></link>`;
+	for (let j = 0; j < diamondMembers[i].poster.length; j++) {
+		preload += `<link rel="preload" as="image" href="./images/diamond-ads/${diamondMembers[i].poster[j]}"></link>`;
 	}
+	
 }
 document.querySelector('head').innerHTML += preload;
 
@@ -36,7 +37,7 @@ let memberInterval = setInterval(newMembers, 12000);
 function newMembers(){
 	shuffleArray(diamondMembers);
 
-	imageAnimate(diamondMembers[0]);
+	imageAnimateFader(diamondMembers[0]);
 	
 	memberTimeout = setTimeout( ()=>{
 		textAnimateBar('#diamond-member-2', diamondMembers[1]);
@@ -57,7 +58,7 @@ function newMembers(){
 * BAR TEXT ANIMATION
 ********************/
 function textAnimateBar(htmlBox, diamondMember) {
-    document.querySelector(`${htmlBox} .txt2`).innerHTML = `<img src="./images/diamond-logos/${diamondMember.img}" data-poster="${diamondMember.poster}" alt="">`;
+    document.querySelector(`${htmlBox} .txt2`).innerHTML = `<img src="./images/diamond-logos/${diamondMember.img}" data-id="${diamondMember.id}" alt="">`;
 
 	setTimeout( ()=>{
 		let boxWidth = 0;
@@ -76,13 +77,11 @@ function textAnimateBar(htmlBox, diamondMember) {
 			.set(`${htmlBox} .txt`, { opacity: 1, x: 0, immediateRender: true })
 			.set(`${htmlBox} .barFader`, { x: 0, width: 0, immediateRender: true })
 
-			.to(`${htmlBox} .barFader`, { duration: 0.01 })
-			.to(`${htmlBox} .barFader`, { duration: 0.8, width: boxWidth, ease: Power4.easeInOut })
+			.to(`${htmlBox} .barFader`, { duration: 0.6, width: boxWidth, ease: Power4.easeInOut })
 
-			.set(`${htmlBox} .txt`, { innerHTML: `<img src="./images/diamond-logos/${diamondMember.img}" data-poster="${diamondMember.poster}" alt="">` })
+			.set(`${htmlBox} .txt`, { opacity: 1, innerHTML: `<img src="./images/diamond-logos/${diamondMember.img}" data-poster="${diamondMember.poster}" alt="">` })
 			
-			.to(`${htmlBox} .txt`, { duration: 0.01, opacity: 1 })
-			.to(`${htmlBox} .barFader`, { duration: 0.48, x: boxWidth/2, width: 0, ease: Power4.easeInOut })
+			.to(`${htmlBox} .barFader`, { duration: 0.4, x: boxWidth/2, width: 0, ease: Power4.easeInOut })
 		
 	}, 1)
     
@@ -92,11 +91,11 @@ function textAnimateBar(htmlBox, diamondMember) {
 
 
 /*******************
-* FADE TEXT ANIMATION
+* FADE IMAGE ANIMATION
 ********************/
-function imageAnimate(diamondMember) {
+function imageAnimateFader(diamondMember) {
 	diamond_member1_img2.src = `./images/diamond-logos/${diamondMember.img}`;
-	diamond_member1_img2.dataset.poster = `${diamondMember.poster}`;
+	diamond_member1_img2.dataset.id = `${diamondMember.id}`;
     
 
     gsap.timeline({ delay: 0, repeat: 0, ease: Power1.easeInOut })
@@ -110,12 +109,11 @@ function imageAnimate(diamondMember) {
 
 	setTimeout( ()=> {
 		diamond_member1_img1.src = `./images/diamond-logos/${diamondMember.img}`;
-		diamond_member1_img1.dataset.poster = `${diamondMember.poster}`;
+		diamond_member1_img1.dataset.id = `${diamondMember.id}`;
 		diamond_member1_img1.style.opacity = 1;
 		diamond_member1_img2.style.opacity = 0;
 	},3500)
-	
-        
+    
 }
 
 
@@ -150,10 +148,16 @@ function showOverlay(box){
 
 		overlayImage.src = box_active.src;
 
-		if(box_active.dataset.poster == '' || box_active.dataset.poster == null || box_active.dataset.poster == undefined ) {
+		let id = box_active.dataset.id;
+		let currentDiamondMember = diamondMembers.find( member => member.id == id);
+		console.log(id);
+		console.log(currentDiamondMember);
+
+		if(currentDiamondMember && currentDiamondMember.poster == '' || currentDiamondMember.poster == null || currentDiamondMember.poster == undefined || currentDiamondMember.poster.length == 0 ) {
 			overlayAd.src = `./images/diamond-ads/diamond-ad_16-9.jpg`;
 		} else {
-			overlayAd.src = `./images/diamond-ads/${box_active.dataset.poster}`;
+			let randomPoster = Math.floor(Math.random() * currentDiamondMember.poster.length);
+			overlayAd.src = `./images/diamond-ads/${currentDiamondMember.poster[randomPoster]}`;
 		}
 
 		overlay.style.zIndex = 1000;
@@ -162,7 +166,7 @@ function showOverlay(box){
 
 		setTimeout(()=>{
 			overlayReadyToClose = true;
-		}, 500);
+		}, 600);
 
 		timeoutCloseOverlay = setTimeout(()=>{
 			hideOverlay();
@@ -172,7 +176,7 @@ function showOverlay(box){
 	
 
 }
-let overlayReadyToClose = true;
+let overlayReadyToClose = false;
 function hideOverlay(){
 
 	if(overlayReadyToClose) {
@@ -209,6 +213,414 @@ function hideOverlay(){
 function hideOverlayPrevent(event){
 	event.stopPropagation();
 }
+
+
+
+
+
+
+/*******************
+* FADE IMAGE ANIMATION
+********************/
+let threeJsRoot;
+function startImageTransition(image1, image2) {
+	
+	// clear current threeJsRoot and WebGL context
+	if (!threeJsRoot) {
+		threeJsRoot = new THREERoot({
+			createCameraControls: !true,
+			antialias: window.devicePixelRatio === 1,
+			fov: 80
+		});
+	
+		threeJsRoot.renderer.setClearColor(0x000000, 0);
+		threeJsRoot.renderer.setPixelRatio(window.devicePixelRatio || 1);
+		threeJsRoot.camera.position.set(0, 0, 60);
+	}
+
+	// delete all context from scene
+	if(threeJsRoot && threeJsRoot.scene.children.length > 0) {
+		threeJsRoot.scene.children = [];
+	}
+
+	
+	let width = 100;
+	let height = 60;
+
+	let slide = new Slide(width, height, "out");
+	let l1 = new THREE.ImageLoader();
+	l1.setCrossOrigin("Anonymous");
+	slide.setImage(
+		l1.load(image1)
+	);
+	threeJsRoot.scene.add(slide);
+
+	let slide2 = new Slide(width, height, "in");
+	let l2 = new THREE.ImageLoader();
+	l2.setCrossOrigin("Anonymous");
+	slide2.setImage(
+		l2.load(image2)
+	);
+	threeJsRoot.scene.add(slide2);
+
+	let tl = new TimelineMax({ repeat: 0, repeatDelay: 1.0, yoyo: false });
+
+	tl.add(slide.transition(), 0);
+	tl.add(slide2.transition(), 0);
+
+}
+function Slide(width, height, animationPhase) {
+	let plane = new THREE.PlaneGeometry(width, height, width * 2, height * 2);
+
+	THREE.BAS.Utils.separateFaces(plane);
+
+	let geometry = new SlideGeometry(plane);
+
+	geometry.bufferUVs();
+
+	let aAnimation = geometry.createAttribute("aAnimation", 2);
+	let aStartPosition = geometry.createAttribute("aStartPosition", 3);
+	let aControl0 = geometry.createAttribute("aControl0", 3);
+	let aControl1 = geometry.createAttribute("aControl1", 3);
+	let aEndPosition = geometry.createAttribute("aEndPosition", 3);
+
+	let i, i2, i3, i4, v;
+
+	
+	let minRand = Math.random() * 2.75 + 0.8;
+	let maxRand = Math.random() * 2.75 + minRand;
+	let stretchRand = Math.random() * 0.2;
+
+	let minDuration = minRand; // 0.8
+	let maxDuration = maxRand; // 1.2
+	let maxDelayX = 0.9;
+	let maxDelayY = 0.125;
+	let stretch = stretchRand; // 0.11
+
+	this.totalDuration = maxDuration + maxDelayX + maxDelayY + stretch;
+
+	let startPosition = new THREE.Vector3();
+	let control0 = new THREE.Vector3();
+	let control1 = new THREE.Vector3();
+	let endPosition = new THREE.Vector3();
+
+	let tempPoint = new THREE.Vector3();
+
+	function getControlPoint0(centroid) {
+		let signY = Math.sign(centroid.y);
+
+		tempPoint.x = THREE.Math.randFloat(0.1, 0.3) * 50;
+		tempPoint.y = signY * THREE.Math.randFloat(0.1, 0.3) * 70;
+		tempPoint.z = THREE.Math.randFloatSpread(20);
+
+		return tempPoint;
+	}
+
+	function getControlPoint1(centroid) {
+		let signY = Math.sign(centroid.y);
+
+		tempPoint.x = THREE.Math.randFloat(0.3, 0.6) * 50;
+		tempPoint.y = -signY * THREE.Math.randFloat(0.3, 0.6) * 70;
+		tempPoint.z = THREE.Math.randFloatSpread(20);
+
+		return tempPoint;
+	}
+
+	for (
+		i = 0, i2 = 0, i3 = 0, i4 = 0;
+		i < geometry.faceCount;
+		i++, i2 += 6, i3 += 9, i4 += 12
+	) {
+		let face = plane.faces[i];
+		let centroid = THREE.BAS.Utils.computeCentroid(plane, face);
+
+		// animation
+		let duration = THREE.Math.randFloat(minDuration, maxDuration);
+		let delayX = THREE.Math.mapLinear(
+			centroid.x,
+			-width * 0.5,
+			width * 0.5,
+			0.0,
+			maxDelayX
+		);
+		let delayY;
+
+		if (animationPhase === "in") {
+			delayY = THREE.Math.mapLinear(
+				Math.abs(centroid.y),
+				0,
+				height * 0.5,
+				0.0,
+				maxDelayY
+			);
+		} else {
+			delayY = THREE.Math.mapLinear(
+				Math.abs(centroid.y),
+				0,
+				height * 0.5,
+				maxDelayY,
+				0.0
+			);
+		}
+
+		for (v = 0; v < 6; v += 2) {
+			aAnimation.array[i2 + v] =
+				delayX + delayY + Math.random() * stretch * duration;
+			aAnimation.array[i2 + v + 1] = duration;
+		}
+
+		// positions
+		endPosition.copy(centroid);
+		startPosition.copy(centroid);
+
+		if (animationPhase === "in") {
+			control0.copy(centroid).sub(getControlPoint0(centroid));
+			control1.copy(centroid).sub(getControlPoint1(centroid));
+		} else {
+			// out
+			control0.copy(centroid).add(getControlPoint0(centroid));
+			control1.copy(centroid).add(getControlPoint1(centroid));
+		}
+
+		for (v = 0; v < 9; v += 3) {
+			aStartPosition.array[i3 + v] = startPosition.x;
+			aStartPosition.array[i3 + v + 1] = startPosition.y;
+			aStartPosition.array[i3 + v + 2] = startPosition.z;
+
+			aControl0.array[i3 + v] = control0.x;
+			aControl0.array[i3 + v + 1] = control0.y;
+			aControl0.array[i3 + v + 2] = control0.z;
+
+			aControl1.array[i3 + v] = control1.x;
+			aControl1.array[i3 + v + 1] = control1.y;
+			aControl1.array[i3 + v + 2] = control1.z;
+
+			aEndPosition.array[i3 + v] = endPosition.x;
+			aEndPosition.array[i3 + v + 1] = endPosition.y;
+			aEndPosition.array[i3 + v + 2] = endPosition.z;
+		}
+	}
+
+	let material = new THREE.BAS.BasicAnimationMaterial(
+		{
+			shading: THREE.FlatShading,
+			side: THREE.DoubleSide,
+			uniforms: {
+				uTime: { type: "f", value: 0 }
+			},
+			shaderFunctions: [
+				THREE.BAS.ShaderChunk["cubic_bezier"],
+				//THREE.BAS.ShaderChunk[(animationPhase === 'in' ? 'ease_out_cubic' : 'ease_in_cubic')],
+				THREE.BAS.ShaderChunk["ease_in_out_cubic"],
+				THREE.BAS.ShaderChunk["quaternion_rotation"]
+			],
+			shaderParameters: [
+				"uniform float uTime;",
+				"attribute vec2 aAnimation;",
+				"attribute vec3 aStartPosition;",
+				"attribute vec3 aControl0;",
+				"attribute vec3 aControl1;",
+				"attribute vec3 aEndPosition;"
+			],
+			shaderVertexInit: [
+				"float tDelay = aAnimation.x;",
+				"float tDuration = aAnimation.y;",
+				"float tTime = clamp(uTime - tDelay, 0.0, tDuration);",
+				"float tProgress = ease(tTime, 0.0, 1.0, tDuration);"
+				//'float tProgress = tTime / tDuration;'
+			],
+			shaderTransformPosition: [
+				animationPhase === "in"
+					? "transformed *= tProgress;"
+					: "transformed *= 1.0 - tProgress;",
+				"transformed += cubicBezier(aStartPosition, aControl0, aControl1, aEndPosition, tProgress);"
+			]
+		},
+		{
+			map: new THREE.Texture()
+		}
+	);
+
+	THREE.Mesh.call(this, geometry, material);
+
+	this.frustumCulled = false;
+}
+Slide.prototype = Object.create(THREE.Mesh.prototype);
+Slide.prototype.constructor = Slide;
+Object.defineProperty(Slide.prototype, "time", {
+	get: function() {
+		return this.material.uniforms["uTime"].value;
+	},
+	set: function(v) {
+		this.material.uniforms["uTime"].value = v;
+	}
+});
+Slide.prototype.setImage = function(image) {
+	this.material.uniforms.map.value.image = image;
+	this.material.uniforms.map.value.needsUpdate = true;
+};
+Slide.prototype.transition = function() {
+	return TweenMax.fromTo(
+		this,
+		3.0, // DURATION OF SLIDE
+		{ time: 0.0 },
+		{ time: this.totalDuration, ease: Power0.easeInOut }
+	);
+};
+function SlideGeometry(model) {
+	THREE.BAS.ModelBufferGeometry.call(this, model);
+}
+SlideGeometry.prototype = Object.create(
+	THREE.BAS.ModelBufferGeometry.prototype
+);
+SlideGeometry.prototype.constructor = SlideGeometry;
+SlideGeometry.prototype.bufferPositions = function() {
+	let positionBuffer = this.createAttribute("position", 3).array;
+
+	for (let i = 0; i < this.faceCount; i++) {
+		let face = this.modelGeometry.faces[i];
+		let centroid = THREE.BAS.Utils.computeCentroid(this.modelGeometry, face);
+
+		let a = this.modelGeometry.vertices[face.a];
+		let b = this.modelGeometry.vertices[face.b];
+		let c = this.modelGeometry.vertices[face.c];
+
+		positionBuffer[face.a * 3] = a.x - centroid.x;
+		positionBuffer[face.a * 3 + 1] = a.y - centroid.y;
+		positionBuffer[face.a * 3 + 2] = a.z - centroid.z;
+
+		positionBuffer[face.b * 3] = b.x - centroid.x;
+		positionBuffer[face.b * 3 + 1] = b.y - centroid.y;
+		positionBuffer[face.b * 3 + 2] = b.z - centroid.z;
+
+		positionBuffer[face.c * 3] = c.x - centroid.x;
+		positionBuffer[face.c * 3 + 1] = c.y - centroid.y;
+		positionBuffer[face.c * 3 + 2] = c.z - centroid.z;
+	}
+};
+function THREERoot(params) {
+	params = utils.extend(
+		{
+			fov: 60,
+			zNear: 10,
+			zFar: 100000,
+
+			createCameraControls: true
+		},
+		params
+	);
+
+	this.renderer = new THREE.WebGLRenderer({
+		antialias: params.antialias,
+		alpha: true
+	});
+	this.renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+	document
+		.getElementById("diamond-three-container")
+		.appendChild(this.renderer.domElement);
+
+	this.camera = new THREE.PerspectiveCamera(
+		params.fov,
+		window.innerWidth / window.innerHeight,
+		params.zNear,
+		params.zfar
+	);
+
+	this.scene = new THREE.Scene();
+
+	if (params.createCameraControls) {
+		this.controls = new THREE.OrbitControls(
+			this.camera,
+			this.renderer.domElement
+		);
+	}
+
+	this.resize = this.resize.bind(this);
+	this.tick = this.tick.bind(this);
+
+	this.resize();
+	this.tick();
+
+	window.addEventListener("resize", this.resize, false);
+}
+THREERoot.prototype = {
+	tick: function() {
+		this.update();
+		this.render();
+		requestAnimationFrame(this.tick);
+	},
+	update: function() {
+		this.controls && this.controls.update();
+	},
+	render: function() {
+		this.renderer.render(this.scene, this.camera);
+	},
+	resize: function() {
+		this.camera.aspect = window.innerWidth / window.innerHeight;
+		this.camera.updateProjectionMatrix();
+
+		this.renderer.setSize(window.innerWidth, window.innerHeight);
+	}
+};
+let utils = {
+	extend: function(dst, src) {
+		for (let key in src) {
+			dst[key] = src[key];
+		}
+
+		return dst;
+	},
+	randSign: function() {
+		return Math.random() > 0.5 ? 1 : -1;
+	},
+	ease: function(ease, t, b, c, d) {
+		return b + ease.getRatio(t / d) * c;
+	},
+	fibSpherePoint: (function() {
+		let vec = { x: 0, y: 0, z: 0 };
+		let G = Math.PI * (3 - Math.sqrt(5));
+
+		return function(i, n, radius) {
+			let step = 2.0 / n;
+			let r, phi;
+
+			vec.y = i * step - 1 + step * 0.5;
+			r = Math.sqrt(1 - vec.y * vec.y);
+			phi = i * G;
+			vec.x = Math.cos(phi) * r;
+			vec.z = Math.sin(phi) * r;
+
+			radius = radius || 1;
+
+			vec.x *= radius;
+			vec.y *= radius;
+			vec.z *= radius;
+
+			return vec;
+		};
+	})(),
+	spherePoint: (function() {
+		return function(u, v) {
+			u === undefined && (u = Math.random());
+			v === undefined && (v = Math.random());
+
+			let theta = 2 * Math.PI * u;
+			let phi = Math.acos(2 * v - 1);
+
+			let vec = {};
+			vec.x = Math.sin(phi) * Math.cos(theta);
+			vec.y = Math.sin(phi) * Math.sin(theta);
+			vec.z = Math.cos(phi);
+
+			return vec;
+		};
+	})()
+};
+
+
+
+
+
 
 
 
