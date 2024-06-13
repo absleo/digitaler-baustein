@@ -220,10 +220,27 @@ function hideOverlayPrevent(event){
 
 
 /*******************
-* FADE IMAGE ANIMATION
+* PARTICLE IMAGE ANIMATION
 ********************/
 let threeJsRoot;
-function startImageTransition(image1, image2) {
+function imageAnimateParticle(diamondMember) {
+
+	
+	let image1 = diamond_member1_img1.src;
+	console.log(image1);
+	let image2 = `./images/diamond-logos/${diamondMember.img}`;
+	console.log(image2);
+
+	setTimeout( ()=> {
+		diamond_member1_img1.src = `./images/diamond-logos/${diamondMember.img}`;
+		diamond_member1_img1.dataset.id = `${diamondMember.id}`;
+		//diamond_member1_img1.style.opacity = 1;
+		//diamond_member1_img2.style.opacity = 0;
+	}, 2000)
+
+
+
+	document.getElementById('diamond-three-container').dataset.id = `${diamondMember.id}`;
 	
 	// clear current threeJsRoot and WebGL context
 	if (!threeJsRoot) {
