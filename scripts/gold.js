@@ -34,7 +34,7 @@ function generateMembers() {
 	
 	// generate diamond members
 	for (let i = 0; i < diamondMembers.length; i++) {
-		html += `<div onclick="showDetails(this, 'diamond', ${i})" class="diamond-member"><img src="./images/diamond-logos/${diamondMembers[i].img}"></div>`
+		html += `<div onclick="showDetails(this, 'diamond', ${i})" class="diamond-member"><img src="./images/diamond-logos/${diamondMembers[i].logo}"></div>`
 	}
 
 	// generate gold members

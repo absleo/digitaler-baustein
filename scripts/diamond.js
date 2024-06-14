@@ -6,6 +6,13 @@
 
 
 /*******************
+ * GOLD MEMBERS
+ ******************/
+/// <reference path="goldMembers.js" />
+
+
+
+/*******************
  * REFERENCES
  ******************/
 let diamond_member1_img1 = document.querySelector(`#diamond-member-1_img1`);
@@ -18,7 +25,7 @@ let diamond_member1_img2 = document.querySelector(`#diamond-member-1_img2`);
 ********************/
 let preload = `<link rel="preload" as="image" href="./images/diamond-ads/diamond-ad_16-9.jpg"></link>`;
 for (let i = 0; i < diamondMembers.length; i++) {
-	preload += `<link rel="preload" as="image" href="./images/diamond-logos/${diamondMembers[i].img}"></link>`;
+	preload += `<link rel="preload" as="image" href="./images/diamond-logos/${diamondMembers[i].logo}"></link>`;
 	for (let j = 0; j < diamondMembers[i].poster.length; j++) {
 		preload += `<link rel="preload" as="image" href="./images/diamond-ads/${diamondMembers[i].poster[j]}"></link>`;
 	}
@@ -31,8 +38,10 @@ document.querySelector('head').innerHTML += preload;
 * INIT
 ********************/
 let memberTimeout;
-newMembers();
+let autoPosterInterval;
+let autoOverlayInterval = setInterval(openAutoOverlay, 60000);
 let memberInterval = setInterval(newMembers, 12000);
+newMembers();
 
 function newMembers(){
 	shuffleArray(diamondMembers);
@@ -58,7 +67,7 @@ function newMembers(){
 * BAR TEXT ANIMATION
 ********************/
 function textAnimateBar(htmlBox, diamondMember) {
-    document.querySelector(`${htmlBox} .txt2`).innerHTML = `<img src="./images/diamond-logos/${diamondMember.img}" data-id="${diamondMember.id}" alt="">`;
+    document.querySelector(`${htmlBox} .txt2`).innerHTML = `<img src="./images/diamond-logos/${diamondMember.logo}" data-id="${diamondMember.id}" alt="">`;
 
 	setTimeout( ()=>{
 		let boxWidth = 0;
@@ -79,7 +88,7 @@ function textAnimateBar(htmlBox, diamondMember) {
 
 			.to(`${htmlBox} .barFader`, { duration: 0.6, width: boxWidth, ease: Power4.easeInOut })
 
-			.set(`${htmlBox} .txt`, { opacity: 1, innerHTML: `<img src="./images/diamond-logos/${diamondMember.img}" data-poster="${diamondMember.poster}" alt="">` })
+			.set(`${htmlBox} .txt`, { opacity: 1, innerHTML: `<img src="./images/diamond-logos/${diamondMember.logo}" data-poster="${diamondMember.poster}" alt="">` })
 			
 			.to(`${htmlBox} .barFader`, { duration: 0.4, x: boxWidth/2, width: 0, ease: Power4.easeInOut })
 		
@@ -94,7 +103,7 @@ function textAnimateBar(htmlBox, diamondMember) {
 * FADE IMAGE ANIMATION
 ********************/
 function imageAnimateFader(diamondMember) {
-	diamond_member1_img2.src = `./images/diamond-logos/${diamondMember.img}`;
+	diamond_member1_img2.src = `./images/diamond-logos/${diamondMember.logo}`;
 	diamond_member1_img2.dataset.id = `${diamondMember.id}`;
     
 
@@ -108,7 +117,7 @@ function imageAnimateFader(diamondMember) {
         .to(`#diamond-member-1_img2`, { duration: 3, opacity: 1, ease: Power4.easeInOut })
 
 	setTimeout( ()=> {
-		diamond_member1_img1.src = `./images/diamond-logos/${diamondMember.img}`;
+		diamond_member1_img1.src = `./images/diamond-logos/${diamondMember.logo}`;
 		diamond_member1_img1.dataset.id = `${diamondMember.id}`;
 		diamond_member1_img1.style.opacity = 1;
 		diamond_member1_img2.style.opacity = 0;
@@ -133,6 +142,7 @@ function showOverlay(box){
 
 	if(overlayReadyToOpen) {
 		clearInterval(memberTimeout);
+		clearInterval(autoOverlayInterval);
 
 		clearTimeout(timeoutContinue);
 		clearTimeout(timeoutCloseOverlay);
@@ -145,14 +155,13 @@ function showOverlay(box){
 		if(box.classList[0] == "txt2") {
 			box_active = box.children[0];
 		}
-
-		overlayImage.src = box_active.src;
-
 		let id = box_active.dataset.id;
 		let currentDiamondMember = diamondMembers.find( member => member.id == id);
-		console.log(id);
-		console.log(currentDiamondMember);
 
+		// Set logo image
+		overlayImage.src = box_active.src;
+
+		// set poster image
 		if(currentDiamondMember && currentDiamondMember.poster == '' || currentDiamondMember.poster == null || currentDiamondMember.poster == undefined || currentDiamondMember.poster.length == 0 ) {
 			overlayAd.src = `./images/diamond-ads/diamond-ad_16-9.jpg`;
 		} else {
@@ -173,8 +182,6 @@ function showOverlay(box){
 		}, 20000);
 		
 	}
-	
-
 }
 let overlayReadyToClose = false;
 function hideOverlay(){
@@ -182,6 +189,7 @@ function hideOverlay(){
 	if(overlayReadyToClose) {
 
 		clearTimeout(timeoutCloseOverlay);
+		clearInterval(autoPosterInterval);
 
 		overlayReadyToClose = false;
 		overlay.style.opacity = 0;
@@ -192,6 +200,7 @@ function hideOverlay(){
 			window.requestAnimationFrame(animateFrameLoop);
 		}, 250);
 
+		// Hide overlay
 		setTimeout(()=>{
 			overlayImage.src = '';
 			overlayAd.innerHTML = '';
@@ -202,10 +211,14 @@ function hideOverlay(){
 			overlayReadyToOpen = true;
 		}, 500);
 
+		// Continue with the member shuffle/animation
 		timeoutContinue = setTimeout( ()=> {
 			newMembers();
 			memberInterval = setInterval(newMembers, 12000);
 		}, 5000)
+
+		// Continue with the auto overlay
+		autoOverlayInterval = setInterval(openAutoOverlay, 60000);
 		
 	}
 
@@ -217,22 +230,102 @@ function hideOverlayPrevent(event){
 
 
 
+/*******************
+* AUTO OVERLAY
+********************/
+let currentPoster;
+let diamondMembersExpanded = [];
+createDiamondMembersExpanded();
+function createDiamondMembersExpanded() {
+	// create a array with all diamondMembers and posters (excluding members with empty poster array)
+	diamondMembersExpanded = [];
+	for (let i = 0; i < diamondMembers.length; i++) {
+		if(diamondMembers[i].poster && diamondMembers[i].poster.length > 0 ) {
+			for (let j = 0; j < diamondMembers[i].poster.length; j++) {
+				diamondMembersExpanded.push({
+					id: diamondMembers[i].id,
+					name: diamondMembers[i].name,
+					logo: diamondMembers[i].logo,
+					poster: diamondMembers[i].poster[j]
+				})
+			}
+		}
+	}
+}
+function openAutoOverlay(){
+
+	if(overlayReadyToOpen) {
+
+		clearInterval(memberTimeout);
+		clearInterval(autoOverlayInterval);
+
+		clearTimeout(timeoutContinue);
+		clearTimeout(timeoutCloseOverlay);
+		clearInterval(memberInterval);
+		
+		overlayReadyToOpen = false;
+		canvasPlay = false;
+
+		// reset current poster & shuffle array
+		currentPoster = 0;
+		shuffleArray(diamondMembersExpanded);
+
+
+		// Init Interval for auto posters
+		nextAutoPoster();
+		autoPosterInterval = setInterval(()=>{
+			nextAutoPoster();
+		}, 5000);
+
+
+		overlay.style.zIndex = 1000;
+		overlay.style.opacity = 1;
+		
+
+		setTimeout(()=>{
+			overlayReadyToClose = true;
+		}, 600);
+
+		// timeoutCloseOverlay = setTimeout(()=>{
+		// 	hideOverlay();
+		// }, 20000);
+		
+	}
+}
+function nextAutoPoster(){
+	// close overlay if all posters are shown
+	if(currentPoster >= diamondMembersExpanded.length) {
+		hideOverlay();
+	}
+	// else show next poster
+	else {
+			
+		overlayImage.src = `./images/diamond-logos/${diamondMembersExpanded[currentPoster].logo}`;
+		overlayAd.src = `./images/diamond-ads/${diamondMembersExpanded[currentPoster].poster}`;
+		
+		currentPoster++;
+	}
+}
+
+
+
+
 
 
 /*******************
 * PARTICLE IMAGE ANIMATION
-********************/
+*******************
 let threeJsRoot;
 function imageAnimateParticle(diamondMember) {
 
 	
 	let image1 = diamond_member1_img1.src;
 	console.log(image1);
-	let image2 = `./images/diamond-logos/${diamondMember.img}`;
+	let image2 = `./images/diamond-logos/${diamondMember.logo}`;
 	console.log(image2);
 
 	setTimeout( ()=> {
-		diamond_member1_img1.src = `./images/diamond-logos/${diamondMember.img}`;
+		diamond_member1_img1.src = `./images/diamond-logos/${diamondMember.logo}`;
 		diamond_member1_img1.dataset.id = `${diamondMember.id}`;
 		//diamond_member1_img1.style.opacity = 1;
 		//diamond_member1_img2.style.opacity = 0;
@@ -633,7 +726,7 @@ let utils = {
 		};
 	})()
 };
-
+*/
 
 
 
@@ -645,7 +738,7 @@ let utils = {
 
 
 /*******************
-* CANVAS PARTICLES
+* GOLD MEMBERS CANVAS
 ********************/
 const canvas = document.getElementById("gold-members");
 const ctx = canvas.getContext("2d");
@@ -661,6 +754,7 @@ let options = {};
 let startColor = 102;
 
 let canvasPlay = true;
+
 
 class Particle {
     constructor(x, y, moveX, moveY, name, pColor, pSize, tColor, tSize) {
@@ -706,7 +800,7 @@ function accelerate(opt) {
     options.particleColor = opt.particleColor || 136; //number
     options.particleSize = opt.particleSize || 0, // number: particle size, default=0 (not shown)
     options.textColor = opt.textColor || 136; // number
-    options.textList = (opt.textList || "Hello, World").split(', '); // string: list of strings separated with a comma and a space
+    options.textList = opt.textList || ["Gold", "Platin", "Diamond"]; // string: list of strings separated with a comma and a space
     options.textSize = opt.textSize || 24; // number: positive
     reset(options);
     animateFrameLoop();
@@ -803,25 +897,29 @@ function connect() {
     }
 }
 
-window.addEventListener('resize',
-    () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        reset(options);
-    }
-);
-
-
-accelerate({
-    textSize: 12,
-    particleSize: 2,
-    particleColor: 51,
-    textColor: startColor,
-    speed: 0.3,
-	textList: "3 Banken IT GmbH, AGILOX Services GmbH, Alpine Metal Tech GmbH, Avocodo GmbH, Barmherzige Brüder Krankenhaus Linz, BMD Systemhaus, CBCX Technologies GmbH, CGM Clinical Österreich GmbH, clickandlearn GmbH, Cloudflight Austria GmbH, coilDNA, COUNT IT GmbH, EBM GmbH, Ebner Media & Management GmbH, EFINIO GmbH, Eisenbeiss GmbH, ELO Digital Office AT GmbH, ENGEL AUSTRIA GmbH, epunkt GmbH, Fabasoft International Services GmbH, FAW Solutions GmbH, FERCHAU Austria GmbH, FH OÖ IT GmbH, FH OÖ Hagenberg Hardware-Software-Design, Herbsthofer GmbH, HÖDLMAYR INTERNATIONAL AG, IBM ix Austria GmbH, IGS Systemmanagement GmbH & CO KG, ITPRO Consulting & Software GmbH, KE KELIT GmbH, KEBA Group AG, KREISEL Electric GmbH, Latschbacher GmbH - WinforstPro, Linz AG, Miba AG, MIC Datenverarbeitung GmbH, mobile agreements GmbH, Netural GmbH, Nimbuscloud Gmbh, NTS Retail KG, ÖGK IKT OÖ, Primetals Technologies Austria GmbH, PROGRAMMIERFABRIK GmbH, Raiffeisen Software GmbH, Raiffeisenlandesbank Oberösterreich Aktiengesellschaft, RAITEC GmbH, SecureGUARD GmbH, SKE Engineering Gmbh, Softpoint IT-Solutions GmbH & Co KG, solvistas GmbH, Sprecher Automation GmbH, STIWA Holding GmbH, TeamViewer Austria GmbH, TGW Logistics Group, TRAUNER Verlag + Buchservice GmbH, TRUMPF Maschinen Austria GmbH + Co. KG, umdasch Store Makers Management GmbH, Uni Software Plus GmbH, VSTech Service & Engineering GmbH, Wacker Neuson Linz GmbH, Wirtschaftskammer Oberösterreich"
+window.addEventListener('resize',() => {
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+	reset(options);
 });
 
 
+startGoldMembers();
+function startGoldMembers() {
+// "3 Banken IT GmbH, AGILOX Services GmbH, Alpine Metal Tech GmbH, Avocodo GmbH, Barmherzige Brüder Krankenhaus Linz, BMD Systemhaus, CBCX Technologies GmbH, CGM Clinical Österreich GmbH, clickandlearn GmbH, Cloudflight Austria GmbH, coilDNA, COUNT IT GmbH, EBM GmbH, Ebner Media & Management GmbH, EFINIO GmbH, Eisenbeiss GmbH, ELO Digital Office AT GmbH, ENGEL AUSTRIA GmbH, epunkt GmbH, Fabasoft International Services GmbH, FAW Solutions GmbH, FERCHAU Austria GmbH, FH OÖ IT GmbH, FH OÖ Hagenberg Hardware-Software-Design, Herbsthofer GmbH, HÖDLMAYR INTERNATIONAL AG, IBM ix Austria GmbH, IGS Systemmanagement GmbH & CO KG, ITPRO Consulting & Software GmbH, KE KELIT GmbH, KEBA Group AG, KREISEL Electric GmbH, Latschbacher GmbH - WinforstPro, Linz AG, Miba AG, MIC Datenverarbeitung GmbH, mobile agreements GmbH, Netural GmbH, Nimbuscloud Gmbh, NTS Retail KG, ÖGK IKT OÖ, Primetals Technologies Austria GmbH, PROGRAMMIERFABRIK GmbH, Raiffeisen Software GmbH, Raiffeisenlandesbank Oberösterreich Aktiengesellschaft, RAITEC GmbH, SecureGUARD GmbH, SKE Engineering Gmbh, Softpoint IT-Solutions GmbH & Co KG, solvistas GmbH, Sprecher Automation GmbH, STIWA Holding GmbH, TeamViewer Austria GmbH, TGW Logistics Group, TRAUNER Verlag + Buchservice GmbH, TRUMPF Maschinen Austria GmbH + Co. KG, umdasch Store Makers Management GmbH, Uni Software Plus GmbH, VSTech Service & Engineering GmbH, Wacker Neuson Linz GmbH, Wirtschaftskammer Oberösterreich"
+	let goldMembersNames = [];
+	for (let i = 0; i < goldMembers.length; i++) {
+		goldMembersNames.push(goldMembers[i].name);
+	}
+	accelerate({
+		textSize: 12,
+		particleSize: 2,
+		particleColor: 51,
+		textColor: startColor,
+		speed: 0.3,
+		textList: goldMembersNames
+	});
+}
 
 
 
@@ -836,7 +934,7 @@ accelerate({
 ********************/
 function shuffleArray(array) {
 
-	let  oldArray = [...diamondMembers];
+	let  oldArray = [...array];
 
 	let equal = true;
 	while(equal){
@@ -845,7 +943,7 @@ function shuffleArray(array) {
 			[array[i], array[j]] = [array[j], array[i]];
 		}
 
-		equal = arraysAreEqualOrFirstIsEqual(oldArray, diamondMembers)
+		equal = arraysAreEqualOrFirstIsEqual(oldArray, array)
 	}
 
 }
