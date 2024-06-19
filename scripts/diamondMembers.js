@@ -12,7 +12,9 @@ const diamondMembers = [
 		id: 1,
 		name: 'ITPRO',
 		logo: 'diamond_it-pro.svg',
-		poster: []
+		poster: [
+			'itpro.png'
+		]
 	},
 	{
 		id: 2,

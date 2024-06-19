@@ -152,7 +152,7 @@ body {
 	overflow: hidden;
 
 	opacity: 0;
-	transition: 0.5s opacity, 0.5s width, 0.5s height;
+	transition: 0.5s opacity;
 	
 	background: rgba(0,0,0,0.9);
 	color: #fff;
@@ -165,17 +165,24 @@ body {
 	overflow: hidden;
 	position: relative;
 }
-#member-overlay #member-img-wrap {
+#member-overlay #member-logo-wrap {
 	width: 100%;
 	padding: 1vh 0 1.4vh 0;
 	box-sizing: border-box;
 }
-#member-overlay #member-img-wrap img {
+#member-overlay #member-logo-wrap img {
 	height: 5vh;
 	max-width: 100%;
 	box-sizing: border-box;
 	display: block;
 	margin: 0 auto;
+}
+#member-overlay #member-progress {
+	width: 0%;
+	height: 1vh;
+	position: relative;
+	transition: width 5s linear;
+	background-color: orange;
 }
 #member-overlay #member-ad-wrap {
 	width: 100%;

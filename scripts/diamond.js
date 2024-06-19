@@ -133,8 +133,8 @@ function imageAnimateFader(diamondMember) {
 * OVERLAY
 ********************/
 let overlay = document.querySelector('#member-overlay');
-let overlayImage = document.querySelector('#member-overlay #member-img-wrap img');
-let overlayAd = document.querySelector('#member-overlay #member-ad-wrap img');
+let overlayImage = document.querySelector('#member-overlay #member-logo');
+let overlayAd = document.querySelector('#member-overlay #member-ad');
 let timeoutContinue;
 let timeoutCloseOverlay;
 let overlayReadyToOpen = true;
@@ -198,7 +198,7 @@ function hideOverlay(){
 		setTimeout(()=>{
 			canvasPlay = true;
 			window.requestAnimationFrame(animateFrameLoop);
-		}, 250);
+		}, 100);
 
 		// Hide overlay
 		setTimeout(()=>{
