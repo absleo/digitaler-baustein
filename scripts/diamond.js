@@ -1,14 +1,14 @@
 /*******************
  * DIAMOND MEMBERS
  ******************/
-/// <reference path="diamondMembers.js" />
+/// <reference path="./members/diamondMembers.js" />
 
 
 
 /*******************
  * GOLD MEMBERS
  ******************/
-/// <reference path="goldMembers.js" />
+/// <reference path="./members/goldMembers.js" />
 
 
 
