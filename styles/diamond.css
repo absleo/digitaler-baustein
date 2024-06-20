@@ -180,14 +180,12 @@ body {
 #member-overlay #member-progress {
 	width: 0%;
 	height: 0vh;
-	position: relative;
-	transition: width 5s linear;
-	background-color: orange;
+	background: rgb(55,63,81);
+	background: linear-gradient(90deg, rgba(55,63,81,1) 70%, rgba(114,126,154,1) 100%);
 }
 #member-overlay #member-ad-wrap {
 	width: 100%;
 	box-sizing: border-box;
-	padding: 2px;
 }
 #member-overlay #member-ad-wrap img {
 	width: 100%;

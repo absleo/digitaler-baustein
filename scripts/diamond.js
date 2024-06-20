@@ -135,6 +135,7 @@ function imageAnimateFader(diamondMember) {
 let overlay = document.querySelector('#member-overlay');
 let overlayImage = document.querySelector('#member-overlay #member-logo');
 let overlayAd = document.querySelector('#member-overlay #member-ad');
+let overlayProgress = document.querySelector('#member-overlay #member-progress');
 let timeoutContinue;
 let timeoutCloseOverlay;
 let overlayReadyToOpen = true;
@@ -207,6 +208,14 @@ function hideOverlay(){
 
 			overlay.style.zIndex = -1000;
 			
+			if(progresstween) {
+				progresstween.kill();
+			}
+			overlayProgress.style.width = '0%';
+			overlayProgress.style.height = '0vh';
+
+			currentPoster = 0;
+
 
 			overlayReadyToOpen = true;
 		}, 500);
@@ -235,6 +244,8 @@ function hideOverlayPrevent(event){
 ********************/
 let currentPoster;
 let diamondMembersExpanded = [];
+let progresstween;
+
 createDiamondMembersExpanded();
 function createDiamondMembersExpanded() {
 	// create a array with all diamondMembers and posters (excluding members with empty poster array)
@@ -275,7 +286,7 @@ function openAutoOverlay(){
 		nextAutoPoster();
 		autoPosterInterval = setInterval(()=>{
 			nextAutoPoster();
-		}, 5000);
+		}, 8000);
 
 
 		overlay.style.zIndex = 1000;
@@ -285,10 +296,6 @@ function openAutoOverlay(){
 		setTimeout(()=>{
 			overlayReadyToClose = true;
 		}, 600);
-
-		// timeoutCloseOverlay = setTimeout(()=>{
-		// 	hideOverlay();
-		// }, 20000);
 		
 	}
 }
@@ -299,15 +306,24 @@ function nextAutoPoster(){
 	}
 	// else show next poster
 	else {
+
+		if(progresstween) {
+			progresstween.kill();
+		}
 			
 		overlayImage.src = `./images/diamond-logos/${diamondMembersExpanded[currentPoster].logo}`;
 		overlayAd.src = `./images/diamond-ads/${diamondMembersExpanded[currentPoster].poster}`;
 		
+		overlayProgress.style.width = '0%';
+		overlayProgress.style.height = '0.5vh';
+
+		progresstween = gsap.timeline({ delay: 0, repeat: 0, ease: 'none' })
+			.to(overlayProgress, { duration: 8.0, width: '100%', ease: 'none'})
+
+		
 		currentPoster++;
 	}
 }
-
-
 
 
 
