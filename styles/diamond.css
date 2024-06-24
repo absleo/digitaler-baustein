@@ -212,7 +212,7 @@ body {
 
 
 /************************
-* MEMBER OVERLAY
+* TOUCH ICON
 ************************/
 #touchicon {
 	position: absolute;
@@ -264,3 +264,35 @@ body {
 	}
 }
 
+
+
+
+/************************
+* MOBILE NOTICE
+************************/
+#mobile-notice {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -9999;
+	background: rgba(0,0,0,0.9);
+	color: #fff;
+	justify-content: center;
+	align-items: center;
+}
+#mobile-notice div {
+	width: 80%;
+	text-align: center;
+	font-size: 2em;
+	letter-spacing: 0.2em;
+}
+@media (max-width: 768px) {
+	#mobile-notice {
+		display: flex;
+		z-index: 9999;
+
+	}
+}
