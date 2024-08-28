@@ -21,8 +21,7 @@ const diamondMembers = [
 		name: 'Linz AG',
 		logo: 'diamond_linz-ag.svg',
 		poster: [
-			'linzag_Traineeprogramm_01.jpg',
-			'linzag_Traineeprogramm_02.jpg'
+			
 		]
 	},
 	{
