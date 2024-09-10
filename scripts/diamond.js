@@ -318,9 +318,7 @@ function openAutoOverlay(){
 
 		// reset current poster & shuffle array
 		currentPoster = 0;
-		alert();
 		shuffleArray(diamondMembersExpanded);
-		alert();
 
 
 		// Init Interval for auto posters
