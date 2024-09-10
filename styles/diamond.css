@@ -192,6 +192,13 @@ body {
 	display: block;
 	margin: 0 auto;
 }
+#member-overlay #member-ad-wrap video {
+	width: 100%;
+	display: block;
+	margin: 0 auto;
+	position: absolute;
+	top: 200vh;
+}
 #member-overlay #member-close {
 	display: flex;
 	align-items: center;

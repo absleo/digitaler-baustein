@@ -27,18 +27,23 @@ let preload = `<link rel="preload" as="image" href="./images/diamond-ads/diamond
 for (let i = 0; i < diamondMembers.length; i++) {
 	preload += `<link rel="preload" as="image" href="./images/diamond-logos/${diamondMembers[i].logo}"></link>`;
 	for (let j = 0; j < diamondMembers[i].poster.length; j++) {
-		preload += `<link rel="preload" as="image" href="./images/diamond-ads/${diamondMembers[i].poster[j]}"></link>`;
-	}
-	
+		if(diamondMembers[i].poster[j].includes('.mp4')) {
+
+		} else {
+			preload += `<link rel="preload" as="image" href="./images/diamond-ads/${diamondMembers[i].poster[j]}"></link>`;
+		}
+	}	
 }
 document.querySelector('head').innerHTML += preload;
+
+
 
 
 /*******************
 * INIT
 ********************/
 let memberTimeout;
-let autoPosterInterval;
+let autoPosterTimeout;
 let autoOverlayInterval = setInterval(openAutoOverlay, 60000);
 let memberInterval = setInterval(newMembers, 12000);
 newMembers();
@@ -133,13 +138,33 @@ function imageAnimateFader(diamondMember) {
 * OVERLAY
 ********************/
 let overlay = document.querySelector('#member-overlay');
-let overlayImage = document.querySelector('#member-overlay #member-logo');
+let overlayLogo = document.querySelector('#member-overlay #member-logo');
 let overlayAd = document.querySelector('#member-overlay #member-ad');
+let overlayAdVideo = document.querySelector('#member-overlay #member-ad-video');
 let overlayProgress = document.querySelector('#member-overlay #member-progress');
 let timeoutContinue;
 let timeoutCloseOverlay;
 let overlayReadyToOpen = true;
+let progresstween;
 function showOverlay(box){
+
+	function openOverlay() {
+		overlay.style.zIndex = 1000;
+		overlay.style.opacity = 1;
+
+		overlayProgress.style.width = '0%';
+		overlayProgress.style.height = '0.5vh';
+		progresstween = gsap.timeline({ delay: 0, repeat: 0, ease: 'none' })
+		.to(overlayProgress, { duration: 20.0, width: '100%', ease: 'none'})
+
+		setTimeout(()=>{
+			overlayReadyToClose = true;
+		}, 600);
+
+		timeoutCloseOverlay = setTimeout(()=>{
+			hideOverlay();
+		}, 20000);
+	}
 
 	if(overlayReadyToOpen) {
 		clearInterval(memberTimeout);
@@ -160,27 +185,35 @@ function showOverlay(box){
 		let currentDiamondMember = diamondMembers.find( member => member.id == id);
 
 		// Set logo image
-		overlayImage.src = box_active.src;
+		overlayLogo.src = box_active.src;
 
 		// set poster image
 		if(currentDiamondMember && currentDiamondMember.poster == '' || currentDiamondMember.poster == null || currentDiamondMember.poster == undefined || currentDiamondMember.poster.length == 0 ) {
 			overlayAd.src = `./images/diamond-ads/diamond-ad_16-9.jpg`;
+			openOverlay();
 		} else {
 			let randomPoster = Math.floor(Math.random() * currentDiamondMember.poster.length);
-			overlayAd.src = `./images/diamond-ads/${currentDiamondMember.poster[randomPoster]}`;
+
+			// check if poster is a video
+			if(currentDiamondMember.poster[randomPoster].includes('.mp4')) {
+				// video embed
+				overlayAdVideo.src = `./images/diamond-ads/${currentDiamondMember.poster[randomPoster]}`;
+				overlayAdVideo.load();
+				overlayAdVideo.style.position = 'relative';
+				overlayAdVideo.style.top = '0';
+				
+				// open overlay after preload
+				overlayAdVideo.onloadeddata = function() {
+					overlayAdVideo.play();
+					openOverlay();
+				}
+				
+			} else {
+				// image embed
+				overlayAd.src = `./images/diamond-ads/${currentDiamondMember.poster[randomPoster]}`;
+				openOverlay();
+			}
 		}
-
-		overlay.style.zIndex = 1000;
-		overlay.style.opacity = 1;
-		
-
-		setTimeout(()=>{
-			overlayReadyToClose = true;
-		}, 600);
-
-		timeoutCloseOverlay = setTimeout(()=>{
-			hideOverlay();
-		}, 20000);
 		
 	}
 }
@@ -190,7 +223,7 @@ function hideOverlay(){
 	if(overlayReadyToClose) {
 
 		clearTimeout(timeoutCloseOverlay);
-		clearInterval(autoPosterInterval);
+		clearInterval(autoPosterTimeout);
 
 		overlayReadyToClose = false;
 		overlay.style.opacity = 0;
@@ -203,8 +236,14 @@ function hideOverlay(){
 
 		// Hide overlay
 		setTimeout(()=>{
-			overlayImage.src = '';
+			overlayLogo.src = '';
+			overlayAd.src = '';
+			overlayAdVideo.pause();
+			overlayAdVideo.src = '';
+			overlayAdVideo.style.position = 'absolute';
+			overlayAdVideo.style.top = '200vh';
 			overlayAd.innerHTML = '';
+			
 
 			overlay.style.zIndex = -1000;
 			
@@ -244,7 +283,7 @@ function hideOverlayPrevent(event){
 ********************/
 let currentPoster;
 let diamondMembersExpanded = [];
-let progresstween;
+
 
 createDiamondMembersExpanded();
 function createDiamondMembersExpanded() {
@@ -279,15 +318,13 @@ function openAutoOverlay(){
 
 		// reset current poster & shuffle array
 		currentPoster = 0;
+		alert();
 		shuffleArray(diamondMembersExpanded);
+		alert();
 
 
 		// Init Interval for auto posters
 		nextAutoPoster();
-		autoPosterInterval = setInterval(()=>{
-			nextAutoPoster();
-		}, 8000);
-
 
 		overlay.style.zIndex = 1000;
 		overlay.style.opacity = 1;
@@ -307,19 +344,50 @@ function nextAutoPoster(){
 	// else show next poster
 	else {
 
+		overlayAd.src = '';
+		overlayAdVideo.pause();
+		overlayAdVideo.src = '';
+		overlayAdVideo.style.position = 'absolute';
+		overlayAdVideo.style.top = '200vh';
+
 		if(progresstween) {
 			progresstween.kill();
 		}
 			
-		overlayImage.src = `./images/diamond-logos/${diamondMembersExpanded[currentPoster].logo}`;
-		overlayAd.src = `./images/diamond-ads/${diamondMembersExpanded[currentPoster].poster}`;
-		
+		overlayLogo.src = `./images/diamond-logos/${diamondMembersExpanded[currentPoster].logo}`;
+
+
+		// check if poster is a video
+		if(diamondMembersExpanded[currentPoster].poster.includes('.mp4')) {
+			// video embed
+			overlayAdVideo.src = `./images/diamond-ads/${diamondMembersExpanded[currentPoster].poster}`;
+			overlayAdVideo.load();
+			overlayAdVideo.style.position = 'relative';
+			overlayAdVideo.style.top = '0';
+			
+			// open overlay after preload
+			overlayAdVideo.onloadeddata = function() {
+				overlayAdVideo.play();
+				openOverlay();
+			}
+			
+		} else {
+			// image embed
+			overlayAd.src = `./images/diamond-ads/${diamondMembersExpanded[currentPoster].poster}`;
+			openOverlay();
+		}
+
+	}
+
+	function openOverlay() {
 		overlayProgress.style.width = '0%';
 		overlayProgress.style.height = '0.5vh';
-
 		progresstween = gsap.timeline({ delay: 0, repeat: 0, ease: 'none' })
-			.to(overlayProgress, { duration: 8.0, width: '100%', ease: 'none'})
+		.to(overlayProgress, { duration: 8.0, width: '100%', ease: 'none'})
 
+		autoPosterTimeout = setTimeout(()=>{
+			nextAutoPoster();
+		}, 8000);
 		
 		currentPoster++;
 	}
@@ -950,18 +1018,21 @@ function startGoldMembers() {
 ********************/
 function shuffleArray(array) {
 
-	let  oldArray = [...array];
+	if(array.length <= 1) {
+		return;
+	} else {
+		let  oldArray = [...array];
 
-	let equal = true;
-	while(equal){
-		for (let i = array.length - 1; i > 0; i--) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[array[i], array[j]] = [array[j], array[i]];
+		let equal = true;
+		while(equal){
+			for (let i = array.length - 1; i > 0; i--) {
+				const j = Math.floor(Math.random() * (i + 1));
+				[array[i], array[j]] = [array[j], array[i]];
+			}
+
+			equal = arraysAreEqualOrFirstIsEqual(oldArray, array)
 		}
-
-		equal = arraysAreEqualOrFirstIsEqual(oldArray, array)
 	}
-
 }
 function arraysAreEqualOrFirstIsEqual(arr1, arr2) {
     if(arr1[0] === arr2[0]){

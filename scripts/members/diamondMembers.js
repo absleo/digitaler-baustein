@@ -12,16 +12,13 @@ const diamondMembers = [
 		id: 1,
 		name: 'ITPRO',
 		logo: 'diamond_it-pro.svg',
-		poster: [
-		]
+		poster: []
 	},
 	{
 		id: 2,
 		name: 'Linz AG',
 		logo: 'diamond_linz-ag.svg',
-		poster: [
-			
-		]
+		poster: []
 	},
 	{
 		id: 3,
