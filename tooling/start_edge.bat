@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" "https://absleo.github.io/digitaler-baustein/diamond.html" --kiosk  --edge-kiosk-type=fullscreen

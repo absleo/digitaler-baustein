@@ -23,9 +23,3 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-
-# Kiosk Mode Batch
-start-code.bat
-
-# Tooling
-tooling/

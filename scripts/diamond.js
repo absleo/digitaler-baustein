@@ -148,14 +148,14 @@ let overlayReadyToOpen = true;
 let progresstween;
 function showOverlay(box){
 
-	function openOverlay() {
+	function openOverlay(duration) {
 		overlay.style.zIndex = 1000;
 		overlay.style.opacity = 1;
 
 		overlayProgress.style.width = '0%';
 		overlayProgress.style.height = '0.5vh';
 		progresstween = gsap.timeline({ delay: 0, repeat: 0, ease: 'none' })
-		.to(overlayProgress, { duration: 20.0, width: '100%', ease: 'none'})
+		.to(overlayProgress, { duration: duration/1000, width: '100%', ease: 'none'})
 
 		setTimeout(()=>{
 			overlayReadyToClose = true;
@@ -163,7 +163,7 @@ function showOverlay(box){
 
 		timeoutCloseOverlay = setTimeout(()=>{
 			hideOverlay();
-		}, 20000);
+		}, duration);
 	}
 
 	if(overlayReadyToOpen) {
@@ -190,7 +190,7 @@ function showOverlay(box){
 		// set poster image
 		if(currentDiamondMember && currentDiamondMember.poster == '' || currentDiamondMember.poster == null || currentDiamondMember.poster == undefined || currentDiamondMember.poster.length == 0 ) {
 			overlayAd.src = `./images/diamond-ads/diamond-ad_16-9.jpg`;
-			openOverlay();
+			openOverlay(20000);
 		} else {
 			let randomPoster = Math.floor(Math.random() * currentDiamondMember.poster.length);
 
@@ -204,14 +204,16 @@ function showOverlay(box){
 				
 				// open overlay after preload
 				overlayAdVideo.onloadeddata = function() {
+					overlayAdVideo.muted = true;
 					overlayAdVideo.play();
-					openOverlay();
+					let videoDuration = overlayAdVideo.duration * 1000;
+					openOverlay(videoDuration);
 				}
 				
 			} else {
 				// image embed
 				overlayAd.src = `./images/diamond-ads/${currentDiamondMember.poster[randomPoster]}`;
-				openOverlay();
+				openOverlay(20000);
 			}
 		}
 		
@@ -362,30 +364,34 @@ function nextAutoPoster(){
 			overlayAdVideo.load();
 			overlayAdVideo.style.position = 'relative';
 			overlayAdVideo.style.top = '0';
+
+			
 			
 			// open overlay after preload
 			overlayAdVideo.onloadeddata = function() {
+				overlayAdVideo.muted = true;
 				overlayAdVideo.play();
-				openOverlay();
+				let videoDuration = overlayAdVideo.duration * 1000;
+				openOverlay(videoDuration);
 			}
 			
 		} else {
 			// image embed
 			overlayAd.src = `./images/diamond-ads/${diamondMembersExpanded[currentPoster].poster}`;
-			openOverlay();
+			openOverlay(10000);
 		}
 
 	}
 
-	function openOverlay() {
+	function openOverlay(duration) {
 		overlayProgress.style.width = '0%';
 		overlayProgress.style.height = '0.5vh';
 		progresstween = gsap.timeline({ delay: 0, repeat: 0, ease: 'none' })
-		.to(overlayProgress, { duration: 8.0, width: '100%', ease: 'none'})
+		.to(overlayProgress, { duration: duration/1000, width: '100%', ease: 'none'})
 
 		autoPosterTimeout = setTimeout(()=>{
 			nextAutoPoster();
-		}, 8000);
+		}, duration);
 		
 		currentPoster++;
 	}
