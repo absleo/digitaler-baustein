@@ -13,7 +13,7 @@ const diamondMembers = [
 		name: 'ITPRO',
 		logo: 'diamond_it-pro.svg',
 		poster: [
-			'it-pro-tasse.mp4'
+			'itpro_tasse.mp4'
 		]
 	},
 	{
@@ -33,7 +33,8 @@ const diamondMembers = [
 		name: 'Primetals',
 		logo: 'diamond_primetals.svg',
 		poster: [
-			'primetals.jpg'
+			'primetals.jpg',
+			'primetals.mp4'
 		]
 	},
 	{
