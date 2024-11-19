@@ -44,8 +44,8 @@ document.querySelector('head').innerHTML += preload;
 ********************/
 let memberTimeout;
 let autoPosterTimeout;
-let autoOverlayInterval = setInterval(openAutoOverlay, 60000);
-let memberInterval = setInterval(newMembers, 12000);
+let autoOverlayInterval = setInterval(openAutoOverlay, 120*1000);
+let memberInterval = setInterval(newMembers, 12*1000);
 newMembers();
 
 function newMembers(){
@@ -264,11 +264,11 @@ function hideOverlay(){
 		// Continue with the member shuffle/animation
 		timeoutContinue = setTimeout( ()=> {
 			newMembers();
-			memberInterval = setInterval(newMembers, 12000);
+			memberInterval = setInterval(newMembers, 12*1000);
 		}, 5000)
 
 		// Continue with the auto overlay
-		autoOverlayInterval = setInterval(openAutoOverlay, 60000);
+		autoOverlayInterval = setInterval(openAutoOverlay, 120*1000);
 		
 	}
 
