@@ -58,7 +58,6 @@ function newMembers(){
 		textAnimateBar('#diamond-member-3', diamondMembers[2]);
 		textAnimateBar('#diamond-member-4', diamondMembers[3]);
 		textAnimateBar('#diamond-member-5', diamondMembers[4]);
-		textAnimateBar('#diamond-member-6', diamondMembers[5]);
 	}, 1000)
 	
 }

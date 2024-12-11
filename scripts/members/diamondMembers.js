@@ -22,14 +22,8 @@ const diamondMembers = [
 		logo: 'diamond_linz-ag.svg',
 		poster: []
 	},
-	{
-		id: 3,
-		name: 'Nimbuscloud',
-		logo: 'diamond_nimbuscloud.svg',
-		poster: []
-	},
     {
-		id: 4,
+		id: 3,
 		name: 'Primetals',
 		logo: 'diamond_primetals.svg',
 		poster: [
@@ -38,7 +32,7 @@ const diamondMembers = [
 		]
 	},
 	{
-		id: 5,
+		id: 4,
 		name: 'Sparkasse OÖ',
 		logo: 'diamond_sparkasse-ooe.svg',
 		poster: []
