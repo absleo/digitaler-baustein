@@ -1,6 +1,15 @@
 /************************
 * GENERAL
 ************************/
+@font-face {
+	font-family: 'Manrope';
+	src: url('../font/Manrope-Light.ttf');
+	font-display: fallback;
+}
+* {
+	user-select: none;
+}
+
 html,
 body {
 	width: 100%;
@@ -11,16 +20,31 @@ body {
 	background: #000;
 	color: #fff;
 	font-family: 'Manrope', serif;
-	position: relative;
+	position: relative;	
 }
-@font-face {
-	font-family: 'Manrope';
-	src: url('../font/Manrope-Light.ttf');
-	font-display: fallback;
+
+
+
+
+/***************************
+* BACKGROUND: ANIMATED STARS
+***************************/
+body {
+	background-image: url('./../images/stars.jpg');
+	animation: starsrotate 180s linear infinite;
+	background-size: 200% 150%;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
 }
-* {
-	user-select: none;
+@keyframes starsrotate {
+	0% {
+		background-position: 0 0;
+	}
+	100% {
+		background-position: 100% 100%;
+	}
 }
+
 
 
 

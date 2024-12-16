@@ -581,7 +581,7 @@ function startGoldMembers() {
 		goldMembersNames.push(goldMembers[i].name);
 	}
 	accelerate({
-		textSize: 12,
+		textSize: 14,
 		particleSize: 2,
 		particleColor: 51,
 		textColor: startColor,
