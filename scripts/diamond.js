@@ -44,7 +44,7 @@ document.querySelector('head').innerHTML += preload;
 ********************/
 let memberTimeout;
 let autoPosterTimeout;
-let autoOverlayInterval = setInterval(openAutoOverlay, 120*1000);
+let autoOverlayInterval = setInterval(openAutoOverlay, 5*60*1000);
 let memberInterval = setInterval(newMembers, 12*1000);
 newMembers();
 
@@ -267,7 +267,7 @@ function hideOverlay(){
 		}, 5000)
 
 		// Continue with the auto overlay
-		autoOverlayInterval = setInterval(openAutoOverlay, 120*1000);
+		autoOverlayInterval = setInterval(openAutoOverlay, 5*60*1000);
 		
 	}
 
