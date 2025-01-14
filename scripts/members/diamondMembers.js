@@ -36,5 +36,11 @@ const diamondMembers = [
 		name: 'Sparkasse OÖ',
 		logo: 'diamond_sparkasse-ooe.svg',
 		poster: []
+	},
+	{
+		id: 5,
+		name: 'Iptor multiflex',
+		logo: 'platin_iptor.png',
+		poster: []
 	}
 ]

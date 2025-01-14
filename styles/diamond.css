@@ -150,7 +150,7 @@ body {
 }
 .diamond-row2 {
 	display: grid;
-	grid-template-columns: 30% 30%;
+	grid-template-columns: 30% 30% 30%;
 	justify-content: space-evenly;
 	position: absolute;
 	top: 80vh;
