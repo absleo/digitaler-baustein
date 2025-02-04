@@ -240,11 +240,11 @@ function hideOverlay(){
 		setTimeout(()=>{
 			overlayLogo.src = '';
 			overlayAd.src = '';
+			overlayAdVideo.onloadeddata = null;
 			overlayAdVideo.pause();
 			overlayAdVideo.src = '';
 			overlayAdVideo.style.position = 'absolute';
 			overlayAdVideo.style.top = '200vh';
-			overlayAd.innerHTML = '';
 			
 
 			overlay.style.zIndex = -1000;
