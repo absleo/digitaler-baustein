@@ -29,21 +29,29 @@ body {
 /***************************
 * BACKGROUND: ANIMATED STARS
 ***************************/
-body {
-	background-image: url('./../images/stars.jpg');
-	animation: starsrotate 180s linear infinite;
-	background-size: 200% 150%;
-	background-attachment: fixed;
-	background-repeat: no-repeat;
+#animatedStars {
+    position: fixed;
+    width: 200vw; /* Twice the viewport width */
+    height: 200vh; /* Twice the viewport height */
+    top: 0;
+    left: 0;
+	z-index: 1;
+    pointer-events: none;
+    background: url('./../images/stars.jpg') repeat;
+    background-size: 100vw 100vh; /* Exactly one viewport size */
+    animation: starsMove 180s linear infinite;
+    will-change: transform;
 }
-@keyframes starsrotate {
-	0% {
-		background-position: 0 0;
-	}
-	100% {
-		background-position: 100% 100%;
-	}
+
+@keyframes starsMove {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(-100vw, -100vh, 0); /* Moves exactly one viewport, creating a loop */
+    }
 }
+
 
 
 

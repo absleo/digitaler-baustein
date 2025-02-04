@@ -17,6 +17,7 @@
  ******************/
 let diamond_member1_img1 = document.querySelector(`#diamond-member-1_img1`);
 let diamond_member1_img2 = document.querySelector(`#diamond-member-1_img2`);
+let stars = document.querySelector('#animatedStars');
 
 
 
@@ -149,6 +150,7 @@ let progresstween;
 function showOverlay(box){
 
 	function openOverlay(duration) {
+		
 		overlay.style.zIndex = 1000;
 		overlay.style.opacity = 1;
 
@@ -158,6 +160,7 @@ function showOverlay(box){
 		.to(overlayProgress, { duration: duration/1000, width: '100%', ease: 'none'})
 
 		setTimeout(()=>{
+			stars.style.animation = "none";
 			overlayReadyToClose = true;
 		}, 600);
 
@@ -176,6 +179,7 @@ function showOverlay(box){
 
 		overlayReadyToOpen = false;
 		canvasPlay = false;
+
 
 		let box_active = box;
 		if(box.classList[0] == "txt2") {
@@ -205,9 +209,13 @@ function showOverlay(box){
 				// open overlay after preload
 				overlayAdVideo.onloadeddata = function() {
 					overlayAdVideo.muted = true;
-					overlayAdVideo.play();
 					let videoDuration = overlayAdVideo.duration * 1000;
-					openOverlay(videoDuration);
+					if(videoDuration) {
+						openOverlay(videoDuration);
+						setTimeout(()=>{
+							overlayAdVideo.play();
+						}, 250);
+					}
 				}
 				
 			} else {
@@ -232,6 +240,7 @@ function hideOverlay(){
 		
 		// Continue with the canvas animation
 		setTimeout(()=>{
+			stars.style.animation = "starsMove 180s linear infinite";
 			canvasPlay = true;
 			window.requestAnimationFrame(animateFrameLoop);
 		}, 100);
@@ -331,6 +340,7 @@ function openAutoOverlay(){
 		
 
 		setTimeout(()=>{
+			stars.style.animation = "none";
 			overlayReadyToClose = true;
 		}, 600);
 		
@@ -375,9 +385,14 @@ function nextAutoPoster(){
 			// open overlay after preload
 			overlayAdVideo.onloadeddata = function() {
 				overlayAdVideo.muted = true;
-				overlayAdVideo.play();
 				let videoDuration = overlayAdVideo.duration * 1000;
-				openOverlay(videoDuration);
+				if(videoDuration) {
+					openOverlay(videoDuration);
+					setTimeout(()=>{
+						overlayAdVideo.play();
+					}, 250);
+				}
+				
 			}
 			
 		} else {
