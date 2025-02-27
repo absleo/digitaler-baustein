@@ -1,0 +1,113 @@
+/************************
+* GENERAL
+************************/
+@font-face {
+	font-family: 'Manrope';
+	src: url('../font/Manrope-Light.ttf');
+	font-display: fallback;
+}
+* {
+	user-select: none;
+}
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background: #000;
+	color: #fff;
+	font-family: 'Manrope', serif;
+	position: relative;	
+}
+
+
+/************************
+* LAYOUT
+************************/
+#grid-wrapper {
+	width: 100%;
+	height: 100%;
+	display: grid;
+	justify-content: center;
+	align-items: center;
+}
+#grid{
+	width: 90vw;
+	height: 90vh;
+	display: grid;
+	grid-template-columns: 1fr;
+}
+
+
+
+/************************
+* SPLIDE
+************************/
+/* create a white css variable */
+:root {
+	--highlight: rgb(255,255,255);
+}
+.splide {
+	padding: 0;
+}
+.splide__arrow {
+	opacity: 1;
+}
+.splide__arrow svg {
+	fill: var(--highlight) !important;
+}
+.splide__track--nav>.splide__list>.splide__slide.is-active {
+	border: 3px solid var(--highlight);
+}
+
+
+
+/************************
+* THUMB SLIDER
+************************/
+#main-slider-wrapper {
+	width: 100%;
+	display: grid;
+	justify-content: center;
+	align-items: center;
+}
+#main-slider {
+	width: 80vw;
+	height: 45vw;
+}
+
+
+#thumbnail-slider-wrapper {
+	width: 100%;
+	display: grid;
+	justify-content: center;
+	align-items: center;
+	margin-top: 5vh;
+}
+#thumbnail-slider {
+	width: 90vw;
+	height: 9vh;
+	box-sizing: border-box;
+	padding-left: 5vw;
+	padding-right: 5vw;
+}
+#thumbnail-slider {
+	margin-top: 0vh;
+}
+#thumbnail-slider .splide__list img {
+	height: 4vh;
+	width: auto;
+	display: block;
+}
+#thumbnail-slider .splide__list li {
+	display: grid;
+	align-items: center;
+}
+#thumbnail-slider .splide__list li p {
+	font-size: 2vh;
+	margin: 0 1.5vh 0 1.5vh;
+}
+
