@@ -21,22 +21,6 @@ let root = document.querySelector(':root');
 
 
 
-/*******************
-* PRELOAD
-********************/
-// let preload = `<link rel="preload" as="image" href="./images/diamond-ads/diamond-ad_16-9.jpg"></link>`;
-// for (let i = 0; i < diamondMembers.length; i++) {
-// 	preload += `<link rel="preload" as="image" href="./images/diamond-logos/${diamondMembers[i].logo}"></link>`;
-// 	for (let j = 0; j < diamondMembers[i].poster.length; j++) {
-// 		if(diamondMembers[i].poster[j].includes('.mp4')) {
-
-// 		} else {
-// 			preload += `<link rel="preload" as="image" href="./images/diamond-ads/${diamondMembers[i].poster[j]}"></link>`;
-// 		}
-// 	}	
-// }
-// document.querySelector('head').innerHTML += preload;
-
 
 
 /*******************
@@ -45,16 +29,16 @@ let root = document.querySelector(':root');
 let html_code_main = '';
 for (let i = 0; i < diamondMembers.length; i++) {
 	if(diamondMembers[i].poster == '' || diamondMembers[i].poster == null || diamondMembers[i].poster == undefined || diamondMembers[i].poster.length == 0 ) {
-		html_code_main += `<li class="splide__slide"><img src="./images/diamond-ads/diamond-ad_16-9.jpg" alt="poster"></li>`;
+		html_code_main += `<li class="splide__slide"><img src="./members/default/diamond-ad_16-9.jpg" alt="poster"></li>`;
 	} else {
-		html_code_main += `<li class="splide__slide"><img src="./images/diamond-ads/${diamondMembers[i].poster[0]}" alt="poster"></li>`;
+		html_code_main += `<li class="splide__slide"><img src="./members/diamond/poster/${diamondMembers[i].poster[0]}" alt="poster"></li>`;
 	}
 }
 for (let i = 0; i < goldMembers.length; i++) {
 	if(goldMembers[i].poster == '' || goldMembers[i].poster == null || goldMembers[i].poster == undefined || goldMembers[i].poster.length == 0 ) {
-		html_code_main += `<li class="splide__slide"><img src="./images/diamond-ads/diamond-ad_16-9.jpg" alt="poster"></li>`;
+		html_code_main += `<li class="splide__slide"><img src="./members/default/diamond-ad_16-9.jpg" alt="poster"></li>`;
 	} else {
-		html_code_main += `<li class="splide__slide"><img src="./images/diamond-ads/${goldMembers[i].poster}" alt="poster"></li>`;
+		html_code_main += `<li class="splide__slide"><img src="./members/gold/poster/${goldMembers[i].poster}" alt="poster"></li>`;
 	}
 }
 main_slider.innerHTML = html_code_main;
@@ -65,14 +49,14 @@ for (let i = 0; i < diamondMembers.length; i++) {
 	if(diamondMembers[i].logo == '' || diamondMembers[i].logo == null || diamondMembers[i].poster == undefined ) {
 		html_code_thumb += `<li class="splide__slide"><p>${diamondMembers[i].name}</li></p>`;
 	} else {
-		html_code_thumb += `<li class="splide__slide"><p><img src="./images/diamond-logos/${diamondMembers[i].logo}" alt="poster"></p></li>`;
+		html_code_thumb += `<li class="splide__slide"><p><img src="./members/diamond/logos/${diamondMembers[i].logo}" alt="logo"></p></li>`;
 	}
 }
 for (let i = 0; i < goldMembers.length; i++) {
 	if(goldMembers[i].logo == '' || goldMembers[i].logo == null || goldMembers[i].poster == undefined ) {
 		html_code_thumb += `<li class="splide__slide"><p>${goldMembers[i].name}</p></li>`;
 	} else {
-		html_code_thumb += `<li class="splide__slide"><p><img src="./images/diamond-logos/${goldMembers[i].logo}" alt="poster"></p></li>`;
+		html_code_thumb += `<li class="splide__slide"><p><img src="./members/gold/logos/${goldMembers[i].logo}" alt="logo"></p></li>`;
 	}
 }
 thumbnail_slider.innerHTML = html_code_thumb;
@@ -106,7 +90,6 @@ setTimeout( ()=>{
 	
 	thumbnails = new Splide('#thumbnail-slider', {
 		type: 'loop',
-		snap: true,
 		perPage: 4,
 		isNavigation: true,
 		gap: 20,
@@ -115,16 +98,42 @@ setTimeout( ()=>{
 		autoWidth: true,
 		height: '8vh',
 		width: '90vw',
-		focus: 'center'
+		focus: 'center',
+		drag: 'free',
+		snap: true,
+		autoplay: true,
+		interval: 5000
 	});
-	main.sync(thumbnails);
-	main.on('move', () => {
+
+
+	thumbnails.on('visible', () => {
 		let randomColor = getNextRainbowColor();
-		console.log(randomColor);
 		root.style.setProperty('--highlight', randomColor);
+		console.log(1);
 	});
+	main.on('active', () => {
+		let randomColor = getNextRainbowColor();
+		root.style.setProperty('--highlight', randomColor);
+		console.log(2);
+	});
+
+
 	main.mount();
-	thumbnails.mount();
+	thumbnails.mount( );
+	main.sync(thumbnails);
+
+	// Check if Splide instances are mounted
+	console.log('Main slider mounted:', main.Components);
+	console.log('Thumbnail slider mounted:', thumbnails.Components);
+
+	
+
+
+	
+
 },100);
+
+// const { Autoplay } = splide.Components;
+// Autoplay.pause();
 
 

@@ -3,7 +3,7 @@
 ************************/
 @font-face {
 	font-family: 'Manrope';
-	src: url('../font/Manrope-Light.ttf');
+	src: url('./font/Manrope-Light.ttf');
 	font-display: fallback;
 }
 * {
@@ -35,10 +35,9 @@ body {
 	align-items: center;
 }
 #grid{
-	width: 90vw;
-	height: 90vh;
 	display: grid;
-	grid-template-columns: 1fr;
+	width: 100%;
+	height: 100%;
 }
 
 
@@ -53,14 +52,9 @@ body {
 .splide {
 	padding: 0;
 }
-.splide__arrow {
-	opacity: 1;
-}
-.splide__arrow svg {
-	fill: var(--highlight) !important;
-}
-.splide__track--nav>.splide__list>.splide__slide.is-active {
-	border: 3px solid var(--highlight);
+#main-slider .splide__slide {
+	background-size: contain !important;
+	background-position: center !important;
 }
 
 
@@ -70,18 +64,21 @@ body {
 ************************/
 #main-slider-wrapper {
 	width: 100%;
+	height: 43vw;
+	padding-top: 1vw;
 	display: grid;
 	justify-content: center;
 	align-items: center;
 }
 #main-slider {
 	width: 80vw;
-	height: 45vw;
+	height: 45vw; /* 45vw */
 }
 
 
 #thumbnail-slider-wrapper {
 	width: 100%;
+	height: 9vw;
 	display: grid;
 	justify-content: center;
 	align-items: center;
@@ -109,5 +106,22 @@ body {
 #thumbnail-slider .splide__list li p {
 	font-size: 2vh;
 	margin: 0 1.5vh 0 1.5vh;
+}
+#thumbnail-slider .splide__progress__bar {
+	height: 3px;
+	background: var(--highlight)
+}
+#thumbnail-slider .splide__progress {
+	padding: 2.5vh 1.5vh 0 1.5vh;
+	opacity: 0; /* 0.5vh */
+}
+.splide__arrow {
+	opacity: 1;
+}
+.splide__arrow svg {
+	fill: var(--highlight) !important;
+}
+.splide__track--nav>.splide__list>.splide__slide.is-active {
+	border: 3px solid var(--highlight);
 }
 

@@ -24,15 +24,11 @@ let stars = document.querySelector('#animatedStars');
 /*******************
 * PRELOAD
 ********************/
-let preload = `<link rel="preload" as="image" href="./images/diamond-ads/diamond-ad_16-9.jpg"></link>`;
+let preload = `<link rel="preload" as="image" href="./members/default/diamond-ad_16-9.jpg"></link>`;
 for (let i = 0; i < diamondMembers.length; i++) {
-	preload += `<link rel="preload" as="image" href="./images/diamond-logos/${diamondMembers[i].logo}"></link>`;
+	preload += `<link rel="preload" as="image" href="./members/diamond/logos/${diamondMembers[i].logo}"></link>`;
 	for (let j = 0; j < diamondMembers[i].poster.length; j++) {
-		if(diamondMembers[i].poster[j].includes('.mp4')) {
-
-		} else {
-			preload += `<link rel="preload" as="image" href="./images/diamond-ads/${diamondMembers[i].poster[j]}"></link>`;
-		}
+		preload += `<link rel="preload" as="image" href="./members/diamond/poster/${diamondMembers[i].poster[j]}"></link>`;
 	}	
 }
 document.querySelector('head').innerHTML += preload;
@@ -73,7 +69,7 @@ function newMembers(){
 * BAR TEXT ANIMATION
 ********************/
 function textAnimateBar(htmlBox, diamondMember) {
-    document.querySelector(`${htmlBox} .txt2`).innerHTML = `<img src="./images/diamond-logos/${diamondMember.logo}" data-id="${diamondMember.id}" alt="">`;
+    document.querySelector(`${htmlBox} .txt2`).innerHTML = `<img src="./members/diamond/logos/${diamondMember.logo}" data-id="${diamondMember.id}" alt="">`;
 
 	setTimeout( ()=>{
 		let boxWidth = 0;
@@ -94,7 +90,7 @@ function textAnimateBar(htmlBox, diamondMember) {
 
 			.to(`${htmlBox} .barFader`, { duration: 0.6, width: boxWidth, ease: Power4.easeInOut })
 
-			.set(`${htmlBox} .txt`, { opacity: 1, innerHTML: `<img src="./images/diamond-logos/${diamondMember.logo}" data-poster="${diamondMember.poster}" alt="">` })
+			.set(`${htmlBox} .txt`, { opacity: 1, innerHTML: `<img src="./members/diamond/logos/${diamondMember.logo}" data-poster="${diamondMember.poster}" alt="">` })
 			
 			.to(`${htmlBox} .barFader`, { duration: 0.4, x: boxWidth/2, width: 0, ease: Power4.easeInOut })
 		
@@ -109,7 +105,7 @@ function textAnimateBar(htmlBox, diamondMember) {
 * FADE IMAGE ANIMATION
 ********************/
 function imageAnimateFader(diamondMember) {
-	diamond_member1_img2.src = `./images/diamond-logos/${diamondMember.logo}`;
+	diamond_member1_img2.src = `./members/diamond/logos/${diamondMember.logo}`;
 	diamond_member1_img2.dataset.id = `${diamondMember.id}`;
     
 
@@ -123,7 +119,7 @@ function imageAnimateFader(diamondMember) {
         .to(`#diamond-member-1_img2`, { duration: 3, opacity: 1, ease: Power4.easeInOut })
 
 	setTimeout( ()=> {
-		diamond_member1_img1.src = `./images/diamond-logos/${diamondMember.logo}`;
+		diamond_member1_img1.src = `./members/diamond/logos/${diamondMember.logo}`;
 		diamond_member1_img1.dataset.id = `${diamondMember.id}`;
 		diamond_member1_img1.style.opacity = 1;
 		diamond_member1_img2.style.opacity = 0;
@@ -192,16 +188,17 @@ function showOverlay(box){
 		overlayLogo.src = box_active.src;
 
 		// set poster image
-		if(currentDiamondMember && currentDiamondMember.poster == '' || currentDiamondMember.poster == null || currentDiamondMember.poster == undefined || currentDiamondMember.poster.length == 0 ) {
-			overlayAd.src = `./images/diamond-ads/diamond-ad_16-9.jpg`;
-			openOverlay(20000);
-		} else {
-			let randomPoster = Math.floor(Math.random() * currentDiamondMember.poster.length);
+		if(currentDiamondMember.poster.length > 0 || currentDiamondMember.video.length >= 5) {
+			let numberOfAds = currentDiamondMember.poster.length;
+			if(currentDiamondMember.video.length >= 5) {
+				numberOfAds++;
+			}
+			let randomPoster = Math.floor(Math.random() * numberOfAds);
 
-			// check if poster is a video
-			if(currentDiamondMember.poster[randomPoster].includes('.mp4')) {
+			// random number chose video (highest random number, out of bound)
+			if( randomPoster == currentDiamondMember.poster.length ) {
 				// video embed
-				overlayAdVideo.src = `./images/diamond-ads/${currentDiamondMember.poster[randomPoster]}`;
+				overlayAdVideo.src = `./members/diamond/videos/${currentDiamondMember.video}`;
 				overlayAdVideo.load();
 				overlayAdVideo.style.position = 'relative';
 				overlayAdVideo.style.top = '0';
@@ -220,9 +217,12 @@ function showOverlay(box){
 				
 			} else {
 				// image embed
-				overlayAd.src = `./images/diamond-ads/${currentDiamondMember.poster[randomPoster]}`;
+				overlayAd.src = `./members/diamond/poster/${currentDiamondMember.poster[randomPoster]}`;
 				openOverlay(20000);
 			}
+		} else {
+			overlayAd.src = `./members/default/diamond-ad_16-9.jpg`;
+			openOverlay(20000);
 		}
 		
 	}
@@ -264,7 +264,7 @@ function hideOverlay(){
 			overlayProgress.style.width = '0%';
 			overlayProgress.style.height = '0vh';
 
-			currentPoster = 0;
+			currentAdIndex = 0;
 
 
 			overlayReadyToOpen = true;
@@ -292,7 +292,7 @@ function hideOverlayPrevent(event){
 /*******************
 * AUTO OVERLAY
 ********************/
-let currentPoster;
+let currentAdIndex;
 let diamondMembersExpanded = [];
 
 
@@ -311,6 +311,14 @@ function createDiamondMembersExpanded() {
 				})
 			}
 		}
+		if(diamondMembers[i].video && diamondMembers[i].video.length >= 5 ) {
+			diamondMembersExpanded.push({
+				id: diamondMembers[i].id,
+				name: diamondMembers[i].name,
+				logo: diamondMembers[i].logo,
+				video: diamondMembers[i].video
+			})
+		}
 	}
 }
 function openAutoOverlay(){
@@ -328,7 +336,7 @@ function openAutoOverlay(){
 		canvasPlay = false;
 
 		// reset current poster & shuffle array
-		currentPoster = 0;
+		currentAdIndex = 0;
 		shuffleArray(diamondMembersExpanded);
 
 
@@ -353,7 +361,7 @@ function nextAutoPoster(){
 	// }
 
 	// close overlay after 1st poster
-	if(currentPoster >= 1) {
+	if(currentAdIndex >= 1) {
 		hideOverlay();
 	}
 	// else show next poster
@@ -369,13 +377,13 @@ function nextAutoPoster(){
 			progresstween.kill();
 		}
 			
-		overlayLogo.src = `./images/diamond-logos/${diamondMembersExpanded[currentPoster].logo}`;
+		overlayLogo.src = `./members/diamond/logos/${diamondMembersExpanded[currentAdIndex].logo}`;
 
 
 		// check if poster is a video
-		if(diamondMembersExpanded[currentPoster].poster.includes('.mp4')) {
+		if(diamondMembersExpanded[currentAdIndex].video) {
 			// video embed
-			overlayAdVideo.src = `./images/diamond-ads/${diamondMembersExpanded[currentPoster].poster}`;
+			overlayAdVideo.src = `./members/diamond/videos/${diamondMembersExpanded[currentAdIndex].video}`;
 			overlayAdVideo.load();
 			overlayAdVideo.style.position = 'relative';
 			overlayAdVideo.style.top = '0';
@@ -397,7 +405,7 @@ function nextAutoPoster(){
 			
 		} else {
 			// image embed
-			overlayAd.src = `./images/diamond-ads/${diamondMembersExpanded[currentPoster].poster}`;
+			overlayAd.src = `./members/diamond/poster/${diamondMembersExpanded[currentAdIndex].poster}`;
 			openOverlay(10000);
 		}
 
@@ -413,7 +421,7 @@ function nextAutoPoster(){
 			nextAutoPoster();
 		}, duration);
 		
-		currentPoster++;
+		currentAdIndex++;
 	}
 }
 

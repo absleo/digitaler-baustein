@@ -3,7 +3,7 @@
 ************************/
 @font-face {
 	font-family: 'Manrope';
-	src: url('../font/Manrope-Light.ttf');
+	src: url('./font/Manrope-Light.ttf');
 	font-display: fallback;
 }
 * {

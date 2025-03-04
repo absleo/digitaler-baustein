@@ -5,42 +5,45 @@ const diamondMembers = [
 	{
 		id: 0,
 		name: 'Fabasoft',
-		logo: 'diamond_fabasoft.svg',
-		poster: []
+		logo: 'fabasoft.svg',
+		poster: [],
+		video: ''
 	},
 	{
 		id: 1,
 		name: 'ITPRO',
-		logo: 'diamond_it-pro.svg',
-		poster: [
-			'itpro_tasse.mp4'
-		]
+		logo: 'it-pro.svg',
+		poster: [],
+		video: 'itpro_tasse.mp4'
 	},
 	{
 		id: 2,
 		name: 'Linz AG',
-		logo: 'diamond_linz-ag.svg',
-		poster: []
+		logo: 'linz-ag.svg',
+		poster: [],
+		video: ''
 	},
     {
 		id: 3,
 		name: 'Primetals',
-		logo: 'diamond_primetals.svg',
+		logo: 'primetals.svg',
 		poster: [
 			'primetals.jpg',
-			'primetals.mp4'
-		]
+		],
+		video: 'primetals.mp4'
 	},
 	{
 		id: 4,
 		name: 'Sparkasse OÖ',
-		logo: 'diamond_sparkasse-ooe.svg',
-		poster: []
+		logo: 'sparkasse-ooe.svg',
+		poster: [],
+		video: ''
 	},
 	{
 		id: 5,
 		name: 'Iptor multiflex',
-		logo: 'platin_iptor.png',
-		poster: []
+		logo: 'iptor.png',
+		poster: [],
+		video: ''
 	}
 ]
