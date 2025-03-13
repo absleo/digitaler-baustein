@@ -22,7 +22,6 @@ let root = document.querySelector(':root');
 
 
 
-
 /*******************
  * CONTENT
  ******************/
@@ -69,6 +68,8 @@ thumbnail_slider.innerHTML = html_code_thumb;
 ********************/
 let main;
 let thumbnails;
+let slideDuration = 1000;
+let restartAutoplayTimeout;
 
 // rainbow colors for highlight
 let hue = 0;
@@ -80,10 +81,12 @@ function getNextRainbowColor() {
 setTimeout( ()=>{
 	main = new Splide('#main-slider', {
 		type: 'fade',
+		speed: 500,
 		heightRatio: 0.3,
 		pagination: false,
 		arrows: false,
 		cover: true,
+		pauseOnHover: false,
 		width: '80vw',
 		height: '45vw'
 	});
@@ -99,22 +102,23 @@ setTimeout( ()=>{
 		height: '8vh',
 		width: '90vw',
 		focus: 'center',
-		drag: 'free',
+		drag: true,
+		swipe: true,
 		snap: true,
 		autoplay: true,
-		interval: 5000
+		pauseOnHover: false,
+		interval: slideDuration,
+		speed: 250
 	});
 
 
-	thumbnails.on('visible', () => {
-		let randomColor = getNextRainbowColor();
-		root.style.setProperty('--highlight', randomColor);
-		console.log(1);
-	});
 	main.on('active', () => {
 		let randomColor = getNextRainbowColor();
 		root.style.setProperty('--highlight', randomColor);
-		console.log(2);
+		clearTimeout(restartAutoplayTimeout);
+		restartAutoplayTimeout = setTimeout(()=>{
+			thumbnails.Components.Autoplay.play();
+		},(slideDuration+5000))
 	});
 
 
@@ -122,18 +126,8 @@ setTimeout( ()=>{
 	thumbnails.mount( );
 	main.sync(thumbnails);
 
-	// Check if Splide instances are mounted
-	console.log('Main slider mounted:', main.Components);
-	console.log('Thumbnail slider mounted:', thumbnails.Components);
-
-	
-
-
-	
-
 },100);
 
-// const { Autoplay } = splide.Components;
-// Autoplay.pause();
+
 
 
