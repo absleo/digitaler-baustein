@@ -24,7 +24,7 @@ let stars = document.querySelector('#animatedStars');
 /*******************
 * PRELOAD
 ********************/
-let preload = `<link rel="preload" as="image" href="./members/default/diamond-ad_16-9.jpg"></link>`;
+let preload = `<link rel="preload" as="image" href="./members/default/default-ad_16-9.jpg"></link>`;
 for (let i = 0; i < diamondMembers.length; i++) {
 	preload += `<link rel="preload" as="image" href="./members/diamond/logos/${diamondMembers[i].logo}"></link>`;
 	for (let j = 0; j < diamondMembers[i].poster.length; j++) {
@@ -221,7 +221,7 @@ function showOverlay(box){
 				openOverlay(20000);
 			}
 		} else {
-			overlayAd.src = `./members/default/diamond-ad_16-9.jpg`;
+			overlayAd.src = `./members/default/default-ad_16-9.jpg`;
 			openOverlay(20000);
 		}
 		

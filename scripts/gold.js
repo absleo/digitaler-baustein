@@ -28,14 +28,14 @@ let root = document.querySelector(':root');
 let html_code_main = '';
 for (let i = 0; i < diamondMembers.length; i++) {
 	if(diamondMembers[i].poster == '' || diamondMembers[i].poster == null || diamondMembers[i].poster == undefined || diamondMembers[i].poster.length == 0 ) {
-		html_code_main += `<li class="splide__slide"><img src="./members/default/diamond-ad_16-9.jpg" alt="poster"></li>`;
+		html_code_main += `<li class="splide__slide"><img src="./members/default/default-ad_16-9.jpg" alt="poster"></li>`;
 	} else {
 		html_code_main += `<li class="splide__slide"><img src="./members/diamond/poster/${diamondMembers[i].poster[0]}" alt="poster"></li>`;
 	}
 }
 for (let i = 0; i < goldMembers.length; i++) {
 	if(goldMembers[i].poster == '' || goldMembers[i].poster == null || goldMembers[i].poster == undefined || goldMembers[i].poster.length == 0 ) {
-		html_code_main += `<li class="splide__slide"><img src="./members/default/diamond-ad_16-9.jpg" alt="poster"></li>`;
+		html_code_main += `<li class="splide__slide"><img src="./members/default/default-ad_16-9.jpg" alt="poster"></li>`;
 	} else {
 		html_code_main += `<li class="splide__slide"><img src="./members/gold/poster/${goldMembers[i].poster}" alt="poster"></li>`;
 	}
@@ -128,7 +128,7 @@ setTimeout( ()=>{
 		clearTimeout(restartAutoplayTimeout);
 		restartAutoplayTimeout = setTimeout(()=>{
 			thumbnails.Components.Autoplay.play();
-		},(slideDuration+5000))
+		},(slideDuration+3000))
 	});
 
 
