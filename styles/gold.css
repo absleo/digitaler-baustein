@@ -47,7 +47,8 @@ body {
 ************************/
 /* create a white css variable */
 :root {
-	--highlight: rgb(255,255,255);
+	--hueColor: rgb(255,255,255);
+	--hueRotate: "hue-rotate(0deg)";
 }
 .splide {
 	padding: 0;
@@ -75,6 +76,9 @@ body {
 	height: 45vw; /* 45vw */
 }
 
+#main-slider .splide__slide {
+	filter: var(--hueRotate);
+}
 
 #thumbnail-slider-wrapper {
 	width: 100%;
@@ -109,19 +113,19 @@ body {
 }
 #thumbnail-slider .splide__progress__bar {
 	height: 3px;
-	background: var(--highlight)
+	background: var(--hueColor)
 }
 #thumbnail-slider .splide__progress {
 	padding: 2.5vh 1.5vh 0 1.5vh;
-	opacity: 0; /* 0.5vh */
+	opacity: 0;
 }
 .splide__arrow {
-	opacity: 1;
+	opacity: 0.7;
 }
 .splide__arrow svg {
-	fill: var(--highlight) !important;
+	fill: var(--hueColor) !important;
 }
 .splide__track--nav>.splide__list>.splide__slide.is-active {
-	border: 3px solid var(--highlight);
+	border: 3px solid var(--hueColor);
 }
 

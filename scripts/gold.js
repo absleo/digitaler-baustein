@@ -68,20 +68,14 @@ thumbnail_slider.innerHTML = html_code_thumb;
 ********************/
 let main;
 let thumbnails;
-let slideDuration = 1000;
+let slideDuration = 3000;
 let restartAutoplayTimeout;
-
-// rainbow colors for highlight
 let hue = 0;
-function getNextRainbowColor() {
-	hue = (hue + 10) % 360;
-	return `hsl(${hue}, 50%, 50%)`;
-}
 
 setTimeout( ()=>{
 	main = new Splide('#main-slider', {
 		type: 'fade',
-		speed: 500,
+		speed: 1000,
 		heightRatio: 0.3,
 		pagination: false,
 		arrows: false,
@@ -113,8 +107,24 @@ setTimeout( ()=>{
 
 
 	main.on('active', () => {
-		let randomColor = getNextRainbowColor();
-		root.style.setProperty('--highlight', randomColor);
+		// generate next hue color
+		hue = (hue + 10) % 360;
+		let hueColor = `hsl(${hue}, 50%, 50%)`; // color:
+		let hueRotate = `hue-rotate(${hue}deg)`; // filter:
+
+		root.style.setProperty('--hueColor', hueColor);
+
+		// change hue rotate for default poster
+		let currentSlide = main.Components.Elements.slides[main.index];
+		let currentSlideImg = currentSlide.querySelector('img');
+		if(currentSlideImg.src.includes('/default/')) {
+			root.style.setProperty('--hueRotate', hueRotate);
+		} else {
+			root.style.setProperty('--hueRotate', `hue-rotate(0deg)`);
+		}
+
+
+		// restart autoplay after click
 		clearTimeout(restartAutoplayTimeout);
 		restartAutoplayTimeout = setTimeout(()=>{
 			thumbnails.Components.Autoplay.play();
