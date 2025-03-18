@@ -45,14 +45,14 @@ main_slider.innerHTML = html_code_main;
 
 let html_code_thumb = '';
 for (let i = 0; i < diamondMembers.length; i++) {
-	if(diamondMembers[i].logo == '' || diamondMembers[i].logo == null || diamondMembers[i].poster == undefined ) {
-		html_code_thumb += `<li class="splide__slide"><p>${diamondMembers[i].name}</li></p>`;
+	if(diamondMembers[i].logo == '' || diamondMembers[i].logo == null || diamondMembers[i].logo == undefined ) {
+		html_code_thumb += `<li class="splide__slide" data-splide-interval="6000" style="min-width:20vw"><p>${diamondMembers[i].name}</li></p>`;
 	} else {
-		html_code_thumb += `<li class="splide__slide"><p><img src="./members/diamond/logos/${diamondMembers[i].logo}" alt="logo"></p></li>`;
+		html_code_thumb += `<li class="splide__slide" data-splide-interval="6000" style="min-width:20vw"><p><img src="./members/diamond/logos/${diamondMembers[i].logo}" alt="logo"></p></li>`;
 	}
 }
 for (let i = 0; i < goldMembers.length; i++) {
-	if(goldMembers[i].logo == '' || goldMembers[i].logo == null || goldMembers[i].poster == undefined ) {
+	if(goldMembers[i].logo == '' || goldMembers[i].logo == null || goldMembers[i].logo == undefined ) {
 		html_code_thumb += `<li class="splide__slide"><p>${goldMembers[i].name}</p></li>`;
 	} else {
 		html_code_thumb += `<li class="splide__slide"><p><img src="./members/gold/logos/${goldMembers[i].logo}" alt="logo"></p></li>`;
@@ -68,7 +68,7 @@ thumbnail_slider.innerHTML = html_code_thumb;
 ********************/
 let main;
 let thumbnails;
-let slideDuration = 3000;
+let slideDuration = 3000; // diamond = 6000
 let restartAutoplayTimeout;
 let hue = 0;
 
@@ -93,7 +93,7 @@ setTimeout( ()=>{
 		pagination: false,
 		cover: true,
 		autoWidth: true,
-		height: '8vh',
+		height: '7vh',
 		width: '90vw',
 		focus: 'center',
 		drag: true,
@@ -124,11 +124,11 @@ setTimeout( ()=>{
 		}
 
 
-		// restart autoplay after click
+		// restart autoplay 10s after click
 		clearTimeout(restartAutoplayTimeout);
 		restartAutoplayTimeout = setTimeout(()=>{
 			thumbnails.Components.Autoplay.play();
-		},(slideDuration+3000))
+		},(10000))
 	});
 
 
