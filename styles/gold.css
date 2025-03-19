@@ -75,14 +75,30 @@ body {
 	width: 80vw;
 	height: 45vw;
 }
-
-#main-slider .splide__slide {
+#main-slider .splide__slide > div {
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+#main-slider .splide__slide .main-poster {
+	display: block;
+	width: 100%;
+	height: auto;
 	filter: var(--hueRotate);
+}
+#main-slider .splide__slide .main-poster-logo {
+	display: block;
+	width: auto;
+	height: 12vh;
+	position: absolute;
+	top: 20%;
+	left: 50%;
+	transform: translateX(-50%);
 }
 
 #thumbnail-slider-wrapper {
 	width: 100%;
-	height: 9vw;
+	height: 9vh;
 	display: grid;
 	justify-content: center;
 	align-items: center;
