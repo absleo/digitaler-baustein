@@ -52,7 +52,7 @@ for (let i = 0; i < goldMembers.length; i++) {
 main_slider.innerHTML = html_code_main;
 
 
-let slideDuration = 3000; // diamond = 6000
+let slideDuration = 7000; // diamond*2 => 14000
 let html_code_thumb = '';
 for (let i = 0; i < diamondMembers.length; i++) {
 	if(diamondMembers[i].logo == '' ) {
@@ -137,38 +137,22 @@ setTimeout( ()=>{
 			root.style.setProperty('--hueRotate', `hue-rotate(0deg)`);
 		}
 
-		console.log('new slide');
-		
-		// restart autoplay 10s after click
-		// clearTimeout(restartAutoplayTimeout);
-		// restartAutoplayTimeout = setTimeout(()=>{
-		// 	console.log('play');
-		// 	thumbnails.Components.Autoplay.play();
-		// },slideDuration*2 + 2000);
 	});
-	
-	setInterval(()=>{
-		console.log(thumbnails.Components.Autoplay.isPaused());
-	},1000);
 
 
 	/* TOUCH EVENT */
 	document.addEventListener('click', function() {
-		console.log('touch');
 		thumbnails.Components.Autoplay.pause();
 		clearTimeout(restartAutoplayTimeout);
 		restartAutoplayTimeout = setTimeout(()=>{
-			console.log('play');
 			thumbnails.Components.Autoplay.play();
 		},slideDuration*2 + 2000);
 
 	}, false);
 	document.addEventListener('touchstart', function() {
-		console.log('touch');
 		thumbnails.Components.Autoplay.pause();
 		clearTimeout(restartAutoplayTimeout);
 		restartAutoplayTimeout = setTimeout(()=>{
-			console.log('play');
 			thumbnails.Components.Autoplay.play();
 		},slideDuration*2 + 2000);
 
