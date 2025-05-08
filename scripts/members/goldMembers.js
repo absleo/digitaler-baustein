@@ -14,7 +14,7 @@ const goldMembers = [
 	{ name: 'Eisenbeiss GmbH', logo: 'eisenbeiss.png', poster: '' },
 	{ name: 'ENGEL AUSTRIA GmbH', logo: 'engel.jpg', poster: '' },
 	{ name: 'epunkt GmbH', logo: 'epunkt.png', poster: '' },
-	{ name: 'FH OÖ Hagenberg, IT GmbH', logo: 'fhooe.png', poster: '' },
+	{ name: 'FH OÖ Hagenberg, IT GmbH', logo: 'fhooe.png', poster: 'fhooe.jpg' },
 	{ name: 'Herbsthofer GmbH', logo: 'herbsthofer.png', poster: '' },
 	{ name: 'HÖDLMAYR INTERNATIONAL AG', logo: 'hoedlmayr.png', poster: '' },
 	{ name: 'IBM ix Austria GmbH', logo: 'ibm-ix.png', poster: '' },
