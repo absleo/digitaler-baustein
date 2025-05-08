@@ -52,7 +52,7 @@ for (let i = 0; i < goldMembers.length; i++) {
 main_slider.innerHTML = html_code_main;
 
 
-let slideDuration = 7000; // diamond*2 => 14000
+let slideDuration = 8000; // diamond*2 => 16000
 let html_code_thumb = '';
 for (let i = 0; i < diamondMembers.length; i++) {
 	if(diamondMembers[i].logo == '' ) {

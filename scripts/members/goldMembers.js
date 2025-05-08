@@ -28,7 +28,7 @@ const goldMembers = [
 	{ name: 'ÖGK, IKT OÖ', logo: 'ikt.png', poster: '' },
 	{ name: 'PROGRAMMIERFABRIK GmbH', logo: 'programmierfabrik.png', poster: '' },
 	{ name: 'Raiffeisenlandesbank OÖ Aktiengesellschaft', logo: 'raiffeisen.png', poster: 'raitec.jpg' },
-	{ name: 'solvistas GmbH', logo: 'solvistas.png', poster: '' },
+	{ name: 'solvistas GmbH', logo: 'solvistas.png', poster: 'solvistas.jpg' },
 	{ name: 'Sprecher Automation GmbH', logo: 'sprecher-automation.png', poster: '' },
 	{ name: 'STIWA Holding GmbH', logo: 'stiwa.png', poster: '' },
 	{ name: 'TeamViewer Austria GmbH', logo: 'teamviewer.png', poster: '' },
