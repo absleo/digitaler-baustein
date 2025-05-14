@@ -1,5 +1,6 @@
 
 const goldMembers = [
+	{ name: '3 Banken IT', logo: '3bankenit.png', poster: '3Bankenit.jpg'},
 	{ name: 'Alpine Metal Tech GmbH', logo: 'alpine-metal-tech.png', poster: ''},
 	{ name: 'Avocodo GmbH' , logo: 'avocodo.png', poster: '' },
 	{ name: 'BARMHERZIGE BRÜDER Krankenhaus Linz', logo: 'barmherzige-brueder.png', poster: '' },
@@ -12,7 +13,7 @@ const goldMembers = [
 	{ name: 'COUNT IT GmbH', logo: 'count-it.png', poster: '' },
 	{ name: 'Ebner Media & Management GmbH', logo: 'ebner-media.png', poster: '' },
 	{ name: 'Eisenbeiss GmbH', logo: 'eisenbeiss.png', poster: '' },
-	{ name: 'ENGEL AUSTRIA GmbH', logo: 'engel.jpg', poster: '' },
+	{ name: 'ENGEL AUSTRIA GmbH', logo: 'engel.jpg', poster: 'engel.jpg' },
 	{ name: 'epunkt GmbH', logo: 'epunkt.png', poster: '' },
 	{ name: 'FH OÖ Hagenberg, IT GmbH', logo: 'fhooe.png', poster: 'fhooe.jpg' },
 	{ name: 'Herbsthofer GmbH', logo: 'herbsthofer.png', poster: '' },
