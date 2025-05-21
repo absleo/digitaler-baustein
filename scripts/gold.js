@@ -52,11 +52,11 @@ for (let i = 0; i < goldMembers.length; i++) {
 main_slider.innerHTML = html_code_main;
 
 
-let slideDuration = 8000; // diamond*2 => 16000
+let slideDuration = 8000; // MEMBERS WITH ACTIVE POSTERS *2 => 16000
 let html_code_thumb = '';
 for (let i = 0; i < diamondMembers.length; i++) {
 	if(diamondMembers[i].logo == '' ) {
-		html_code_thumb += `<li class="splide__slide" data-splide-interval="${slideDuration*2}" style="min-width:20vw"><p>${diamondMembers[i].name}</li></p>`;
+		html_code_thumb += `<li class="splide__slide" data-splide-interval="${slideDuration}" style="min-width:20vw"><p>${diamondMembers[i].name}</li></p>`;
 	} else {
 		html_code_thumb += `<li class="splide__slide" data-splide-interval="${slideDuration*2}" style="min-width:20vw"><p><img src="./members/diamond/logos/${diamondMembers[i].logo}" alt="logo"></p></li>`;
 	}
@@ -65,7 +65,7 @@ for (let i = 0; i < goldMembers.length; i++) {
 	if(goldMembers[i].logo == '' ) {
 		html_code_thumb += `<li class="splide__slide" data-splide-interval="${slideDuration}" style="min-width:20vw"><p>${goldMembers[i].name}</p></li>`;
 	} else {
-		html_code_thumb += `<li class="splide__slide" data-splide-interval="${slideDuration}" style="min-width:20vw"><p><img src="./members/gold/logos/${goldMembers[i].logo}" alt="logo"></p></li>`;
+		html_code_thumb += `<li class="splide__slide" data-splide-interval="${slideDuration*2}" style="min-width:20vw"><p><img src="./members/gold/logos/${goldMembers[i].logo}" alt="logo"></p></li>`;
 	}
 }
 thumbnail_slider.innerHTML = html_code_thumb;
