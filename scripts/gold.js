@@ -27,45 +27,41 @@ let root = document.querySelector(':root');
  ******************/
 let html_code_main = '';
 for (let i = 0; i < diamondMembers.length; i++) {
-	if(diamondMembers[i].poster == '' || diamondMembers[i].poster.length == 0 ) {
-		if(diamondMembers[i].logo != '') {
-			html_code_main += `<li class="splide__slide"><div><img src="./members/default/default-ad_16-9.jpg" alt="poster" class="main-poster"><img src="./members/diamond/logos/${diamondMembers[i].logo}" class="main-poster-logo" alt="logo"></div></li>`;
-		} else {
-			html_code_main += `<li class="splide__slide"><div><img src="./members/default/default-ad_16-9.jpg" alt="poster" class="main-poster"></div></li>`;
-		}
+	if(diamondMembers[i].poster.length == 0 ) {
+		// default poster
+		html_code_main += `<li class="splide__slide"><div><img src="./members/default/default-ad_16-9.jpg" alt="poster" class="main-poster"><img src="./members/diamond/logos/${diamondMembers[i].logo}" class="main-poster-logo" alt="logo"></div></li>`;
 	} else {
+		// random poster from array
 		let rand = Math.floor(Math.random()*diamondMembers[i].poster.length);
 		html_code_main += `<li class="splide__slide"><div><img src="./members/diamond/poster/${diamondMembers[i].poster[rand]}" alt="poster" class="main-poster"></div></li>`;
 	}
 }
 for (let i = 0; i < goldMembers.length; i++) {
-	if(goldMembers[i].poster == '' || goldMembers[i].poster.length == 0 ) {
-		if(goldMembers[i].logo != '') {
-			html_code_main += `<li class="splide__slide"><div><img src="./members/default/default-ad_16-9.jpg" alt="poster" class="main-poster"><img src="./members/gold/logos/${goldMembers[i].logo}" class="main-poster-logo" alt="logo"></div></li>`;
-		} else {
-			html_code_main += `<li class="splide__slide"><div><img src="./members/default/default-ad_16-9.jpg" alt="poster" class="main-poster"></div></li>`;
-		}
+	if(goldMembers[i].poster == '') {
+		// default poster
+		html_code_main += `<li class="splide__slide"><div><img src="./members/default/default-ad_16-9.jpg" alt="poster" class="main-poster"><img src="./members/gold/logos/${goldMembers[i].logo}" class="main-poster-logo" alt="logo"></div></li>`;
 	} else {
+		// show poster
 		html_code_main += `<li class="splide__slide"><div><img src="./members/gold/poster/${goldMembers[i].poster}" alt="poster" class="main-poster"></div></li>`;
 	}
 }
 main_slider.innerHTML = html_code_main;
 
 
-let slideDuration = 8000; // MEMBERS WITH ACTIVE POSTERS *2 => 16000
+let slideDuration = 5000; // MEMBERS WITH ACTIVE POSTERS *3 => 15000
 let html_code_thumb = '';
 for (let i = 0; i < diamondMembers.length; i++) {
-	if(diamondMembers[i].logo == '' ) {
-		html_code_thumb += `<li class="splide__slide" data-splide-interval="${slideDuration}" style="min-width:20vw"><p>${diamondMembers[i].name}</li></p>`;
+	if(diamondMembers[i].poster.length == 0) {
+		html_code_thumb += `<li class="splide__slide" data-splide-interval="${slideDuration}" style="min-width:20vw"><p><img src="./members/diamond/logos/${diamondMembers[i].logo}" alt="logo"></p></li>`;
 	} else {
-		html_code_thumb += `<li class="splide__slide" data-splide-interval="${slideDuration*2}" style="min-width:20vw"><p><img src="./members/diamond/logos/${diamondMembers[i].logo}" alt="logo"></p></li>`;
+		html_code_thumb += `<li class="splide__slide" data-splide-interval="${slideDuration*3}" style="min-width:20vw"><p><img src="./members/diamond/logos/${diamondMembers[i].logo}" alt="logo"></p></li>`;
 	}
 }
 for (let i = 0; i < goldMembers.length; i++) {
-	if(goldMembers[i].logo == '' ) {
-		html_code_thumb += `<li class="splide__slide" data-splide-interval="${slideDuration}" style="min-width:20vw"><p>${goldMembers[i].name}</p></li>`;
+	if(goldMembers[i].poster == '') {
+		html_code_thumb += `<li class="splide__slide" data-splide-interval="${slideDuration}" style="min-width:20vw"><p><img src="./members/gold/logos/${goldMembers[i].logo}" alt="logo"></p></li>`;
 	} else {
-		html_code_thumb += `<li class="splide__slide" data-splide-interval="${slideDuration*2}" style="min-width:20vw"><p><img src="./members/gold/logos/${goldMembers[i].logo}" alt="logo"></p></li>`;
+		html_code_thumb += `<li class="splide__slide" data-splide-interval="${slideDuration*3}" style="min-width:20vw"><p><img src="./members/gold/logos/${goldMembers[i].logo}" alt="logo"></p></li>`;
 	}
 }
 thumbnail_slider.innerHTML = html_code_thumb;
@@ -146,7 +142,7 @@ setTimeout( ()=>{
 		clearTimeout(restartAutoplayTimeout);
 		restartAutoplayTimeout = setTimeout(()=>{
 			thumbnails.Components.Autoplay.play();
-		},slideDuration*2 + 2000);
+		},slideDuration*3.5);
 
 	}, false);
 	document.addEventListener('touchstart', function() {
@@ -154,7 +150,7 @@ setTimeout( ()=>{
 		clearTimeout(restartAutoplayTimeout);
 		restartAutoplayTimeout = setTimeout(()=>{
 			thumbnails.Components.Autoplay.play();
-		},slideDuration*2 + 2000);
+		},slideDuration*3.5);
 
 	}, false);
 
