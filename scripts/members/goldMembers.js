@@ -22,6 +22,7 @@ const goldMembers = [
 	{ name: 'IGS Systemmanagement GmbH & CO KG', logo: 'isglogo.png', poster: '' },
 	{ name: 'KEBA Group AG', logo: 'keba.png', poster: '' },
 	{ name: 'KE KELIT', logo: 'kekelit.png', poster: 'kekelit.jpg' },
+	{ name: 'KE KELIT', logo: 'kreisel.png', poster: 'kreisel.jpg' },
 	{ name: 'Latschbacher GmbH - WinforstPro', logo: 'latschbacher-winforstpro.jpg', poster: '' },
 	{ name: 'Miba AG', logo: 'miba.png', poster: '' },
 	{ name: 'MIC', logo: 'mic.png', poster: 'mic.jpeg' },
