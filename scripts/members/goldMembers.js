@@ -12,7 +12,7 @@ const goldMembers = [
 	{ name: 'Cloudflight Austria GmbH', logo: 'cloudflight.png', poster: '' },
 	{ name: 'COUNT IT GmbH', logo: 'count-it.png', poster: 'countit.jpg' },
 	{ name: 'Ebner Media & Management GmbH', logo: 'ebner-media.png', poster: '' },
-	{ name: 'Eisenbeiss GmbH', logo: 'eisenbeiss.png', poster: '' },
+	{ name: 'Eisenbeiss GmbH', logo: 'eisenbeiss.png', poster: 'eisenbeiss.jpg' },
 	{ name: 'ENGEL AUSTRIA GmbH', logo: 'engel.jpg', poster: 'engel.jpg' },
 	{ name: 'epunkt GmbH', logo: 'epunkt.png', poster: 'epunkt.jpg' },
 	{ name: 'FH OÖ Hagenberg, IT GmbH', logo: 'fhooe.png', poster: 'fhooe.jpg' },
