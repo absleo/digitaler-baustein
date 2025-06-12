@@ -3,7 +3,7 @@ const goldMembers = [
 	{ name: '3 Banken IT', logo: '3bankenit.png', poster: '3Bankenit.jpg'},
 	{ name: 'Alpine Metal Tech GmbH', logo: 'alpine-metal-tech.png', poster: ''},
 	{ name: 'Avocodo GmbH' , logo: 'avocodo.png', poster: '' },
-	{ name: 'BARMHERZIGE BRÜDER Krankenhaus Linz', logo: 'barmherzige-brueder.png', poster: '' },
+	{ name: 'BARMHERZIGE BRÜDER Krankenhaus Linz', logo: 'barmherzige-brueder.png', poster: 'bhb-linz.jpg' },
 	{ name: 'BMD Systemhaus', logo: 'bmd_business_software.png', poster: 'BMD.jpg' },
 	{ name: 'CBCX Technologies GmbH', logo: 'cbcx.png', poster: '' },
 	{ name: 'CGM Clinical Österreich GmbH', logo: 'cgm.webp', poster: '' },
