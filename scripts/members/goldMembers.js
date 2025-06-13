@@ -20,7 +20,7 @@ const goldMembers = [
 	{ name: 'HÖDLMAYR INTERNATIONAL AG', logo: 'hoedlmayr.png', poster: 'hoedlmayr.png' },
 	{ name: 'IBM ix Austria GmbH', logo: 'ibm-ix.png', poster: '' },
 	{ name: 'IGS Systemmanagement GmbH & CO KG', logo: 'isglogo.png', poster: '' },
-	{ name: 'KEBA Group AG', logo: 'keba.png', poster: '' },
+	{ name: 'KEBA Group AG', logo: 'keba.png', poster: 'keba.jpg' },
 	{ name: 'KE KELIT', logo: 'kekelit.png', poster: 'kekelit.jpg' },
 	{ name: 'KE KELIT', logo: 'kreisel.png', poster: 'kreisel.jpg' },
 	{ name: 'Latschbacher GmbH - WinforstPro', logo: 'latschbacher-winforstpro.jpg', poster: '' },
