@@ -15,7 +15,6 @@ const goldMembers = [
 	{ name: 'Eisenbeiss GmbH', logo: 'eisenbeiss.png', poster: 'eisenbeiss.jpg' },
 	{ name: 'ENGEL AUSTRIA GmbH', logo: 'engel.jpg', poster: 'engel.jpg' },
 	{ name: 'epunkt GmbH', logo: 'epunkt.png', poster: 'epunkt.jpg' },
-	{ name: 'FH OÖ Hagenberg, IT GmbH', logo: 'fhooe.png', poster: 'fhooe.jpg' },
 	{ name: 'Herbsthofer GmbH', logo: 'herbsthofer.png', poster: '' },
 	{ name: 'HÖDLMAYR INTERNATIONAL AG', logo: 'hoedlmayr.png', poster: 'hoedlmayr.png' },
 	{ name: 'IBM ix Austria GmbH', logo: 'ibm-ix.png', poster: '' },
@@ -38,7 +37,7 @@ const goldMembers = [
 	{ name: 'technosert electronic GmbH', logo: 'technosert.png', poster: '' },
 	{ name: 'TRAUNER Verlag + Buchservice GmbH', logo: 'trauner.png', poster: 'ttrauner.jpg' },
 	{ name: 'TRUMPF Maschinen Austria GmbH + Co. KG', logo: 'trumpf.png', poster: '' },
-	{ name: 'Uni Software Plus GmbH', logo: 'unisoftwareplus.png', poster: '' },
+	{ name: 'Uni Software Plus GmbH', logo: 'unisoftwareplus.png', poster: 'usp.jpg' },
 	{ name: 'Wacker Neuson Linz GmbH', logo: 'wacker-neuson.png', poster: '' },
 	{ name: 'Wirtschaftskammer Oberösterreich', logo: 'wkooe.png', poster: 'wkooe.jpg' }
   ]

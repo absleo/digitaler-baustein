@@ -45,5 +45,18 @@ const diamondMembers = [
 		logo: 'iptor.png',
 		poster: [],
 		video: ''
-	}
+	},
+	{
+		id: 6,
+		name: 'FH Oberösterreich',
+		logo: 'fhooe.png',
+		poster: [
+			'FHO_1.jpg',
+			'FHO_2.jpg',
+			'FHO_3.jpg',
+			'FHO_4.jpg',
+			'FHO_5.jpg'			
+		],
+		video: ''
+	},
 ]
