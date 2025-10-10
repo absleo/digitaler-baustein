@@ -57,6 +57,6 @@ const diamondMembers = [
 			'FHO_4.jpg',
 			'FHO_5.jpg'			
 		],
-		video: ''
+		video: 'fhooe-partnerscreen.mp4'
 	},
 ]
