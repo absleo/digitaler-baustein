@@ -59,4 +59,11 @@ const diamondMembers = [
 		],
 		video: 'fhooe-partnerscreen.mp4'
 	},
+	{
+		id: 7,
+		name: 'Nimbuscloud',
+		logo: 'nimbuscloud.svg',
+		poster: [],
+		video: ''
+	},
 ]
