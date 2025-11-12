@@ -17,55 +17,82 @@ body {
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
-	background: #000;
+	background: linear-gradient(135deg, #000000, #050505, #0a0a0a, #2a2a2a, #0a0a0a, #050505, #000000);
+	background-size: 400% 400%;
+	animation: gradientShift 24s ease-in-out 0.5s infinite;
 	color: #fff;
 	font-family: 'Manrope', serif;
 	position: relative;	
 }
 
-
-
-
-/***************************
-* BACKGROUND: ANIMATED STARS
-***************************/
-#animatedStars {
-    position: fixed;
-    width: 200vw; /* Twice the viewport width */
-    height: 200vh; /* Twice the viewport height */
-    top: 0;
-    left: 0;
-	z-index: 1;
-    pointer-events: none;
-    background: url('./../images/stars.jpg') repeat;
-    background-size: 100vw 100vh; /* Exactly one viewport size */
-    animation: starsMove 180s linear infinite;
-    will-change: transform;
+@keyframes gradientShift {
+	0% {
+		background-position: 0% 50%;
+	}
+	5% {
+		background-position: 100% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	55% {
+		background-position: 0% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
-
-@keyframes starsMove {
-    0% {
-        transform: translate3d(0, 0, 0);
-    }
-    100% {
-        transform: translate3d(-100vw, -100vh, 0); /* Moves exactly one viewport, creating a loop */
-    }
-}
-
 
 
 
 
 /************************
-* TEXT: Particles System
+* DATENSTROM CSS
 ************************/
-#gold-members {
+.datastream-container {
 	position: absolute;
-	top: 3vh;
-	left: 4vw;
-	width: 90vw;
-	height: 90vh;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
 	z-index: 10;
+	overflow: hidden;
+	pointer-events: none;
+}
+
+.datastream-lane {
+	position: absolute;
+	left: 0;
+	width: max-content;
+	white-space: nowrap;
+	font-size: 14px;
+	color: rgb(102, 102, 102);
+	text-shadow: 0 0 10px rgba(102, 102, 102, 0.5);
+}
+
+.datastream-lane span {
+	display: inline-block;
+	padding: 0 120px; /* Smaller space between names */
+}
+
+/* Animations for different lanes */
+.datastream-lane.direction-right {
+	animation: marqueeRight 120s linear infinite;
+}
+
+.datastream-lane.direction-left {
+	animation: marqueeLeft 90s linear infinite;
+}
+
+/* Seamless marquee animations (no gap at loop) */
+@keyframes marqueeLeft {
+	from { transform: translateX(0); }
+	to   { transform: translateX(-50%); }
+}
+
+@keyframes marqueeRight {
+	from { transform: translateX(-50%); }
+	to   { transform: translateX(0); }
 }
 
 
@@ -132,19 +159,6 @@ body {
 	height: 7vh;
 	padding: 1vh;
 	cursor: pointer;
-}
-.diamond-member .barFader {
-	display: inline-block;
-	width: 3px;
-	height: 9.5vh;
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	margin: 0 auto;
-	overflow: hidden;
-	background-color: #fff;
-	background: radial-gradient(circle, rgba(170,170,170,1) 0%, rgba(255,255,255,1) 100%);
 }
 
 
@@ -258,7 +272,8 @@ body {
 	bottom: 1.5vh;
 	left: 1.5vh;
 	z-index: 100;
-	display: flex;
+	/* display: flex; */
+	display: none;
 	align-items: center;
 	opacity: 0.5;
 	transform: scale(1);

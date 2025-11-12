@@ -17,7 +17,6 @@
  ******************/
 let diamond_member1_img1 = document.querySelector(`#diamond-member-1_img1`);
 let diamond_member1_img2 = document.querySelector(`#diamond-member-1_img2`);
-let stars = document.querySelector('#animatedStars');
 
 
 
@@ -48,16 +47,16 @@ newMembers();
 function newMembers(){
 	shuffleArray(diamondMembers);
 
-	imageAnimateFader(diamondMembers[0]);
+	mainmemberAnimateFader(diamondMembers[0]);
 	
 	memberTimeout = setTimeout( ()=>{
-		textAnimateBar('#diamond-member-2', diamondMembers[1]);
-		textAnimateBar('#diamond-member-3', diamondMembers[2]);
-		textAnimateBar('#diamond-member-4', diamondMembers[3]);
-		textAnimateBar('#diamond-member-5', diamondMembers[4]);
-		textAnimateBar('#diamond-member-6', diamondMembers[5]);
-		textAnimateBar('#diamond-member-7', diamondMembers[6]);
-	}, 1000)
+		sidememberAnimateFader('#diamond-member-2', diamondMembers[1]);
+		sidememberAnimateFader('#diamond-member-3', diamondMembers[2]);
+		sidememberAnimateFader('#diamond-member-4', diamondMembers[3]);
+		sidememberAnimateFader('#diamond-member-5', diamondMembers[4]);
+		sidememberAnimateFader('#diamond-member-6', diamondMembers[5]);
+		sidememberAnimateFader('#diamond-member-7', diamondMembers[6]);
+	}, 500)
 	
 }
 
@@ -67,37 +66,31 @@ function newMembers(){
 
 
 /*******************
-* BAR TEXT ANIMATION
+* FADE TEXT ANIMATION
 ********************/
-function textAnimateBar(htmlBox, diamondMember) {
+function sidememberAnimateFader(htmlBox, diamondMember) {
+    // Set new image in txt2
     document.querySelector(`${htmlBox} .txt2`).innerHTML = `<img src="./members/diamond/logos/${diamondMember.logo}" data-id="${diamondMember.id}" alt="">`;
 
-	setTimeout( ()=>{
-		let boxWidth = 0;
-		if(document.querySelector(`${htmlBox} .txt img`)){
-			boxWidth = document.querySelector(`${htmlBox} .txt img`).clientWidth;
-		}
-		let boxWidth2 = 0;
-		if(document.querySelector(`${htmlBox} .txt2 img`)){
-			boxWidth2 = document.querySelector(`${htmlBox} .txt2 img`).clientWidth;
-		}
-		if(boxWidth2 > boxWidth) {
-			boxWidth = boxWidth2;
-		}
+    // Fade out txt (current image) with slight scale down
+    gsap.timeline({ delay: 0, repeat: 0 })
+        .set(`${htmlBox} .txt`, { opacity: 1, scale: 1, immediateRender: true })
+        .to(`${htmlBox} .txt`, { duration: 1.2, opacity: 0, scale: 0.9, ease: Power4.easeInOut })
 
-		gsap.timeline({ delay: 0, repeat: 0, ease: Power1.easeInOut })
-			.set(`${htmlBox} .txt`, { opacity: 1, x: 0, immediateRender: true })
-			.set(`${htmlBox} .barFader`, { x: 0, width: 0, immediateRender: true })
+    // Fade in txt2 (new image) with scale up from larger
+    gsap.timeline({ delay: 0, repeat: 0 })
+        .set(`${htmlBox} .txt2`, { opacity: 0, scale: 1.15, immediateRender: true })
+        .to(`${htmlBox} .txt2`, { duration: 1.2, opacity: 1, scale: 1, ease: Power4.easeInOut })
 
-			.to(`${htmlBox} .barFader`, { duration: 0.6, width: boxWidth, ease: Power4.easeInOut })
-
-			.set(`${htmlBox} .txt`, { opacity: 1, innerHTML: `<img src="./members/diamond/logos/${diamondMember.logo}" data-poster="${diamondMember.poster}" alt="">` })
-			
-			.to(`${htmlBox} .barFader`, { duration: 0.4, x: boxWidth/2, width: 0, ease: Power4.easeInOut })
-		
-	}, 1)
-    
+    // After animation completes, swap images and reset
+    setTimeout(() => {
+        document.querySelector(`${htmlBox} .txt`).innerHTML = `<img src="./members/diamond/logos/${diamondMember.logo}" data-id="${diamondMember.id}" alt="">`;
+        document.querySelector(`${htmlBox} .txt`).style.opacity = 1;
+        document.querySelector(`${htmlBox} .txt`).style.transform = 'scale(1)';
+        document.querySelector(`${htmlBox} .txt2`).style.opacity = 0;
+    }, 1300)
 }
+
 
 
 
@@ -105,28 +98,29 @@ function textAnimateBar(htmlBox, diamondMember) {
 /*******************
 * FADE IMAGE ANIMATION
 ********************/
-function imageAnimateFader(diamondMember) {
+function mainmemberAnimateFader(diamondMember) {
 	diamond_member1_img2.src = `./members/diamond/logos/${diamondMember.logo}`;
 	diamond_member1_img2.dataset.id = `${diamondMember.id}`;
     
 
-    gsap.timeline({ delay: 0, repeat: 0, ease: Power1.easeInOut })
-        .set(`#diamond-member-1_img1`, { opacity: 1, immediateRender: true })
+    gsap.timeline({ delay: 0, repeat: 0 })
+        .set(`#diamond-member-1_img1`, { opacity: 1, scale: 1, immediateRender: true })
+        .to(`#diamond-member-1_img1`, { duration: 2.5, opacity: 0, scale: 0.9, ease: Power4.easeInOut })
 
-        .to(`#diamond-member-1_img1`, { duration: 3, opacity: 0, ease: Power4.easeInOut })
-
-	gsap.timeline({ delay: 0, repeat: 0, ease: Power1.easeInOut })
-        .set(`#diamond-member-1_img2`, { opacity: 0, immediateRender: true })
-        .to(`#diamond-member-1_img2`, { duration: 3, opacity: 1, ease: Power4.easeInOut })
+	gsap.timeline({ delay: 0, repeat: 0 })
+        .set(`#diamond-member-1_img2`, { opacity: 0, scale: 1.15, immediateRender: true })
+        .to(`#diamond-member-1_img2`, { duration: 2.5, opacity: 1, scale: 1, ease: Power4.easeInOut })
 
 	setTimeout( ()=> {
 		diamond_member1_img1.src = `./members/diamond/logos/${diamondMember.logo}`;
 		diamond_member1_img1.dataset.id = `${diamondMember.id}`;
 		diamond_member1_img1.style.opacity = 1;
+		diamond_member1_img1.style.transform = 'scale(1)';
 		diamond_member1_img2.style.opacity = 0;
-	},3500)
+	}, 2600)
     
 }
+
 
 
 
@@ -157,7 +151,6 @@ function showOverlay(box){
 		.to(overlayProgress, { duration: duration/1000, width: '100%', ease: 'none'})
 
 		setTimeout(()=>{
-			stars.style.animation = "none";
 			overlayReadyToClose = true;
 		}, 600);
 
@@ -175,7 +168,10 @@ function showOverlay(box){
 		clearInterval(memberInterval);
 
 		overlayReadyToOpen = false;
-		canvasPlay = false;
+		
+		// Stop animation
+		document.body.style.animation = 'none';
+		document.body.offsetHeight;
 
 
 		let box_active = box;
@@ -238,13 +234,7 @@ function hideOverlay(){
 
 		overlayReadyToClose = false;
 		overlay.style.opacity = 0;
-		
-		// Continue with the canvas animation
-		setTimeout(()=>{
-			stars.style.animation = "starsMove 180s linear infinite";
-			canvasPlay = true;
-			window.requestAnimationFrame(animateFrameLoop);
-		}, 100);
+
 
 		// Hide overlay
 		setTimeout(()=>{
@@ -275,7 +265,11 @@ function hideOverlay(){
 		timeoutContinue = setTimeout( ()=> {
 			newMembers();
 			memberInterval = setInterval(newMembers, 12*1000);
-		}, 5000)
+			
+			// Reset CSS gradient animation to sync with member interval
+			document.body.style.animation = 'gradientShift 24s ease-in-out 0.5s infinite';
+			
+		}, 6000)
 
 		// Continue with the auto overlay
 		autoOverlayInterval = setInterval(openAutoOverlay, 5*60*1000);
@@ -334,7 +328,6 @@ function openAutoOverlay(){
 		clearInterval(memberInterval);
 		
 		overlayReadyToOpen = false;
-		canvasPlay = false;
 
 		// reset current poster & shuffle array
 		currentAdIndex = 0;
@@ -349,7 +342,6 @@ function openAutoOverlay(){
 		
 
 		setTimeout(()=>{
-			stars.style.animation = "none";
 			overlayReadyToClose = true;
 		}, 600);
 		
@@ -432,193 +424,60 @@ function nextAutoPoster(){
 
 
 /*******************
-* GOLD MEMBERS CANVAS
+* GOLD MEMBERS - CSS DATENSTROM
 ********************/
-const canvas = document.getElementById("gold-members");
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let particlesArray;
-let particlesHuesArray;
-let particlesFontsizeArray;
-let particlesStepsArray;
-let options = {};
-
-let startColor = 102;
-
-let canvasPlay = true;
-
-
-class Particle {
-    constructor(x, y, moveX, moveY, name, pColor, pSize, tColor, tSize) {
-        this.pointX = x;
-        this.pointY = y;
-        this.moveX = moveX;
-        this.moveY = moveY;
-        this.name = name;
-        this.particleSize = pSize;
-        this.particleColor = pColor;
-        this.textSize = tSize;
-        this.textColor = tColor;
-        this.halfTextWidth = 0;
-    }
-
-    plot() {
-        ctx.beginPath();
-        if (this.particleSize > 0) {
-            ctx.arc(this.pointX, this.pointY, this.particleSize, 0, Math.PI * 2);
-            ctx.fillStyle = `rgb(${this.particleColor},${this.particleColor},${this.particleColor})`;
-            ctx.fill();
-        }
-        ctx.font = `${this.textSize}px sans-serif`;
-        ctx.fillStyle = `rgb(${this.textColor},${this.textColor},${this.textColor})`;
-        this.halfTextWidth = ctx.measureText(this.name).width / 2;
-        ctx.fillText(this.name, this.pointX, this.pointY);
-
-    }
-
-    update() {
-        if (this.pointX > canvas.width - this.halfTextWidth || this.pointX < this.halfTextWidth) this.moveX = -this.moveX;
-        if (this.pointY > canvas.height || this.pointY < this.textSize) this.moveY = -this.moveY;
-        this.pointX += this.moveX;
-        this.pointY += this.moveY;
-        this.plot();
-    }
-}
-
-function accelerate(opt) {
-    options = opt;
-    options.maxSpeed = opt.speed || 2; // number: positive speed
-    options.minSpeed = -opt.speed || -2; // number: negative speed
-    options.particleColor = opt.particleColor || 136; //number
-    options.particleSize = opt.particleSize || 0, // number: particle size, default=0 (not shown)
-    options.textColor = opt.textColor || 136; // number
-    options.textList = opt.textList || ["Gold", "Platin", "Diamond"]; // string: list of strings separated with a comma and a space
-    options.textSize = opt.textSize || 24; // number: positive
-    reset(options);
-    animateFrameLoop();
-}
-
-function reset(opt) {
-    particlesArray = [];
-	particlesHuesArray = [];
-	particlesFontsizeArray = [];
-	particlesStepsArray = [];
-    ctx.textAlign = "center";
-    let numberOfParticles = opt.textList.length;
-    let innerMargin = 100;
-    for (let i = 0; i < numberOfParticles; i++) {
-        let x = Math.random() * (canvas.width - innerMargin * 2) + innerMargin;
-        let y = Math.random() * (canvas.height - innerMargin * 2) + innerMargin;
-        let moveX = Math.random() * (opt.maxSpeed - opt.minSpeed) + opt.minSpeed;
-        let moveY = Math.random() * (opt.maxSpeed - opt.minSpeed) + opt.minSpeed;
-        particlesArray.push(new Particle(x, y, moveX, moveY, opt.textList[i], opt.particleColor, opt.particleSize, opt.textColor, opt.textSize));
-		particlesHuesArray.push(opt.textColor);
-		particlesFontsizeArray.push(opt.textSize);
-		particlesStepsArray.push(0);
-	}
-}
-
-function animateFrameLoop() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    let len = particlesArray.length;
-    for (let i = 0; i < len; i++) {
-
-		let rand = Math.floor(Math.random()*250);
-		if(rand == 50 && particlesStepsArray[i] == 0) {
-			particlesStepsArray[i] = 1;
-		}
-
-		let step = particlesStepsArray[i];
-		// DO NOTHING
-		if (step == 0) { }
-		// INCREASE
-		else if( step < 70 ) {
-			particlesHuesArray[i]+=1;
-			particlesFontsizeArray[i]+=.005;
-			particlesStepsArray[i]+=1;
-
-			particlesArray[i].textColor = particlesHuesArray[i];
-			particlesArray[i].textSize = particlesFontsizeArray[i];
-		}
-		// DECREASE
-		else if( step < 140) {
-			particlesHuesArray[i]-=1;
-			particlesFontsizeArray[i]-=.005;
-			particlesStepsArray[i]+=1;
-
-			particlesArray[i].textColor = particlesHuesArray[i];
-			particlesArray[i].textSize = particlesFontsizeArray[i];
-		}
-		// FINISHED
-		else {
-			particlesStepsArray[i] = 0;
-			particlesHuesArray[i] = startColor;
-			particlesFontsizeArray[i] = 12;
-		}
-
-        particlesArray[i].update();
-    }
-    connect();
-	// only execute if overlay is not open
-	if(canvasPlay) {
-		window.requestAnimationFrame(animateFrameLoop);
-	}
-    
-}
-
-function connect() {
-    let opacity;
-    let rgb = 68;
-    let startOpacity = 1;
-    let distanceOpacity = 20;
-    let area = canvas.width * canvas.height;
-    for (let a = 0; a < particlesArray.length; a++) {
-        for (let b = a; b < particlesArray.length; b++) {
-            let distance = ((particlesArray[a].pointX - particlesArray[b].pointX) * (particlesArray[a].pointX - particlesArray[b].pointX)
-                + (particlesArray[a].pointY - particlesArray[b].pointY) * (particlesArray[a].pointY - particlesArray[b].pointY));
-            if (distance < area) {
-                opacity = startOpacity - distance / (10000*distanceOpacity);
-                ctx.strokeStyle = `rgba(${rgb},${rgb},${rgb}, ${opacity})`;
-                ctx.lineWidth = 1;
-                ctx.beginPath();
-                ctx.moveTo(particlesArray[a].pointX, particlesArray[a].pointY);
-                ctx.lineTo(particlesArray[b].pointX, particlesArray[b].pointY);
-                ctx.stroke();
-            }
-        }
-    }
-}
-
-window.addEventListener('resize',() => {
-	canvas.width = window.innerWidth;
-	canvas.height = window.innerHeight;
-	reset(options);
-});
-
-
 startGoldMembers();
 function startGoldMembers() {
-// "3 Banken IT GmbH, AGILOX Services GmbH, Alpine Metal Tech GmbH, Avocodo GmbH, Barmherzige Brüder Krankenhaus Linz, BMD Systemhaus, CBCX Technologies GmbH, CGM Clinical Österreich GmbH, clickandlearn GmbH, Cloudflight Austria GmbH, coilDNA, COUNT IT GmbH, EBM GmbH, Ebner Media & Management GmbH, EFINIO GmbH, Eisenbeiss GmbH, ELO Digital Office AT GmbH, ENGEL AUSTRIA GmbH, epunkt GmbH, Fabasoft International Services GmbH, FAW Solutions GmbH, FERCHAU Austria GmbH, FH OÖ IT GmbH, FH OÖ Hagenberg Hardware-Software-Design, Herbsthofer GmbH, HÖDLMAYR INTERNATIONAL AG, IBM ix Austria GmbH, IGS Systemmanagement GmbH & CO KG, ITPRO Consulting & Software GmbH, KE KELIT GmbH, KEBA Group AG, KREISEL Electric GmbH, Latschbacher GmbH - WinforstPro, Linz AG, Miba AG, MIC Datenverarbeitung GmbH, mobile agreements GmbH, Netural GmbH, Nimbuscloud Gmbh, NTS Retail KG, ÖGK IKT OÖ, Primetals Technologies Austria GmbH, PROGRAMMIERFABRIK GmbH, Raiffeisen Software GmbH, Raiffeisenlandesbank Oberösterreich Aktiengesellschaft, RAITEC GmbH, SecureGUARD GmbH, SKE Engineering Gmbh, Softpoint IT-Solutions GmbH & Co KG, solvistas GmbH, Sprecher Automation GmbH, STIWA Holding GmbH, TeamViewer Austria GmbH, TGW Logistics Group, TRAUNER Verlag + Buchservice GmbH, TRUMPF Maschinen Austria GmbH + Co. KG, umdasch Store Makers Management GmbH, Uni Software Plus GmbH, VSTech Service & Engineering GmbH, Wacker Neuson Linz GmbH, Wirtschaftskammer Oberösterreich"
 	let goldMembersNames = [];
 	for (let i = 0; i < goldMembers.length; i++) {
 		goldMembersNames.push(goldMembers[i].name);
 	}
-	accelerate({
-		textSize: 14,
-		particleSize: 2,
-		particleColor: 51,
-		textColor: startColor,
-		speed: 0.3,
-		textList: goldMembersNames
-	});
+	
+	// CSS-based Datenstrom
+	setupDatastreamLanes(goldMembersNames);
 }
 
-
-
-
-
+function setupDatastreamLanes(names) {
+	const lanePositions = [
+		'4vh',   // Lane 0: Ganz oben
+		'24vh',  // Lane 1: Zwischen row1 und Hauptbild
+		'30vh',  // Lane 2: Zwischen row1 und Hauptbild
+		'66vh',  // Lane 3: Zwischen Hauptbild und row2 (weiter unten)
+		'72vh',  // Lane 4: Zwischen Hauptbild und row2 (weiter unten)
+		'92vh',  // Lane 5: Ganz unten
+	];
+	
+	const numberOfLanes = 6;
+	
+	// Distribute names across lanes
+	for (let laneIndex = 0; laneIndex < numberOfLanes; laneIndex++) {
+		const lane = document.getElementById(`lane-${laneIndex}`);
+		if (!lane) continue;
+		
+		// Set position
+		lane.style.top = lanePositions[laneIndex];
+		
+		// Set direction
+		const direction = (laneIndex % 2 === 0) ? 'direction-right' : 'direction-left';
+		lane.classList.add(direction);
+		
+		// Add names to this lane
+		let laneContent = '';
+		for (let i = laneIndex; i < names.length; i += numberOfLanes) {
+			// Random padding for variation (80-160px)
+			const randomPadding = Math.floor(Math.random() * 80) + 80;
+			laneContent += `<span style="padding: 0 ${randomPadding}px">${names[i]}</span>`;
+		}
+		
+		// Duplicate content for seamless loop
+		lane.innerHTML = laneContent;
+		// Ensure the lane is wide enough (>= ~2.2x viewport) to avoid any gap
+		const minWidth = Math.ceil(window.innerWidth * 2.2);
+		while (lane.scrollWidth < minWidth) {
+			lane.innerHTML += laneContent;
+		}
+	}
+}
 
 
 
