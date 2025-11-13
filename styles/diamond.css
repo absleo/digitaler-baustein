@@ -67,7 +67,10 @@ body {
 	white-space: nowrap;
 	font-size: 14px;
 	color: rgb(102, 102, 102);
-	text-shadow: 0 0 10px rgba(102, 102, 102, 0.5);
+	text-shadow: 0 0 6px rgba(102, 102, 102, 0.35);
+	will-change: transform;
+	transform: translateZ(0);
+	backface-visibility: hidden;
 }
 
 .datastream-lane span {
@@ -86,13 +89,20 @@ body {
 
 /* Seamless marquee animations (no gap at loop) */
 @keyframes marqueeLeft {
-	from { transform: translateX(0); }
-	to   { transform: translateX(-50%); }
+	from { transform: translate3d(0, 0, 0); }
+	to   { transform: translate3d(-50%, 0, 0); }
 }
 
 @keyframes marqueeRight {
-	from { transform: translateX(-50%); }
-	to   { transform: translateX(0); }
+	from { transform: translate3d(-50%, 0, 0); }
+	to   { transform: translate3d(0, 0, 0); }
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+	.datastream-lane {
+		animation: none !important;
+	}
 }
 
 
