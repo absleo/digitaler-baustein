@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Digitaler Baustein - Carousel</title>
+	<meta name="description" content="Free Web tutorials">
+	<meta name="keywords" content="Digitaler Baustein">
+	<meta name="author" content="ABSLEO">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+
+	<!-- favicons begin -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="./images/favicon/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#216083">
+    <!-- favicon end -->
+	
+	<link rel="stylesheet" href="./styles/diamond-carousel.css">
+	<script src="./scripts/utils/gsap.min.js" defer></script>
+	<script src='./scripts/utils/TweenMax.min.js' defer></script>
+
+	<script src="./scripts/members/diamondMembers.js" defer></script>
+	<script src="./scripts/members/goldMembers.js" defer></script>
+	<script src="./scripts/diamond-carousel.js" defer></script>
+
+</head>
+
+<body>
+
+	<!-- 3D Carousel Container -->
+	<div class="carousel-container" id="carousel-container">
+		<div class="carousel-stage" id="carousel-stage">
+			<!-- Members werden dynamisch eingefügt -->
+		</div>
+	</div>
+	
+	<!-- Datenstrom Lanes -->
+	<div class="datastream-container">
+		<div class="datastream-lane" id="lane-0"></div>
+		<div class="datastream-lane" id="lane-1"></div>
+		<div class="datastream-lane" id="lane-2"></div>
+		<div class="datastream-lane" id="lane-3"></div>
+		<div class="datastream-lane" id="lane-4"></div>
+		<div class="datastream-lane" id="lane-5"></div>
+	</div>
+
+	<div id="member-overlay" onclick="hideOverlay()">
+		<div id="member-overlay-wrap" onclick="hideOverlayPrevent(event)">
+			<div id="member-ad-wrap"><img id="member-ad" src="" alt=""><video id="member-ad-video" preload="auto" muted loop><source src="" type="video/mp4"></video></div>
+			<div id="member-progress"></div>
+			<div id="member-logo-wrap"><img id="member-logo" src="" alt=""></div>
+			<div id="member-close" onclick="hideOverlay()"><span>close</span><span>X</span></div>
+		</div>
+	</div>
+
+	<div id="touchicon"><img src="./images/interactive-touch-icon.png" alt=""><span>touch to interact</span></div>
+
+	<div id="mobile-notice">
+		<div>This experience is best viewed on a desktop computer.</div>
+	</div>
+
+</body>
+
+</html>

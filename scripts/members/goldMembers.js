@@ -39,6 +39,7 @@ const goldMembers = [
 	{ name: 'TRUMPF Maschinen Austria GmbH + Co. KG', logo: 'trumpf.png', poster: '' },
 	{ name: 'Uni Software Plus GmbH', logo: 'unisoftwareplus.png', poster: 'usp.jpg' },
 	{ name: 'Wacker Neuson Linz GmbH', logo: 'wacker-neuson.png', poster: '' },
+	{ name: 'Werbeberg', logo: 'werbeberg.png', poster: 'werbeberg.jpeg' },
 	{ name: 'Wirtschaftskammer Oberösterreich', logo: 'wkooe.png', poster: 'wkooe.jpg' }
-  ]
+]
   
