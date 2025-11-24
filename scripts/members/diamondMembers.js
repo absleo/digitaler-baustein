@@ -36,7 +36,9 @@ const diamondMembers = [
 		id: 4,
 		name: 'Sparkasse OÖ',
 		logo: 'sparkasse-ooe.svg',
-		poster: [],
+		poster: [
+			'sparkasse.jpg'
+		],
 		video: 'sparkasse_DigiPLAKAT.mp4'
 	},
 	{
