@@ -73,22 +73,23 @@ function sidememberAnimateFader(htmlBox, diamondMember) {
     document.querySelector(`${htmlBox} .txt2`).innerHTML = `<img src="./members/diamond/logos/${diamondMember.logo}" data-id="${diamondMember.id}" alt="">`;
 
     // Fade out txt (current image) with slight scale down
-    gsap.timeline({ delay: 0, repeat: 0 })
-        .set(`${htmlBox} .txt`, { opacity: 1, scale: 1, immediateRender: true })
-        .to(`${htmlBox} .txt`, { duration: 1.2, opacity: 0, scale: 0.9, ease: Power4.easeInOut })
+	gsap.timeline({ delay: 0, repeat: 0 })
+		.set(`${htmlBox} .txt`, { opacity: 1, scale: 1, xPercent: -50, yPercent: 0, immediateRender: true })
+		.to(`${htmlBox} .txt`, { duration: 1.2, opacity: 0, scale: 0.9, xPercent: -50, yPercent: 0, ease: Power4.easeInOut })
 
     // Fade in txt2 (new image) with scale up from larger
-    gsap.timeline({ delay: 0, repeat: 0 })
-        .set(`${htmlBox} .txt2`, { opacity: 0, scale: 1.15, immediateRender: true })
-        .to(`${htmlBox} .txt2`, { duration: 1.2, opacity: 1, scale: 1, ease: Power4.easeInOut })
+	gsap.timeline({ delay: 0, repeat: 0 })
+		.set(`${htmlBox} .txt2`, { opacity: 0, scale: 1.15, xPercent: -50, yPercent: 0, immediateRender: true })
+		.to(`${htmlBox} .txt2`, { duration: 1.2, opacity: 1, scale: 1, xPercent: -50, yPercent: 0, ease: Power4.easeInOut })
 
     // After animation completes, swap images and reset
-    setTimeout(() => {
-        document.querySelector(`${htmlBox} .txt`).innerHTML = `<img src="./members/diamond/logos/${diamondMember.logo}" data-id="${diamondMember.id}" alt="">`;
-        document.querySelector(`${htmlBox} .txt`).style.opacity = 1;
-        document.querySelector(`${htmlBox} .txt`).style.transform = 'scale(1)';
-        document.querySelector(`${htmlBox} .txt2`).style.opacity = 0;
-    }, 1300)
+	setTimeout(() => {
+		document.querySelector(`${htmlBox} .txt`).innerHTML = `<img src="./members/diamond/logos/${diamondMember.logo}" data-id="${diamondMember.id}" alt="">`;
+		document.querySelector(`${htmlBox} .txt`).style.opacity = 1;
+		gsap.set(`${htmlBox} .txt`, { xPercent: -50, yPercent: 0, scale: 1 });
+		document.querySelector(`${htmlBox} .txt2`).style.opacity = 0;
+		gsap.set(`${htmlBox} .txt2`, { xPercent: -50, yPercent: 0, scale: 1 });
+	}, 1300)
 }
 
 
@@ -460,6 +461,7 @@ function setupDatastreamLanes(names) {
 		// Set direction
 		const direction = (laneIndex % 2 === 0) ? 'direction-right' : 'direction-left';
 		lane.classList.add(direction);
+		lane.classList.add('christmas');
 		
 		// Add names to this lane
 		let laneContent = '';
@@ -517,4 +519,47 @@ function arraysAreEqualOrFirstIsEqual(arr1, arr2) {
     }
     return true;
 }
+
+
+
+
+/*******************
+* SNOWFLAKES
+********************/
+function createSnowflakes() {
+	const container = document.getElementById('snowflakes-container');
+	const snowflakeCount = 50;
+	const snowflakeChars = ['❄', '❅', '❆'];
+	
+	for (let i = 0; i < snowflakeCount; i++) {
+		const snowflake = document.createElement('div');
+		snowflake.classList.add('snowflake');
+		
+		// Random snowflake character
+		snowflake.innerHTML = snowflakeChars[Math.floor(Math.random() * snowflakeChars.length)];
+		
+		// Random horizontal position
+		snowflake.style.left = Math.random() * 100 + 'vw';
+		
+		// Random size
+		const size = Math.random() * 0.8 + 0.5; // 0.5 to 1.3
+		snowflake.style.fontSize = size + 'em';
+		
+		// Random animation duration (slower = larger flakes)
+		const duration = Math.random() * 10 + 15; // 15-25 seconds
+		snowflake.style.animationDuration = duration + 's';
+		
+		// Random animation delay for staggered start
+		snowflake.style.animationDelay = Math.random() * 5 + 's';
+		
+		// Random horizontal drift
+		const drift = (Math.random() - 0.5) * 100; // -50 to 50 px
+		snowflake.style.setProperty('--drift', drift + 'px');
+		
+		container.appendChild(snowflake);
+	}
+}
+
+// Initialize snowflakes
+createSnowflakes();
 
