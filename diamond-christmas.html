@@ -9,11 +9,6 @@
 	<meta name="author" content="ABSLEO">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
 
-	<!-- temporary redirect: christmas special -->
-	<script>
-		window.location.replace('diamond-christmas.html');
-	</script>
-
 	<!-- favicons begin -->
     <link rel="apple-touch-icon" sizes="180x180" href="./images/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon/favicon-32x32.png">
@@ -22,13 +17,13 @@
     <meta name="msapplication-TileColor" content="#216083">
     <!-- favicon end -->
 	
-	<link rel="stylesheet" href="./styles/diamond.css">
+	<link rel="stylesheet" href="./styles/diamond-christmas.css">
 	<script src="./scripts/utils/gsap.min.js" defer></script>
 	<script src='./scripts/utils/TweenMax.min.js' defer></script>
 
 	<script src="./scripts/members/diamondMembers.js" defer></script>
 	<script src="./scripts/members/goldMembers.js" defer></script>
-	<script src="./scripts/diamond.js" defer></script>
+	<script src="./scripts/diamond-christmas.js" defer></script>
 
 </head>
 
@@ -79,6 +74,9 @@
 		<div class="datastream-lane" id="lane-4"></div>
 		<div class="datastream-lane" id="lane-5"></div>
 	</div>
+
+	<!-- Snowflakes -->
+	<div class="snowflakes-container" id="snowflakes-container"></div>
 
 	<div id="member-overlay" onclick="hideOverlay()">
 		<div id="member-overlay-wrap" onclick="hideOverlayPrevent(event)">
