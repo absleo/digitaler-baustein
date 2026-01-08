@@ -3,17 +3,11 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Digitaler Baustein</title>
-	<meta name="description" content="Free Web tutorials">
-	<meta name="keywords" content="Digitaler Baustein">
+	<title>Digitaler Baustein – Silvester</title>
+	<meta name="description" content="Digitaler Baustein – Silvester">
+	<meta name="keywords" content="Digitaler Baustein, Silvester, New Year">
 	<meta name="author" content="ABSLEO">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
-
-	<!-- temporary redirect: special theme
-	<script>
-		window.location.replace('diamond-christmas.html');
-	</script>
-	-->
 
 	<!-- favicons begin -->
     <link rel="apple-touch-icon" sizes="180x180" href="./images/favicon/apple-touch-icon.png">
@@ -23,13 +17,13 @@
     <meta name="msapplication-TileColor" content="#216083">
     <!-- favicon end -->
 	
-	<link rel="stylesheet" href="./styles/diamond.css">
+	<link rel="stylesheet" href="./styles/diamond-silvester.css">
 	<script src="./scripts/utils/gsap.min.js" defer></script>
 	<script src='./scripts/utils/TweenMax.min.js' defer></script>
 
 	<script src="./scripts/members/diamondMembers.js" defer></script>
 	<script src="./scripts/members/goldMembers.js" defer></script>
-	<script src="./scripts/diamond.js" defer></script>
+	<script src="./scripts/diamond-silvester.js" defer></script>
 
 </head>
 
@@ -38,7 +32,6 @@
 	<div id="diamond-member-1">
 		<img src="" alt="" id="diamond-member-1_img1" onclick="showOverlay(this)">
 		<img src="" alt="" id="diamond-member-1_img2" onclick="showOverlay(this)">
-		<!-- <div id="diamond-three-container"></div> -->
 	</div>
 
 	<div class="diamond-row1">
@@ -81,6 +74,9 @@
 		<div class="datastream-lane" id="lane-5"></div>
 	</div>
 
+	<!-- Fireworks Layer -->
+	<canvas id="fireworks-canvas"></canvas>
+
 	<div id="member-overlay" onclick="hideOverlay()">
 		<div id="member-overlay-wrap" onclick="hideOverlayPrevent(event)">
 			<div id="member-ad-wrap"><img id="member-ad" src="" alt=""><video id="member-ad-video" preload="auto" muted loop><source src="" type="video/mp4"></video></div>
@@ -93,7 +89,7 @@
 	<div id="touchicon"><img src="./images/interactive-touch-icon.png" alt=""><span>touch to interact</span></div>
 
 	<div id="mobile-notice">
-		<div>This experience is best viewed on a desktop computer.</div>
+		<div>Diese Erfahrung wirkt am besten am Desktop.</div>
 	</div>
 
 </body>
