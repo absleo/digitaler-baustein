@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Digitaler Baustein</title>
     <meta name="keywords" content="Digitaler Baustein">
-	<meta name="author" content="ABSLEO">
+    <meta name="author" content="ABSLEO">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- favicons begin -->
     <link rel="apple-touch-icon" sizes="180x180" href="./images/favicon/apple-touch-icon.png">
@@ -14,12 +15,24 @@
     <meta name="msapplication-TileColor" content="#216083">
     <!-- favicon end -->
     <style>
-        /************************
-        * GENERAL
-        ************************/
+        /**********************
+        * FONT
+        **/
+        @font-face {
+            font-family: 'Manrope-Light';
+            src: url('styles/font/Manrope-Light.ttf');
+            font-display: fallback;
+        }
+
         @font-face {
             font-family: 'Manrope';
-            src: url('./font/Manrope-Light.ttf');
+            src: url('styles/font/Manrope-Regular.ttf');
+            font-display: fallback;
+        }
+
+        @font-face {
+            font-family: 'Manrope-Bold';
+            src: url('styles/font/Manrope-Bold.ttf');
             font-display: fallback;
         }
         * {
@@ -36,7 +49,7 @@
             background: #000;
             color: #fff;
             font-family: 'Manrope', serif;
-            position: relative;	
+            position: relative;
         }
 
         #grid {
@@ -46,6 +59,7 @@
             grid-template-columns: 1fr;
             grid-template-rows: 1fr 2fr;
         }
+
         #grid-1-column {
             grid-column: 1 / 2;
             grid-row: 1 / 2;
@@ -55,22 +69,26 @@
             justify-content: center;
             align-items: center;
         }
+
         #grid-2-column {
             display: grid;
             grid-template-columns: 1fr 1fr;
             justify-content: space-around;
             align-items: center;
         }
+
         /* big fonts */
         h1 {
             font-size: 10vh;
             letter-spacing: 0.5vh;
         }
+
         h2 {
             font-size: 8vh;
             letter-spacing: 0.5vh;
             text-align: center;
         }
+
         a {
             display: flex;
             justify-content: center;
@@ -79,14 +97,17 @@
             color: #fff;
             opacity: 0.7;
         }
+
         a:hover {
             opacity: 0.9;
         }
+
         /* header dark theme */
         .header {
             background: #000;
             color: #fff;
         }
+
         /* gold dark theme */
         .gold {
             background: linear-gradient(135deg, #ceaf00, #836d00);
@@ -95,6 +116,7 @@
             width: 100%;
             height: 100%;
         }
+
         /* diamond dark theme */
         .diamond {
             background: linear-gradient(135deg, #0082c2, #005577);
@@ -104,16 +126,22 @@
         }
     </style>
 </head>
+
 <body>
     <div id="grid">
         <div id="grid-1-column" class="header">
             <h1>ABSLEO Member Screens</h1>
         </div>
         <div id="grid-2-column">
-            <a class="gold" href="./gold.html"><h2>GOLD</h2></a>
-            <a class="diamond" href="./diamond.html"><h2>DIAMOND</h2></a>
+            <a class="gold" href="./gold.html">
+                <h2>GOLD</h2>
+            </a>
+            <a class="diamond" href="./diamond.html">
+                <h2>DIAMOND</h2>
+            </a>
         </div>
     </div>
 
 </body>
+
 </html>
