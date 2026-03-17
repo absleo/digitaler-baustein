@@ -39,7 +39,7 @@ for (let i = 0; i < diamondMembers.length; i++) {
 for (let i = 0; i < goldMembers.length; i++) {
 	if(goldMembers[i].poster == '') {
 		// default poster
-		html_code_main += `<li class="splide__slide"><div><img src="../members/default/default-ad_16-9.jpg" alt="poster" class="main-poster"><img src="./members/gold/logos/${goldMembers[i].logo}" class="main-poster-logo" alt="logo"></div></li>`;
+		html_code_main += `<li class="splide__slide"><div><img src="../members/default/default-ad_16-9.jpg" alt="poster" class="main-poster"><img src="../members/gold/logos/${goldMembers[i].logo}" class="main-poster-logo" alt="logo"></div></li>`;
 	} else {
 		// show poster
 		html_code_main += `<li class="splide__slide"><div><img src="../members/gold/poster/${goldMembers[i].poster}" alt="poster" class="main-poster"></div></li>`;
