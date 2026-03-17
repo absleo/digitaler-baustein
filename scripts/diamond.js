@@ -23,11 +23,11 @@ let diamond_member1_img2 = document.querySelector(`#diamond-member-1_img2`);
 /*******************
 * PRELOAD
 ********************/
-let preload = `<link rel="preload" as="image" href="./members/default/default-ad_16-9.jpg"></link>`;
+let preload = `<link rel="preload" as="image" href="../members/default/default-ad_16-9.jpg"></link>`;
 for (let i = 0; i < diamondMembers.length; i++) {
-	preload += `<link rel="preload" as="image" href="./members/diamond/logos/${diamondMembers[i].logo}"></link>`;
+	preload += `<link rel="preload" as="image" href="../members/diamond/logos/${diamondMembers[i].logo}"></link>`;
 	for (let j = 0; j < diamondMembers[i].poster.length; j++) {
-		preload += `<link rel="preload" as="image" href="./members/diamond/poster/${diamondMembers[i].poster[j]}"></link>`;
+		preload += `<link rel="preload" as="image" href="../members/diamond/poster/${diamondMembers[i].poster[j]}"></link>`;
 	}	
 }
 document.querySelector('head').innerHTML += preload;
@@ -70,7 +70,7 @@ function newMembers(){
 ********************/
 function sidememberAnimateFader(htmlBox, diamondMember) {
     // Set new image in txt2
-    document.querySelector(`${htmlBox} .txt2`).innerHTML = `<img src="./members/diamond/logos/${diamondMember.logo}" data-id="${diamondMember.id}" alt="">`;
+    document.querySelector(`${htmlBox} .txt2`).innerHTML = `<img src="../members/diamond/logos/${diamondMember.logo}" data-id="${diamondMember.id}" alt="">`;
 
     // Fade out txt (current image) with slight scale down
     gsap.timeline({ delay: 0, repeat: 0 })
@@ -84,7 +84,7 @@ function sidememberAnimateFader(htmlBox, diamondMember) {
 
     // After animation completes, swap images and reset
     setTimeout(() => {
-        document.querySelector(`${htmlBox} .txt`).innerHTML = `<img src="./members/diamond/logos/${diamondMember.logo}" data-id="${diamondMember.id}" alt="">`;
+        document.querySelector(`${htmlBox} .txt`).innerHTML = `<img src="../members/diamond/logos/${diamondMember.logo}" data-id="${diamondMember.id}" alt="">`;
         document.querySelector(`${htmlBox} .txt`).style.opacity = 1;
         document.querySelector(`${htmlBox} .txt`).style.transform = 'scale(1)';
         document.querySelector(`${htmlBox} .txt2`).style.opacity = 0;
@@ -99,7 +99,7 @@ function sidememberAnimateFader(htmlBox, diamondMember) {
 * FADE IMAGE ANIMATION
 ********************/
 function mainmemberAnimateFader(diamondMember) {
-	diamond_member1_img2.src = `./members/diamond/logos/${diamondMember.logo}`;
+	diamond_member1_img2.src = `../members/diamond/logos/${diamondMember.logo}`;
 	diamond_member1_img2.dataset.id = `${diamondMember.id}`;
     
 
@@ -112,7 +112,7 @@ function mainmemberAnimateFader(diamondMember) {
         .to(`#diamond-member-1_img2`, { duration: 2.5, opacity: 1, scale: 1, ease: Power4.easeInOut })
 
 	setTimeout( ()=> {
-		diamond_member1_img1.src = `./members/diamond/logos/${diamondMember.logo}`;
+		diamond_member1_img1.src = `../members/diamond/logos/${diamondMember.logo}`;
 		diamond_member1_img1.dataset.id = `${diamondMember.id}`;
 		diamond_member1_img1.style.opacity = 1;
 		diamond_member1_img1.style.transform = 'scale(1)';
@@ -195,7 +195,7 @@ function showOverlay(box){
 			// random number chose video (highest random number, out of bound)
 			if( randomPoster == currentDiamondMember.poster.length ) {
 				// video embed
-				overlayAdVideo.src = `./members/diamond/videos/${currentDiamondMember.video}`;
+				overlayAdVideo.src = `../members/diamond/videos/${currentDiamondMember.video}`;
 				overlayAdVideo.load();
 				overlayAdVideo.style.position = 'relative';
 				overlayAdVideo.style.top = '0';
@@ -214,11 +214,11 @@ function showOverlay(box){
 				
 			} else {
 				// image embed
-				overlayAd.src = `./members/diamond/poster/${currentDiamondMember.poster[randomPoster]}`;
+				overlayAd.src = `../members/diamond/poster/${currentDiamondMember.poster[randomPoster]}`;
 				openOverlay(20000);
 			}
 		} else {
-			overlayAd.src = `./members/default/default-ad_16-9.jpg`;
+			overlayAd.src = `../members/default/default-ad_16-9.jpg`;
 			openOverlay(20000);
 		}
 		
@@ -370,13 +370,13 @@ function nextAutoPoster(){
 			progresstween.kill();
 		}
 			
-		overlayLogo.src = `./members/diamond/logos/${diamondMembersExpanded[currentAdIndex].logo}`;
+		overlayLogo.src = `../members/diamond/logos/${diamondMembersExpanded[currentAdIndex].logo}`;
 
 
 		// check if poster is a video
 		if(diamondMembersExpanded[currentAdIndex].video) {
 			// video embed
-			overlayAdVideo.src = `./members/diamond/videos/${diamondMembersExpanded[currentAdIndex].video}`;
+			overlayAdVideo.src = `../members/diamond/videos/${diamondMembersExpanded[currentAdIndex].video}`;
 			overlayAdVideo.load();
 			overlayAdVideo.style.position = 'relative';
 			overlayAdVideo.style.top = '0';
@@ -398,7 +398,7 @@ function nextAutoPoster(){
 			
 		} else {
 			// image embed
-			overlayAd.src = `./members/diamond/poster/${diamondMembersExpanded[currentAdIndex].poster}`;
+			overlayAd.src = `../members/diamond/poster/${diamondMembersExpanded[currentAdIndex].poster}`;
 			openOverlay(10000);
 		}
 
