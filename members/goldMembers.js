@@ -35,6 +35,7 @@ const goldMembers = [
 	{ name: 'STIWA Holding GmbH', logo: 'stiwa.png', poster: '' },
 	{ name: 'TeamViewer Austria GmbH', logo: 'teamviewer.png', poster: '' },
 	{ name: 'technosert electronic GmbH', logo: 'technosert.png', poster: '' },
+	{ name: 'TGW Logistics', logo: 'tgw.png', poster: 'tgw.jpg' },
 	{ name: 'TRAUNER Verlag + Buchservice GmbH', logo: 'trauner.png', poster: 'ttrauner.jpg' },
 	{ name: 'TRUMPF Maschinen Austria GmbH + Co. KG', logo: 'trumpf.png', poster: '' },
 	{ name: 'Uni Software Plus GmbH', logo: 'unisoftwareplus.png', poster: 'usp.jpg' },
