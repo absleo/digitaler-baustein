@@ -98,12 +98,6 @@ body {
 	to   { transform: translate3d(0, 0, 0); }
 }
 
-/* Respect user motion preferences */
-@media (prefers-reduced-motion: reduce) {
-	.datastream-lane {
-		animation: none !important;
-	}
-}
 
 
 
