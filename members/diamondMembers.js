@@ -35,7 +35,7 @@ const diamondMembers = [
 	{
 		id: 4,
 		name: 'Sparkasse OÖ',
-		logo: 'sparkasse-ooe.svg',
+		logo: 'sparkasse-ooe.png',
 		poster: [
 			'sparkasse.jpg'
 		],
