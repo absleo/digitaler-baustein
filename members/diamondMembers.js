@@ -3,25 +3,18 @@
  ********************/
 const diamondMembers = [
 	{
-		id: 0,
+		id: 1,
 		name: 'Fabasoft',
 		logo: 'fabasoft.svg',
 		poster: [],
 		video: ''
 	},
 	{
-		id: 1,
+		id: 2,
 		name: 'ITPRO',
 		logo: 'it-pro.svg',
 		poster: [],
 		video: 'itpro_tasse.mp4'
-	},
-	{
-		id: 2,
-		name: 'Linz AG',
-		logo: 'linz-ag.svg',
-		poster: [],
-		video: ''
 	},
     {
 		id: 3,

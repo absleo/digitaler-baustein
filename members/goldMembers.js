@@ -23,6 +23,7 @@ const goldMembers = [
 	{ name: 'KE KELIT', logo: 'kekelit.png', poster: 'kekelit.jpg' },
 	{ name: 'KE KELIT', logo: 'kreisel.png', poster: 'kreisel.jpg' },
 	{ name: 'Latschbacher GmbH - WinforstPro', logo: 'latschbacher-winforstpro.jpg', poster: '' },
+	{ name: 'Linz AG', logo: 'linz-ag.png', poster: '' },
 	{ name: 'Miba AG', logo: 'miba.png', poster: '' },
 	{ name: 'MIC', logo: 'mic.png', poster: 'mic.jpeg' },
 	{ name: 'mobile agreements GmbH', logo: 'mo_gree.png', poster: '' },
