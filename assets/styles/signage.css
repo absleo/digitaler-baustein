@@ -1,0 +1,399 @@
+﻿/**********************
+ * Digital Signage – HTL Leonding Eingangsbereich
+ * Designraster: 1920 x 1080 (wird per JS auf Full-HD/4K skaliert)
+ **/
+@font-face {
+    font-family: 'Manrope';
+    src: url('../corporate-design/font/Manrope-Regular.ttf');
+    font-weight: 400;
+    font-display: fallback;
+}
+
+@font-face {
+    font-family: 'Manrope';
+    src: url('../corporate-design/font/Manrope-Light.ttf');
+    font-weight: 300;
+    font-display: fallback;
+}
+
+@font-face {
+    font-family: 'Manrope';
+    src: url('../corporate-design/font/Manrope-Bold.ttf');
+    font-weight: 700;
+    font-display: fallback;
+}
+
+:root {
+    --bg: #0b0b0b;
+    --panel: #151515;
+    --panel-border: #262626;
+    --text: #f2f2f2;
+    --text-dim: #8d8d8d;
+    --accent: #3aa6dd;
+    --card: #f3f3f1;
+    --card-dark: #1b1e21;
+    --fade: 1400ms;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    cursor: none !important;
+    user-select: none;
+    -webkit-user-select: none;
+    pointer-events: none;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Manrope', 'Segoe UI', sans-serif;
+}
+
+#stage {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 1920px;
+    height: 1080px;
+    transform-origin: center center;
+    transform: translate(-50%, -50%);
+    background: var(--bg);
+}
+
+/* Burn-in-Schutz: kaum merkliche, langsame Verschiebung des gesamten Inhalts */
+#drift {
+    position: absolute;
+    inset: 0;
+    transition: transform 60s linear;
+    will-change: transform;
+}
+
+/**********************
+ * Spotlight
+ **/
+#spotlight {
+    position: absolute;
+    left: 48px;
+    top: 24px;
+    width: 1280px;
+    height: 816px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #000;
+    border: 1px solid var(--panel-border);
+}
+
+.layer {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity var(--fade) ease-in-out;
+}
+
+.layer.in {
+    opacity: 1;
+}
+
+/* Poster */
+.layer-poster .bg {
+    position: absolute;
+    inset: -60px;
+    width: calc(100% + 120px);
+    height: calc(100% + 120px);
+    object-fit: cover;
+    filter: blur(40px) brightness(0.35);
+}
+
+.layer-poster .fg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    animation: slow-zoom var(--dwell, 15s) linear forwards;
+}
+
+@keyframes slow-zoom {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.04);
+    }
+}
+
+/* Video */
+.layer-video {
+    background: #000;
+}
+
+.layer-video video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Logo */
+.layer-logo {
+    background: radial-gradient(ellipse at center, #1c1c1c 0%, #0f0f0f 75%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.layer-logo .logo-card {
+    width: 700px;
+    height: 360px;
+    padding: 56px;
+    border-radius: 24px;
+    background: var(--card-dark);
+    border: 1px solid #2c3135;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: logo-zoom calc(var(--dwell, 12s) + var(--fade)) ease-in-out forwards;
+}
+
+@keyframes logo-zoom {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.2);
+    }
+}
+
+.layer-logo .logo-card img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.layer-logo .logo-tag {
+    margin-top: 48px;
+    font-weight: 400;
+    font-size: 38px;
+    letter-spacing: 10px;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+/* Beschriftung für Poster/Video */
+.caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 90px 40px 32px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0));
+}
+
+.caption .chip {
+    height: 84px;
+    min-width: 150px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    background: var(--card-dark);
+    border: 1px solid #2c3135;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.caption .chip img {
+    max-height: 100%;
+    max-width: 220px;
+    object-fit: contain;
+}
+
+.caption .tag {
+    font-weight: 400;
+    font-size: 32px;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+/**********************
+ * Diamond-Logos
+ **/
+#diamond {
+    position: absolute;
+    left: 1360px;
+    top: 24px;
+    width: 512px;
+    height: 816px;
+    display: flex;
+    flex-direction: column;
+}
+
+.section-label {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    height: 56px;
+    font-weight: 700;
+    font-size: 30px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+}
+
+.section-label .dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    flex: none;
+    align-self: center;
+}
+
+.section-label small {
+    font-weight: 300;
+    font-size: 20px;
+    letter-spacing: 3px;
+    color: var(--text-dim);
+}
+
+#diamond .dot {
+    background: var(--accent);
+}
+
+#diamond-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.tile {
+    border-radius: 16px;
+    background: var(--card-dark);
+    border: 3px solid #2c3135;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 22px 26px;
+    opacity: 0.82;
+    transition: opacity 1.4s ease, transform 1.4s ease, border-color 1.4s ease, box-shadow 1.4s ease;
+}
+
+.tile img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.tile.active {
+    opacity: 1;
+    transform: scale(1.03);
+    border-color: var(--accent);
+    box-shadow: 0 0 40px rgba(58, 166, 221, 0.35);
+}
+
+.fallback-name {
+    color: var(--text);
+    font-weight: 700;
+    font-size: 22px;
+    text-align: center;
+    line-height: 1.2;
+}
+
+/**********************
+ * Gold-Logo-Wall
+ **/
+#gold {
+    position: absolute;
+    left: 48px;
+    right: 48px;
+    top: 904px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    gap: 36px;
+}
+
+#gold .section-label {
+    flex: none;
+    width: 250px;
+    height: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    font-size: 26px;
+    color: #d4b445;
+}
+
+#gold .section-label small {
+    font-size: 18px;
+}
+
+#gold-viewport {
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
+}
+
+#gold-track {
+    display: flex;
+    height: 100%;
+    width: max-content;
+    align-items: center;
+    animation: marquee 600s linear infinite;
+    will-change: transform;
+}
+
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.gold-item {
+    flex: none;
+    width: 210px;
+    height: 112px;
+    margin-right: 26px;
+    padding: 16px 22px;
+    border-radius: 14px;
+    background: var(--card-dark);
+    border: 1px solid #2c3135;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.9;
+}
+
+.gold-item img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.gold-item .fallback-name {
+    font-size: 17px;
+}
+
+/* sehr dunkle Logos werden aufgehellt (siehe signage.js, applyTone) */
+.gold-item[data-tone="invert"] img {
+    filter: brightness(0) invert(1);
+}
