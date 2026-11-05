@@ -128,18 +128,19 @@ body {
 .brand::before {
     content: '';
     position: absolute;
-    inset: -20%;
-    background: radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--accent) 22%, transparent) 0%, transparent 45%);
+    inset: -50%;
+    /* Verlauf endet vollständig transparent vor dem Elementrand, damit nie eine Kante sichtbar wird */
+    background: radial-gradient(circle closest-side at 50% 50%, color-mix(in srgb, var(--accent) 22%, transparent) 0%, transparent 60%);
     animation: glow-drift var(--life, 30s) ease-in-out forwards;
 }
 
 @keyframes glow-drift {
     from {
-        transform: translate(0, 0);
+        transform: translate(-10%, -10%);
     }
 
     to {
-        transform: translate(30%, 24%);
+        transform: translate(11%, 7%);
     }
 }
 

@@ -63,7 +63,10 @@ body {
     height: 1080px;
     transform-origin: center center;
     transform: translate(-50%, -50%);
-    background: var(--bg);
+    background:
+        radial-gradient(ellipse 800px 170px at 0% 100%, rgba(212, 180, 69, 0.08) 0%, rgba(212, 180, 69, 0) 100%),
+        radial-gradient(ellipse 900px 320px at 100% 0%, rgba(58, 166, 221, 0.08) 0%, rgba(58, 166, 221, 0) 100%),
+        var(--bg);
 }
 
 /* Burn-in-Schutz: kaum merkliche, langsame Verschiebung des gesamten Inhalts */
