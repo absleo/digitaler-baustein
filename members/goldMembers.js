@@ -7,7 +7,7 @@ const goldMembers = [
 	{ name: 'BMD Systemhaus', logo: 'bmd_business_software.png', poster: 'BMD.jpg' },
 	{ name: 'CBCX Technologies GmbH', logo: 'cbcx.png', poster: '' },
 	{ name: 'CGM Clinical Österreich GmbH', logo: 'cgm.webp', poster: '' },
-	{ name: 'clickandlearn GmbH', logo: 'clickandlearn.png', poster: '' },
+	{ name: 'clickandlearn GmbH', logo: 'clickandlearn.jpg', poster: '' },
 	{ name: 'client4u IT-Consulting GmbH', logo: 'client4u.png', poster: '' },
 	{ name: 'Cloudflight Austria GmbH', logo: 'cloudflight.png', poster: '' },
 	{ name: 'COUNT IT GmbH', logo: 'count-it.png', poster: 'countit.jpg' },
